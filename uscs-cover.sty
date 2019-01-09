@@ -7,7 +7,7 @@
 % (C) 2016 Oliver Kopp
 
 \NeedsTeXFormat{LaTeX2e}
-\newcommand{\USCCover@Pgkname}{uni-stuttgart-cs-cover}
+\newcommand{\USCCover@Pgkname}{uscs-cover}
 \ProvidesPackage{\USCCover@Pgkname}[2016/05/29 Cover and affirmation for work at the University of Stuttgart, Computer Science.]
 \typeout{Package: `\USCCover@Pgkname' v3.1}
 % ------------------------------
@@ -85,9 +85,8 @@
 	\gdef\@labelCourse{Course of Study}%
 	\gdef\@labelStartdate{Commenced}%
 	\gdef\@labelEnddate{Completed}%
-	\gdef\@labelcrk{CR-Classification}%
-	\gdef\@labelUniversity{~\newline University of Stuttgart}%
-	\gdef\@labelDept{Faculty of Computer Science}%
+	\gdef\@labelUniversity{~\newline Hochschule für Technik und Wirtschaft Berlin}%
+	\gdef\@labelDept{Faculty of Computer Science, Communication and Economy}%
 
 	%the labels are written in German, because these are the official terms given by the regulations ("Prüfungsordnung")
 	%For a detailed discussion see https://github.com/latextemplates/uni-stuttgart-computer-science-cover/pull/10
@@ -200,7 +199,7 @@
 % ------------------------------
 
 % general university address
-\gdef\@labelAddress{\@labelUniversity\\Universitätsstraße 38\\D--70569 Stuttgart}
+\gdef\@labelAddress{\@labelUniversity\\Wilhelminenhofstraße 75A\\D--12459 Stuttgart}
 
 \newcommand{\USCCover@setInstitute}{
 	% use specified text if institute does not match
