@@ -54,13 +54,11 @@
 \DeclareStringOption[author not set]{author}
 \DeclareStringOption[bachelor]{type}
 \DeclareStringOption[fac]{institute}
-\DeclareStringOption[not set]{number} % running number
 \DeclareStringOption[cs]{course}
 \DeclareStringOption[examiner not set]{examiner}
 \DeclareStringOption[supervisor not set]{supervisor} 
 \DeclareStringOption[startdate not set]{startdate} 
 \DeclareStringOption[enddate not set]{enddate}
-\DeclareStringOption[crk not set]{crk}
 
 \DeclareStringOption[german]{language}
 \DeclareBoolOption[false]{setPageNumberToOne}
@@ -93,7 +91,7 @@
 	\gdef\@labelTypeStudy{Studienarbeit}%
 	\gdef\@labelTypeDiplom{Diplomarbeit}%
 	\gdef\@labelTypeBachelor{Bachelorarbeit}%
-	\gdef\@labelTypeMaster{Masterarbeit}%
+	\gdef\@labelTypeMaster{Master's Thesis}%
 	\gdef\@labelTypeProjectINF{Projekt-INF}%
 	\gdef\@labelTypeFachstudie{Fachstudie}%
 	\gdef\@labelTypeProzessanalyse{Prozessanalyse}%
@@ -199,7 +197,7 @@
 % ------------------------------
 
 % general university address
-\gdef\@labelAddress{\@labelUniversity\\Wilhelminenhofstraße 75A\\D--12459 Stuttgart}
+\gdef\@labelAddress{\@labelUniversity\\Wilhelminenhofstraße 75A\\12459 Berlin}
 
 \newcommand{\USCCover@setInstitute}{
 	% use specified text if institute does not match
@@ -320,7 +318,7 @@
     \vbox to 60mm{\hsize=95mm\parindent=0pt
       \vskip 10mm plus 30mm minus 7.5mm
       \begin{center}\@setsize\large{14pt}\xiipt\@xiipt %%\large
-        \@labelType\ Nr.\,\MCS@number
+        \@labelType\,\MCS@number
       \end{center}%
       \vskip 12.5mm plus 12.5mm minus 10mm
       \begin{center}\@setsize\LARGE{22pt}\xviipt\@xviipt %%\LARGE
@@ -331,27 +329,22 @@
         \MCS@author
       \end{center}%
       \vskip 17.5mm plus 35mm minus 12.5mm}\hfil}}}%
-  \vskip 20mm %%%%%
+  \vskip 60mm %%%%%
 
   \vbox to 15mm{%
     \begin{USCCover@TBlist}%
       \item[\@labelCourse: ]\@labelCourseValue
     \end{USCCover@TBlist}%
     \vfill}%
-  \vbox to 45mm{%
+  \vbox to 15mm{%
     \begin{USCCover@TBlist}%
       \item[\@labelExaminer:]\MCS@examiner
-      \item[\@labelSupvervisor:]\MCS@supervisor
     \end{USCCover@TBlist}%
     \vfill}%
   \vbox to 70mm{%%%%% ==> 85 mm von oben
     \begin{USCCover@TBlist}%
       \item[\@labelStartdate:]\MCS@startdate
       \item[\@labelEnddate:]\MCS@enddate
-      \ifx\@crk\relax \else
-          \vskip 1.5\baselineskip
-          \item[\@labelcrk:]\MCS@crk
-      \fi
     \end{USCCover@TBlist}%
     \vfill}%
 
