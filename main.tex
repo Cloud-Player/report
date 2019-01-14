@@ -47,7 +47,7 @@
                fontsize=12pt, %Default: 11pt, bei Linux Libertine zu klein zum Lesen
 % BEGINN: Optionen für typearea
                paper=a4,
-               twoside,  % fuer die Betrachtung am Schirm ungeschickt
+               oneside,  % fuer die Betrachtung am Schirm ungeschickt
                BCOR=3mm, % Bindekorrektur
                DIV=13,   % je höher der DIV-Wert, desto mehr geht auf eine Seite. Gute werde sind zwischen DIV=12 und DIV=15
                headinclude=true,
@@ -93,7 +93,7 @@
 }
 \makeatother
 
-\input{content/abkuerzungen}
+\input{content/abbreviations.tex}
 
 \begin{document}
 
@@ -217,17 +217,13 @@
 %
 % ** Hier wird der Text eingebunden **
 %
-\input{content/einleitung}
-%\input{...weitere Kapitel...}
-\input{content/kapitel2}
-\input{content/conclusion.tex}
+\input{content/introduction/1-index.tex}
 %
 %
 %\renewcommand{\appendixtocname}{Anhang}
 %\renewcommand{\appendixname}{Anhang}
 %\renewcommand{\appendixpagename}{Anhang}
 \appendix
-\input{content/latex-tipps}
 
 \clearpage
 
@@ -238,7 +234,7 @@
 \ifdeutsch
 Alle URLs wurden zuletzt am 17.\,03.\,2008 geprüft.
 \else
-All links were last followed on March 17, 2008.
+All links were last followed on March 10, 2019.
 \fi
 
 \pagestyle{empty}
