@@ -49,7 +49,7 @@
                paper=a4,
                oneside,  % fuer die Betrachtung am Schirm ungeschickt
                BCOR=3mm, % Bindekorrektur
-               DIV=13,   % je höher der DIV-Wert, desto mehr geht auf eine Seite. Gute werde sind zwischen DIV=12 und DIV=15
+               DIV=12,   % je höher der DIV-Wert, desto mehr geht auf eine Seite. Gute werde sind zwischen DIV=12 und DIV=15
                headinclude=true,
                footinclude=false,
 % ENDE: Optionen für typearea
@@ -86,14 +86,14 @@
 %Angaben in die PDF-Infos uebernehmen
 \makeatletter
 \hypersetup{
-            pdftitle={}, %Titel der Arbeit
-            pdfauthor={}, %Author
-            pdfkeywords={}, % CR-Klassifikation und ggf. weitere Stichworte
+            pdftitle={Developing a Distributed MediaStreaming Application},
+            pdfauthor={Alexander Zarges, Nicolas Drebenstedt},
+            pdfkeywords={},
             pdfsubject={}
 }
 \makeatother
 
-\input{content/abbreviations.tex}
+\input{abbreviations.tex}
 
 \begin{document}
 
@@ -177,24 +177,24 @@
 % \addtocontents{toc}{\protect\newpage}
 % an der passenden Stelle im Fließtext erzwungen werden.
 
-\listoffigures
-\listoftables
+%\listoffigures
+%\listoftables
 
 %Wird nur bei Verwendung von der lstlisting-Umgebung mit dem "caption"-Parameter benoetigt
 %\lstlistoflistings 
 %ansonsten:
 \ifdeutsch
-\listof{Listing}{Verzeichnis der Listings}
+%\listof{Listing}{Verzeichnis der Listings}
 \else
-\listof{Listing}{List of Listings}
+%\listof{Listing}{List of Listings}
 \fi
 
 %mittels \newfloat wurde die Algorithmus-Gleitumgebung definiert.
 %Mit folgendem Befehl werden alle floats dieses Typs ausgegeben
 \ifdeutsch
-\listof{Algorithmus}{Verzeichnis der Algorithmen}
+%\listof{Algorithmus}{Verzeichnis der Algorithmen}
 \else
-\listof{Algorithmus}{List of Algorithms}
+%\listof{Algorithmus}{List of Algorithms}
 \fi
 %\listofalgorithms %Ist nur für Algorithmen, die mittels \begin{algorithm} umschlossen werden, nötig
 
@@ -217,7 +217,11 @@
 %
 % ** Hier wird der Text eingebunden **
 %
-\input{content/introduction/1-index.tex}
+\input{content/1-introduction/0-index.tex}
+\input{content/2-background/0-index.tex}
+\input{content/3-implementation/0-index.tex}
+\input{content/4-analysis/0-index.tex}
+\input{content/5-resume/0-index.tex}
 %
 %
 %\renewcommand{\appendixtocname}{Anhang}
@@ -232,7 +236,7 @@
 \printbibliography
 
 \ifdeutsch
-Alle URLs wurden zuletzt am 17.\,03.\,2008 geprüft.
+Alle URLs wurden zuletzt am 10.\,03.\,2019 geprüft.
 \else
 All links were last followed on March 10, 2019.
 \fi
