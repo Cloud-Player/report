@@ -83,7 +83,8 @@ Incoming bits are reassembled into frames and handed over to the data link layer
 \caption{Physical and overlay network example}
 \label{fig:overlay}
 \end{figure}
-Devices that are connected with each other form a physical network. On top of that network a virtual network can be constructed—a so called overlay network. The overlay network only cares about who is part of the network and not how the partner is reachable. 
+An overlay network is constructed on the application layer so is independent from the underlying physical network. 
+Hence, devices that are connected with each other form the physical network, while the overlay network is constructed on top of it. The overlay network only cares about who is part of the network and not how the partner is reachable. 
 While the physical communication has physical links between devices, the overlay network makes usage of virtual edges to connect devices that are not physically connected with each other. When a device wants to connect to a device that is not physically connected the overlay network can use indirect connections. That means when \textit{A} is connected to \textit{B} and \textit{B} is connected to \textit{C}, the overlay network allows \textit{A} to send data to \textit{C} via \textit{B}.
 \cref{fig:overlay} shows a sample physical network and its derived sample overlay network.
 
@@ -91,16 +92,18 @@ As the underlying physical is transparent to the developer, the overlay network 
 
 \section{Overlay Network Topologies}
 The most common overlay network topologies are shown in \cref{fig:overlay-topologies}. In a centralised topology all devices are connected to one central device. A typical centralised example is the internet. The central device is a server and all other devices exchange information with that device. Advantages of this topology that it is easily manageable and the maintainer has full control over it. Thus, the provided information is always up to date and the maintainer can control who has access to it. However, a centralised network can not grow endlessly but only as big as the central device can handle the traffic. There is also a single point of failure. When the central device is not available anymore the whole network is offline.
+
 \begin{figure}[htb!]
   \centering
     \subfloat[Centralised]{\includegraphics[width=0.25\textwidth]{graphics/overlay-network-centralised.pdf} \label{fig:overlay-topologies-a}}
     \subfloat[Hierarchical]{\includegraphics[width=0.25\textwidth]{graphics/overlay-network-hierarchical.pdf} \label{fig:overlay-topologies-b}}
 	\subfloat[Decentralised]{\includegraphics[width=0.25\textwidth]{graphics/overlay-network-decentralised.pdf} \label{fig:overlay-topologies-c}}
-	\subfloat[Hybrid]{\includegraphics[width=0.25\textwidth]{graphics/overlay-network-hybrid.pdf} \label{fig:overlay-topologies-d}}
 	\caption{Common overlay network topologies}
 \label{fig:overlay-topologies}
 \end{figure}
 
-A typical usecase for an overlay network is a \gls{p2p} environment.
+Are more scale-able and robust approach is a hierarchical overlay topology (\cref{fig:overlay-topologies-b}). The root node is still a single point of failure but when a node below crashes it does not affect the whole network anymore but only nodes underneath. By implementing load balancing techniques a hierarchical network also scales better because the workload can be distributed among child nodes.
 
-\section{Peer-to-Peer Network}
+To get rid of the single point of failure a decentralised overlay topology has to be used (\cref{fig:overlay-topologies-b}). In contrast to the previous mentioned topologies the decentralised one is completely unstructured and anyone can join in anywhere. Also nodes can connect to any other node in the network. However, as any node can be connected with another the network is hard to manage. The process of peers joining and leaving the network is called \textit{Churn} \cite[\S1]{stutzbach_rejaie_2006} and is a challenging part of decentralised networks.
+
+In order to manage a decentralised network a common strategy is to build a mesh network.

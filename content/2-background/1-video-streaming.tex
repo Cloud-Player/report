@@ -66,3 +66,41 @@ With the adoption of \gls{html} 5, online video streaming has moved from plugin-
 \subsection{Media Formats}
 
 When considering the fragmented landscape of browser media streaming technologies, the actual media encodings being used are even more vendor and version dependent, as the compatibility table for in-browser playback at \cite{media-format-browser-compat} shows. For playback, common ground between vendors can be found with VP8 compression in a WebM container or H.264 in MP4. However, when trying to encode media recorded on-device, the set of supported formats is even smaller and, according to Phillips, the broadest interoperability can be achieved with H.264 \cite[\S5.1]{webrtc-hacks-safari}. On the audio side, more modern and effiecient formats like Opus and Vorbis have emerged. However, the widest support is still enjoyed by traditional MP3 \cite{media-format-browser-compat}.
+
+\subsection{Video Streaming Applications}
+
+Efficiently delivering streaming video over the internet has long been an active research topic. Non-linearity, rich user interactions and diversification of media sources have driven users from consuming terrestrial television or hard copy video to internet based media platforms.
+These platforms and their underlying technologies can be categorised by (1) offered media types and (2) content distribution architecture. Some platforms offer pre-produced videos, be it professional movies or amateur vlogs, to be streamed on demand (TODO: Video-on-demand). Other platforms offer live video streams with realtime viewer interactions.
+Both type of video offerings can be found to be built upon a centralised or decentralised streaming architecture. Figure X shows examples of platforms arranged by category.
+
+        on-demand       live
+central youtube         periscope         
+        netflix         twitch
+        tiktok
+pee2pee zatoo           appear.in
+        popcorn         <mitosis>
+Figure X
+
+\subsection{Centralised Streaming}
+
+- server and transcoding cost
+- scaling up
+- censorship
+
+\subsection{Decentralised Streaming}
+
+- content discovery
+- overlay creation, timetofirstbyte
+- ...problems of streamer cite
+
+\section{User-generated Streaming Applications}
+
+~Although distributed video streaming technologies have been around for a while \cite{TODO}, today's major platforms for user-generated live streaming build upon centralised delivery architectures \cite{periscope, twitch, facebook-live}.~
+
+According to \citet{twitch-case} these platforms are characterised by opening content creation to all of their users and allowing video consumers to give realtime feedback in the form of chats or likes.
+
+- periscope
+
+twitch
+- paid transcoding \cite[\S2]{twitch-study}
+- transcoding latency of 10seconds \cite[\S4.2]{twitch-study}

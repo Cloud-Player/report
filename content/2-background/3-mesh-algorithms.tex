@@ -1,2 +1,11 @@
-\section{Mesh Algorithms}
-In a decentralised network...
+\section{Mesh Network}
+In a centralised environment each client communicates only with the central client. Therefore clients do not have to know other clients.
+Clients in a decentralised network do not have a central counterpart. Thus a client has to discover other client and establish connections to them.
+
+A more than 15 year old standard to achieve this is \gls{ip} multicast. The multicast concept operates on OSI-Layer 3 and is based on groups. Anyone can create a group with a unique address where others can receive packets from and send packets to. The use cases for multicast are unlimited like group chats, conference calls or tv broadcasting.
+In contrast to unicast where a location is addressed a router has to duplicate packets and broadcast them. 
+Due to technical limitations, like scaling issues and limited address space, it did not prove to be successful \cite{multicast}.
+
+As multicast is not widely deplyoed a decentralised network has to be constructed as a overlay network on OSI-Layer 7—the application layer.
+
+- mesh vs tree ist gut erklärt im AnySee paper / II Related Work
