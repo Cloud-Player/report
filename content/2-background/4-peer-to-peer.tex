@@ -1,0 +1,65 @@
+\section{Peer-to-Peer}
+In a Peer-to-Peer system a peer acts as booth client and server at the same time meaning that it consumes content but also provides content for others. Unlike the traditional server-client model where the server acts as the single point of content distribution, Peer-to-Peer systems are not build on a centralised architecture so each peer can act autonomously and provide content to anyone else in the system.
+
+As there is no central point there is also no single-point of failure and no single point as bottleneck. Thus a Peer-to-Peer can scale much better as described by \citet[\S1]{newscast-gossiping}:
+\say{A well-designed peer-to-peer system can easily scale to millions of processes, each of which can join or leave whenever it pleases without seriously disrupting the system’s overall quality of service}. \citet[\S7.5.4]{tanenbaum_wetherall_2011} even go a step further and say that peer-to-peer system are \say{self-scaling}.
+Due to its nature of design it is also hard to censorship or shut down a peer-to-peer system because there is no central server that someone can take control of. Also no one can harvest user data easily because the peers are connected autonomously with each other. Thus there is no central database that someone could attack or that can be used to monitor people in order to sell the data to 3rd parties.
+
+According to \citet{tanenbaum_wetherall_2011} peer-to-peer systems became popular in 1999 with the introduction of Napster, a peer-to-peer music streaming service. However, as it was used mainly to share copy-right infringed material so it was shutdown by government soon after.  Shutting down the service was possible because Napster was not fully a peer-to-peer system. A central server was used as a index server to store the relation of content and who is hosting the content. Peers interested in content were querying the index server and got as a result addresses that are hosting the content matching to the search query. The content itself was exchanged in a peer-to-peer manner so the client opened a direct connection to the address which was returned by the index server to download the content. By shutting down the index server the peers could not locate any content anymore. 
+
+The hybrid approach of Napster, using a index server was there solution the complex problematic of content discovery in a decentralised peer-to-peer network.
+
+\subsection{Content Discovery}
+Finding or publishing content in a peer-to-peer system is not a trivial task. In fact, depending on the structure of the peer-2-peer system, the size of the network and the chosen search strategy it can be impossible to find content even though it exists somewhere.
+
+To discover content a typical approach is to use a search query. Based on the search query the system can be searched for content. When content exists the query returns a hit with the peers hosting the content. Peers are usually returned as addresses so a peer can connect to them.
+
+In the example of Napster a user was publishing content by creating an entry on the index server with the actual content and its own address. Other peers were querying the index server with a search query. The index server looked up its own database for content matching the query. When content was available it returned the address of the host hosting the content. 
+
+An approach that does not involve a central serving is using \textit{Flooding} to query all nodes in the network for content. One protocol that was using this approach is \textit{Gnutella} which has become popular soon after the shutdown of Napster.
+
+The first version of the Gnutella Protocol was using \textit{Flooding} to disseminate a \textit{QUERY}-Packet through the network with the search query and a \gls{ttl}. When the client receiving the packet does not have content matching the query it forwards the query to all its neighbours as long as the \gls{ttl} allows re-broadcasting. A client that has content returns a query hit which is send back the same path as it came in \cite[\S4]{gnutella04}.
+
+However as Gnutella became more and more popular scaling the system to support the growing amount of peers was crucial to keep the system alive. \say{LimeWire (a company promoting an enhanced Gnutella servent) suggested therefore the introduction of a two-level hierarchy: Ultrapeers (UPs) and Leaf
+Nodes (LNs)} \cite[\S3.1]{gnutellaAnalysis}
+
+\say{To scale with this rapid growth in user population, major P2P file sharing applications adopted a two-tier overlay
+topology along with more efficient search mechanisms}[\S1](http://www.barsoom.org/papers/gi-2006-long-term.pdf)
+
+\paragraph{Unstructured Networks}
+
+\say{The first, and most popular type is designed to efficiently support contentbased searching. In many cases, these systems operate with centralized index servers that keep track of where content is located. The index servers are often constructed dynamically in the form of super peers [15].} (Kazaa, Gnutella)(https://link.springer.com/content/pdf/10.1007\%2F978-3-540-25840-7\_6.pdf)
+
+\say{The second type aims at efficiently routing a request to its destination through an overlay network formed by the collection of peers. Examples of such systems are Chord [12], Pastry [11], Tapestry [16], and CAN [10].}(https://link.springer.com/content/pdf/10.1007\%2F978-3-540-25840-7\_6.pdf)
+
+\say{A third type deploy epidemic protocols [3]. In these systems, the goal is not so much enabling point-to-point communication between peers, but rather the rapid and efficient dissemination of information. Examples in this class include Scamp [6], and probabilistic reliable broadcasting [4,5,9].}(https://link.springer.com/content/pdf/10.1007\%2F978-3-540-25840-7\_6.pdf)
+
+\say{self–convergence is king} \citet[V B.]{coolstreaming-design-theory}
+
+- allgemein vorteile/problematiken
+
+\subsection{Fully vs. Semi-Decentral}
+yep
+
+\subsection{addressing vs searching}
+- pulsarcast
+
+\subsection{P2P Technologies}
+\subsubsection{BitTorrent}
+- how does work
+- use for streaming
+    - just download snippets
+    - webtorrent: Prioritize in-seek snippet
+        - then load "rarest first"
+    - rubbish for live
+
+\subsubsection{Gnutella}
+
+\subsubsection{Chord}
+
+\subsection{WebRTC}\label{webrtc}
+- STUN/TURN/ICE was ist das?
+- webRTC protocol stack, UDP etc, "eigene" TCP implementierung
+- Connection aufbau answer/offer handshake
+
+\input{content/2-background/4-peer-to-peer/ipfs.tex}

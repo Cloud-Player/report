@@ -1,0 +1,29 @@
+\usepackage{titlesec}
+\titleformat{\paragraph}
+{\normalfont\normalsize}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{1.5ex plus 1ex minus .2ex}{0pt}
+
+% quotes -> \say{}
+\usepackage{dirtytalk}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{multicol}
+\usepackage{courier}
+\usepackage{listings} %For code in appendix
+\lstset
+{ %Formatting for code in appendix
+    basicstyle=\footnotesize\ttfamily,
+    numbers=left,
+    stepnumber=1,
+    showstringspaces=false,
+    tabsize=1,
+    breaklines=true,
+    breakatwhitespace=false,
+    xleftmargin=2em,
+    escapechar=|
+}
+
+% tables
+\usepackage{tabu}
