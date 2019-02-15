@@ -1,54 +1,5 @@
 % Encoding: UTF-8
 
-
-@misc{adobe-flash,
-    url = {https://www.adobe.com/products/flashplayer.html},
-    title = {Adobe Flash Player},
-    author = {Adobe}
-}
-
-@misc{microsoft-silverlight,
-    url = "https://www.microsoft.com/silverlight/Default",
-    title = {Silverlight},
-    author = {Microsoft}
-}
-
-@misc{IPFS,
-  title = "IPFS",
-  url = {https://ipfs.io},
-  auhtor = {Protocol Labs}
-}
-
-@misc{Ethereum,
-  title = "Ethereum",
-  url = {https://www.ethereum.org},
-  author = "Ethereum"
-}
-
-@misc{SimpleWebRTC,
-  title = "SimpleWebRTC",
-  url = {https://github.com/andyet/SimpleWebRTC},
-  author = "Xander Dumaine"
-}
-
-@misc{WebTorrent,
-  title = "WebTorrent",
-  url = {https://webtorrent.io},
-  title = "WebTorrent"
-}
-
-@misc{cloudPlayer,
-  title = "Cloud–Player",
-  url = {https://cloud-player.io},
-  author = "Cloud–Player"
-}
-
-@misc{webRTCpage,
-  title = "WebRTC",
-  url = {https://webrtc.org},
-  author = "WebRTC"
-}
-
 @TechReport{media-capture-and-streams,
     author =	"Anant Narayanan and Daniel Burnett and Bernard Aboba and Adam Bergkvist and Cullen Jennings",
     title =	"Media Capture and Streams",
@@ -132,7 +83,7 @@
     year = {2019}
 }
 
-@misc{rfc-hls,
+@techreport{rfc-hls,
 	series =	{Request for Comments},
 	number =	8216,
 	howpublished =	{RFC 8216},
@@ -144,6 +95,73 @@
 	pagetotal =	60,
 	year =		2017,
 	month =		aug
+}
+
+@techreport{session-description-protocol,
+	series =	{Request for Comments},
+	number =	4566,
+	howpublished =	{RFC 4566},
+	publisher =	{RFC Editor},
+	doi =		{10.17487/RFC4566},
+	url =		{https://rfc-editor.org/rfc/rfc4566.txt},
+    author =	{Colin Perkins and Mark J. Handley and Van Jacobson},
+	title =		{{SDP: Session Description Protocol}},
+	year =		2006,
+	month =		jul
+}
+
+@techreport{trickle-ice,
+  author = {Emil Ivov and Eric Rescorla and Justin Uberti and Peter Saint-Andre},
+  title = {Trickle ICE: Incremental Provisioning of Candidates for the Interactive Connectivity Establishment (ICE) Protocol},
+  howpublished = {Working Draft},
+  type = {Internet-Draft},
+  number = {draft-ietf-ice-trickle-21},
+  year = {2018},
+  month = {April},
+  institution = {IETF},
+  url = {http://www.ietf.org/internet-drafts/draft-ietf-ice-trickle-21.txt}
+}
+
+@techreport{turn-rfc,
+  author = {R. Mahy and P. Matthews and J. Rosenberg},
+  title = {Traversal Using Relays around NAT (TURN): Relay Extensions to Session Traversal Utilities for NAT (STUN)},
+  howpublished = {Internet Requests for Comments},
+  type = {RFC},
+  number = {5766},
+  year = {2010},
+  month = {April},
+  issn = {2070-1721},
+  publisher = {RFC Editor},
+  institution = {RFC Editor},
+  url = {http://www.rfc-editor.org/rfc/rfc5766.txt}
+}
+
+@techreport{stun-rfc,
+  author = {J. Rosenberg and R. Mahy and P. Matthews and D. Wing},
+  title = {Session Traversal Utilities for NAT (STUN)},
+  howpublished = {Internet Requests for Comments},
+  type = {RFC},
+  number = {5389},
+  year = {2008},
+  month = {October},
+  issn = {2070-1721},
+  publisher = {RFC Editor},
+  institution = {RFC Editor},
+  url = {http://www.rfc-editor.org/rfc/rfc5389.txt}
+}
+
+@techreport{sdp-rfc,
+  author = {M. Handley and V. Jacobson and C. Perkins},
+  title = {SDP: Session Description Protocol},
+  howpublished = {Internet Requests for Comments},
+  type = {RFC},
+  number = {4566},
+  year = {2006},
+  month = {July},
+  issn = {2070-1721},
+  publisher = {RFC Editor},
+  institution = {RFC Editor},
+  url = {http://www.rfc-editor.org/rfc/rfc4566.txt}
 }
 
 @techreport{iso-mpeg-dash,
@@ -184,6 +202,13 @@
     month={Jan}
 }
 
+@article{kademlia, 
+  title={Kademlia: A Peer-to-Peer Information System Based on the XOR Metric}, 
+  url={https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf}, 
+  DOI={10.1007/3-540-45748-8_5}, 
+  journal={Peer-to-Peer Systems Lecture Notes in Computer Science}, author={Maymounkov, Petar and Mazières, David}, year={2002}, pages={53–65}
+}
+
 @inproceedings{s_kademlia,
     author = {Baumgart, Ingmar and Mies, Sergio},
     year = {2008},
@@ -197,11 +222,18 @@
 
 @misc{media-format-browser-compat,
     url = {https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media_formats#Browser_compatibility},
-    title = {Media formats for HTML audio and video -- Browser compatibility},
+    title = {Media formats for HTML audio and video – Browser compatibility},
     year = {2018},
     month = {12},
-    day = {9},
     author = "Mozilla and izderadicka and Sheppy and Landmaster and cweiske and jyavenard and slokhorst and daniel-hemmati and TornadoIDS and craigfrancis and jpmedley and btzy and nighca and aenoble and kentuckyfriedtakahe and TD-Linux and Sebastianz and JoshuaJB and luckyrat and anotherkabab and hackroid26 and chrisdavidmills and kscarfone and alberts and jamix and elatllat and User and Qantas94Heavy and NV and teoli and silverwind and Aleksej and cadeyrn and Hsivonen and frankyan and Husky and notthetup and .vimrc and mcheale and Pigyman and planet36 and Dikrib and kbrosnan and liam101 and Morac and Beanow and gregsanderson and rillian and nicoz and pimmhogeling and drawoc and Svl and derf and SamatJain and khuey and Crash"
+}
+
+@misc{webrtc-browser-compat,
+    url = {https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection#Browser_compatibility},
+    title = {RTCPeerConnection – Browser compatibility},
+    year = {2018},
+    month = {11},
+    author = "ssskip and Sheppy and fscholz and Victorystick and jpmedley and arturparkhisenko and pu245 and abbycar and ajayullal and Jib and SOCSIELEARNING and sheffler and teoli and MikeHoffert and Delapouite and Pearlmutter and Yunzhou and wesj and Developedbyme and kscarfone"
 }
 
 @misc{webrtc-hacks-safari,
@@ -306,6 +338,20 @@
     volume = {10},
     journal = {International Journal of Intelligent Engineering and Systems},
     doi = {10.22266/ijies2017.0630.30}
+}
+
+@techreport{ice-rfc,
+  author = {J. Rosenberg},
+  title = {Interactive Connectivity Establishment (ICE): A Protocol for Network Address Translator (NAT) Traversal for Offer/Answer Protocols},
+  howpublished = {Internet Requests for Comments},
+  type = {RFC},
+  number = {5245},
+  year = {2010},
+  month = {April},
+  issn = {2070-1721},
+  publisher = {RFC Editor},
+  institution = {RFC Editor},
+  url = {http://www.rfc-editor.org/rfc/rfc5245.txt}
 }
 
 @INPROCEEDINGS{hybrid-cdn-p2p-study, 
@@ -457,6 +503,15 @@
   year={2001}
 }
 
+@book{signaling-systems-book,
+ author = {Dryburgh, Lee and Hewett, Jeff},
+ title = {Signaling System No. 7 (SS7/C7): Protocol, Architecture, and Applications},
+ year = {2003},
+ isbn = {1587050404},
+ publisher = {Cisco Press},
+ address = {Indianapolis, IN, USA}
+} 
+
 @misc{batman,
     url = "https://www.open-mesh.org/projects/open-mesh/wiki/BATMANConcept",
     title = {B.A.T.M.A.N. protocol concept},
@@ -483,6 +538,40 @@
     author = {Dragos Ilie},
 	title =	{GNUTELLA NETWORK TRAFFIC MEASUREMENTS AND CHARACTERISTICS},
 	year = {2006}
+}
+
+@article{chord,
+  title={Chord}, 
+  volume={31}, 
+  DOI={10.1145/964723.383071}, 
+  number={4},
+  journal={ACM SIGCOMM Computer Communication Review}, author={Stoica, Ion and Morris, Robert and Karger, David and Kaashoek, M. Frans and Balakrishnan, Hari}, year={2001}, pages={149–160},
+  url={https://pdos.csail.mit.edu/papers/chord:sigcomm01/chord_sigcomm.pdf}
+}
+
+@article{pastry, 
+  title={Pastry: Scalable, Decentralized Object Location, and Routing for Large-Scale Peer-to-Peer Systems},
+  DOI={10.1007/3-540-45518-3_18}, 
+  journal={Middleware 2001 Lecture Notes in Computer Science}, author={Rowstron, Antony and Druschel, Peter}, 
+  year={2001}, pages={329–350},
+  url={http://rowstron.azurewebsites.net/PAST/pastry.pdf}
+}
+
+@article{tapestry,
+  title={Tapestry: A Resilient Global-Scale Overlay for Service Deployment}, 
+  volume={22}, 
+  DOI={10.1109/jsac.2003.818784}, 
+  number={1}, 
+  journal={IEEE Journal on Selected Areas in Communications}, author={Zhao, Ben Y. and Huang, Ling and Stribling, Jeremy and Rhea, Sean C. and Joseph, Anthony D. and Kubiatowicz, John D.},
+  year={2004}, 
+  pages={41–53},
+  url={http://www.srhea.net/papers/tapestry_jsac.pdf}
+}
+
+@misc{consistentHashing,
+  title={A Guide to Consistent Hashing},
+  author={Juan Pablo Carzolio},
+  url={https://www.toptal.com/big-data/consistent-hashing#the-solution-consistent-hashing}
 }
 
 @inproceedings{twitch-measurement-study,

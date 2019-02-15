@@ -1,4 +1,5 @@
 \section{Mesh Network}
+\label{chap:mesh-network}
 In a centralised environment each client communicates only with the central client. Therefore clients do not have to know other clients.
 Clients in a decentralised network do not have a central counterpart. Thus a client has to discover other client and establish connections to them.
 
@@ -179,13 +180,15 @@ The \gls{tq} of the Routing-Table helps a client to determine which is the best 
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{graphics/batman.pdf}
-\caption{Sample routing table for }
+\caption{Sample graph}
 \label{fig:sample-graph-with-tq}
 \end{figure}
 
-\vref{fig:sample-graph-with-tq} shows a sample graph with nodes that have calculated the \gls{tq} to their direct neighbours. Needless to say but every node only knows the \tq{tq} so for example \textit{Node A} does not knows that the \gls{tq} between \textit{Node E} and \textit{Node F} is 0.4. The \gls{tq} for the multi-hop neighbours has to be calculated by exchanging \glspl{OGM}.
+\vref{fig:sample-graph-with-tq} shows a sample graph with nodes that have calculated the \gls{tq} to their direct neighbours. Needless to say but every node only knows the \tq{tq} so for example \textit{Node A} does not knows that the \gls{tq} between \textit{Node E} and \textit{Node F} is 0.4. The \gls{tq} for the multi-hop neighbours has to be calculated by exchanging \gls{OGM}.
 
-\begin{table}
+\vref{tbl:sample-tq-table} shows the deviated routing table of \textit{Node A}
+
+\begin{table}[htb!]
   \centering
   \begin{tabu} to \textwidth {X[c]X[c]X[c]}
 		\toprule
@@ -204,3 +207,17 @@ The \gls{tq} of the Routing-Table helps a client to determine which is the best 
 \caption{Sample routing table for \textit{Node A} based on \cref{fig:sample-graph-with-tq}}
 \label{tbl:sample-tq-table}
 \end{table}
+
+For the calculation of the the \gls{tq} value an initial \gls{ogm}-\gls{TQ} of 100 and a \textit{hop penalty} of 0.9.
+The \gls{tq} of \textit{Node E} adds up by the path taken by the \gls{ogm}.
+When \textit{Node E} dispatches its \gls{ogm} it is taking the path E$\rightarrow$C$\rightarrow$A and E$\rightarrow$D$\rightarrow$B$\rightarrow$A. \vref{eq:transmit_quality} shows how the \gls{tq} is calculated.
+
+\begin{equation}
+\label{eq:transmit_quality}
+\begin{aligned}
+\gls{tq} _{next-hop-C} = & \vec{EC} (100 * 0.7 * 0.9) * \vec{CA} (0.6) = \textbf{37.5} \\
+\gls{tq} _{next-hop-B} = & \vec{ED} (100 * 0.4 * 0.9) * \vec{DB} (0.6 * 0.9) * \vec{BA} (0.8) = \textbf{15.5}
+\end{aligned}
+\end{equation}
+
+By sorting the table by \gls{tq} \textit{Node A} would send its message via \textit{Node C} because the \gls{tq} is better than the one of \textit{Node B}.

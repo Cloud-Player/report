@@ -357,10 +357,10 @@ inkscape -z -D --file=\getgraphicspath#1.svg %
 %\usepackage{dblfnote}  %Zweispaltige Fußnoten
 %
 % Keine hochgestellten Ziffern in der Fußnote (KOMA-Script-spezifisch):
-%\deffootnote[1.5em]{0pt}{1em}{\makebox[1.5em][l]{\bfseries\thefootnotemark}}
+\deffootnote[1.5em]{0pt}{1em}{\makebox[1.5em][l]{\bfseries\thefootnotemark}}
 %
 % Abstand zwischen Fußnoten vergrößern:
-%\setlength{\footnotesep}{.85\baselineskip}
+\setlength{\footnotesep}{.85\baselineskip}
 %
 %
 %
@@ -558,8 +558,8 @@ inkscape -z -D --file=\getgraphicspath#1.svg %
     colorlinks=true,
     pdfstartview=Fit,
     pdfpagelayout=TwoPageRight, % zweiseitige Darstellung: ungerade Seiten rechts im PDF-Viewer - siehe auch http://tex.stackexchange.com/a/21109/9075
-    filecolor=darkblue,
-    urlcolor=darkblue,
+    filecolor=black,
+    urlcolor=black,
     linkcolor=black,
     citecolor=black
 }
