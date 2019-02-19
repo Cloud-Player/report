@@ -1,6 +1,6 @@
 \subsection{Browser Media API}
 
-A fully distributed media streaming application must also rely on distributed content generation. Users of the system must be able to record media on their connected devices and provide a stream to the network. Other users must be able to consume those streams of audio and video data with their respective devices. Considering the constraint, that the application should be executable in a browser, used media formats have to meet further requirements.
+A fully distributed media streaming application must also rely on distributed content generation. Users of the system must be able to record media on their connected devices and provide a stream to the network. Other users must be able to consume those streams of audio and video data with their respective devices. Considering the constraint, that the application should be executable in a browser, media formats in use have to meet further requirements.
 
 \subsubsection{Media Pipeline}
 \label{browser-api}
@@ -8,7 +8,7 @@ A fully distributed media streaming application must also rely on distributed co
 Modern browsers implement a set of JavaScript \glspl{api} that comply with the {\textit{Media Capture and Streams}} draft \citep{media-capture-and-streams} of the \gls{w3c}. The draft defines an interface for media streams that can contain multiple tracks, which in turn can contain multiple channels. In its most common configuration a stream would consist of a video and audio track and the latter would contain two channels for a stereo signal. A media stream instance can either be created locally or originate from a network source. Either of those streams can be presented to the local user or streamed to a network connection. \citet{media-capture-and-streams} denominates these two usages as sources and sinks respectively.
 
 \paragraph{Stream Sources}
-Streams can only be recorded locally after the application has acquired user consent from the browser and \gls{os}. The user media \gls{api} \cite{TODO} allows to constrain recording parameters, such as video resolution, frame rate or audio volume (see \ref{lst:recording-constraints}). The satisfiability of these constraints however, depends on browser, \gls{os} and device compatibility.
+Streams can only be recorded locally after the application has acquired user consent from the browser and \gls{os}. The \lstinline|getUserMedia| \gls{api} \cite{get-user-media} allows to constrain recording parameters, such as video resolution, frame rate or audio volume (see \ref{lst:recording-constraints}). The satisfiability of these constraints however, depends on browser, \gls{os} and device compatibility.
 
 \begin{Listing}
 \begin{lstlisting}
@@ -43,7 +43,7 @@ The browser media pipeline provides that a stream ends with a so called sink. To
 
 \paragraph{Media Source Extensions}
 
-In 2016 the \gls{w3c} enhanced the capabilities of browser media pipelines by introducing the \gls{mse} standard \cite{TODO}. With this extension, a JavaScript application can dynamically adapt an audio or video stream. According to \cite{mse-google}, the main use cases are adaptive streaming, dynamic ad insertion and time shifting. As an alternative to a media stream, the \gls{mse} standard introduces a media source and a source buffer API to the JavaScript media pipeline. A media source can be directly assigned to an \lstinline|<audio>| or \lstinline|<video>| tag and contains a set of source buffers. These buffers can then be filled, sought and flushed to allow seamless playback from multiple stream sources. The \gls{mse} itself does not enforce any kind of codec to promote inter device and browser compatibility.
+In 2016 the \gls{w3c} enhanced the capabilities of browser media pipelines by introducing the \gls{mse} standard \cite{media-source-extensions}. With this extension, a JavaScript application can dynamically adapt an audio or video stream. According to \cite{mse-google}, the main use cases are adaptive streaming, dynamic ad insertion and time shifting. As an alternative to a media stream, the \gls{mse} standard introduces a media source and a source buffer API to the JavaScript media pipeline. A media source can be directly assigned to an \lstinline|<audio>| or \lstinline|<video>| tag and contains a set of source buffers. These buffers can then be filled, sought and flushed to allow seamless playback from multiple stream sources. The \gls{mse} itself does not enforce any kind of codec to promote inter device and browser compatibility.
 
 \begin{figure}
 \centering
@@ -65,5 +65,3 @@ With the adoption of \gls{html} 5, online video streaming has moved from plugin-
 \subsubsection{Media Formats}
 
 When considering the fragmented landscape of browser media streaming technologies, the actual media encodings being used are even more vendor and version dependent, as the compatibility table for in-browser playback at \cite{media-format-browser-compat} shows. For playback, common ground between vendors can be found with VP8 compression in a WebM container or H.264 in MP4. However, when trying to encode media recorded on-device, the set of supported formats is even smaller and, according to Phillips, the broadest interoperability can be achieved with H.264 \cite[\S5.1]{webrtc-hacks-safari}. On the audio side, more modern and effiecient formats like Opus and Vorbis have emerged. However, the widest support is still enjoyed by traditional MP3 \cite{media-format-browser-compat}.
-
-TODO: Wrap up...

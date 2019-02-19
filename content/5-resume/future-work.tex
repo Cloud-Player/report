@@ -1,4 +1,14 @@
 \section{Future Work}
-- Persistence via IPFS
-- End-To-End Encryption of the data-layer
-- Crypto puzzle (proof of work) to enter system / send messages (spam prevention)
+\begin{itemize}
+    \item Persistence via IPFS
+    \item End-To-End Encryption of the data-layer
+    \item Crypto puzzle (proof of work) to enter system / send messages (spam prevention)
+    \item Scaling the system with Kademlia
+    \begin{itemize}
+        \item Each node has a fingerprint id
+        \item All routers together are forming the kademlia dht.
+        \item A node id is saved in the dht as key. The value belonging to the key is the router to which it belongs 
+        \item Each router can find any other node of the system by using the kademlia lookup. When Node A wants to find Node B it goes to its Router X. Router X is looking up the router node where Node B is stored as key. The lookup is returning the router where the node id is closest to the lookup-node-id-key in terms of the \gls{xor} distance. The value belonging to that key is the responsible Router Node Y for Node B. Node Y knows Node B as it is the cluster owner. Therefor the message from Node A to Node B is routed as following: \\ Node A -> -> Router X -> -> Router Y -> -> Node B
+        \item Nodes are entering routers that are closest in terms of geographical location. However this is independent from the actual kademlia dht.
+    \end{itemize}
+\end{itemize}

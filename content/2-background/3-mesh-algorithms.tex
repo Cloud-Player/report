@@ -34,7 +34,7 @@ A client that receives a packet with a sequence number can check whether it has 
 \label{fig:flooding}
 \end{figure}
 
-\cref{fig:flooding} shows the flow of a packet that has been dispatched by \textit{A} with the sequence number \textit{\#1}. \textit{A} is increasing its own sequence number for the next packet. \textit{B} and \textit{C} receive the packet and as the sequence number is unknown to them they re-broadcast the message to their connected clients (\textit{B}$\rightarrow$\textit{C}\&\textit{D},  \textit{C}$\rightarrow$\textit{B}\&\textit{D}). \textit{B} and \textit{C} receive a packet with a sequence number both have already seen, so the message is discarded and not further re-broadcasted. Without a sequence number they would both send the message back to \textit{A} and back to each other, thus a infinite hopping packet would clog the network.
+\cref{fig:flooding} shows the flow of a packet that has been dispatched by \textit{A} with the sequence number \textit{\#1}. \textit{A} is increasing its own sequence number for the next packet. \textit{B} and \textit{C} receive the packet and as the sequence number is unknown to them they re-broadcast the message to their connected clients (\textit{B}$\rightarrow$\textit{C}\&\textit{D},  \textit{C}$\rightarrow$\textit{B}\&\textit{D}). \textit{B} and \textit{C} receive a packet with a sequence number both have already seen, so the message is discarded. The sequence number prevents an infinite back and forth hopping that would otherwise clog the network.
 
 The Flooding mechanism is tremendously effective when the task is to reach all clients in the network because it will find the shortest path to all clients due to the fact that all paths are tried.
 However it also generates a lot of overhead traffic. As seen in \cref{fig:flooding} \textit{B}$\leftrightarrow$︎\textit{C} and \textit{D}$\leftrightarrow$\textit{E} are sending the packets back to each other as they do not know that the counterpart has seen the packet already. The packet is dropped but still it is a unnecessary transmission.
@@ -48,10 +48,13 @@ However, as the there is a client selection it is not as efficient as \textit{Fl
 \citet{Jelasity2011} describes two models of \textit{Gossip}: SI and SIR. 
 
 \begin{quote}
-• susceptible (S): The node does not know about the update\\
-• infected (I): The node knows the update and is actively spreading it\\
-• removed (R): The node has seen the update, but is not participating in the spreading process (in epidemiology, this corresponds to death or immunity)
-\end{quote}\cite[\S1.2.2]{Jelasity2011}
+\begin{itemize}
+\item susceptible (S): The node does not know about the update
+\item infected (I): The node knows the update and is actively spreading it
+\item removed (R): The node has seen the update, but is not participating in the spreading process (in epidemiology, this corresponds to death or immunity)
+\end{itemize}
+\end{quote}
+\cite[\S1.2.2]{Jelasity2011}
 
 Those are the three states a client can have when a \textit{Gossip} packet is spread through the network.
 
@@ -119,7 +122,7 @@ A expiration mechanism has to take care of removing clients where no \textit{Pin
 A client that is directly connected to another client is seen as \textit{1-Hop Neighbour}. \textit{1-Hop Neighbours} are exchanging continuously \textit{HELLO} packets where they also include all their \textit{1-Hop Neighbours}.
 
 On receive the client is adding all neighbours that are included in the \textit{HELLO} packet as \textit{2-Hop-Neighbours} in their neighbour table. Excluding all direct peers from \textit{2-Hop-Neighbours} are the \textit{Strict-2-Hop-Neighbours}.
-Based on the list of clients the client knows it is now selecting \glspl{mpr}. \Glspl{mpr} are \say{selected such that it covers (in terms of radio range) all symmetric strict 2-hop nodes.}\cite[\S1.4]{rfc-oslr}. A client that has selected a \gls{mpr} is a \textit{MPR-Selector}. Clients are \say{upgraded} to \gls{MPR} by the \textit{HELLO} packets that can also include a list of selected \glspl{mpr}.
+Based on the list of clients the client knows it is now selecting \glspl{mpr}. \Glspl{mpr} are \say{selected such that it covers (in terms of radio range) all symmetric strict 2-hop nodes.}\cite[\S1.4]{rfc-oslr}. A client that has selected a \gls{mpr} is a \textit{MPR-Selector}. Clients are \say{upgraded} to \gls{mpr} by the \textit{HELLO} packets that can also include a list of selected \glspl{mpr}.
 
 \Glspl{mpr} are disseminating \gls{tc} packets to all their clients with the list of their \textit{MPR-Selectors} and their sequence number that represents the sequence at which the client was selected as \gls{mpr}.
 Clients receiving the \gls{tc} packet are setting up a topology table with the last-hop neighbour, the selected \gls{mpr} and the sequence number of the selected \gls{mpr}.
@@ -131,7 +134,7 @@ Based on the \textit{Routing table} a client tries to find the optimal path to e
 \subsection{B.A.T.M.A.N}
 Another approach is the \textit{B.A.T.M.A.N} Protocol which stands for \textbf{B}etter \textbf{A}pproach \textbf{T}o \textbf{M}obile \textbf{A}d hoc \textbf{N}etworking and is developed by the Freifunk Community.
 
-It is making use of \textit{gossiping}(\ref{gossiping}) to disseminate \glspl{ogm} through the network. Each client is sending a \gls{OGM} to their direct neighbour. \say{These neighbors are re-broadcasting the OGMs according to specific rules to inform their neighbors about the existence of the original initiator of this message and so on and so forth. Thus the network is flooded with originator messages.} as described in the concept of \citet{batman}.
+It is making use of \textit{gossiping}(\ref{gossiping}) to disseminate \glspl{ogm} through the network. Each client is sending a \gls{ogm} to their direct neighbour. \say{These neighbors are re-broadcasting the OGMs according to specific rules to inform their neighbors about the existence of the original initiator of this message and so on and so forth. Thus the network is flooded with originator messages.} as described in the concept of \citet{batman}.
 
 \Glspl{ogm} contain, among other fields \cite[\S2]{tobias_hardes}, the address of the sender, the address of the last sender, a sequence number, a \gls{ttl} and a \gls{tq}. 
 Once a client receives an \gls{ogm} it adds the sender to its own routing table and forwards the packet to all its directly connected clients when some criteria a met. 
@@ -150,7 +153,7 @@ Each client initialises a sliding window for outgoing \glspl{ogm} and for incomi
 \end{figure}
 
 When an \gls{ogm} is received the client checks whether it is one that it has send, thus a \textit{Echo} packet. When it is an \textit{Echo} packet it checks the outgoing sliding window whether the sequence number is in-window. If it is, the sequence number is added to the sliding window. By counting all values in the sliding window the client obtains the \gls{eq}. 
-In the other case the client checks the incoming sliding window. When the sequence number is out of window it adds the sequence, slides the window to the new sequence number and drops all sequences out of window. This results in the \gls{RQ}.
+In the other case the client checks the incoming sliding window. When the sequence number is out of window it adds the sequence, slides the window to the new sequence number and drops all sequences out of window. This results in the \gls{rq}.
 
 \say{With both values, it is possible to determine, whether the link is a bidirectional one and to create a metric to compare different links.}\citet[\S2.3.3]{tobias_hardes}. The value is determined by dividing the \gls{eq} through \gls{tq}.
 
@@ -208,16 +211,17 @@ The \gls{tq} of the Routing-Table helps a client to determine which is the best 
 \label{tbl:sample-tq-table}
 \end{table}
 
-For the calculation of the the \gls{tq} value an initial \gls{ogm}-\gls{TQ} of 100 and a \textit{hop penalty} of 0.9.
-The \gls{tq} of \textit{Node E} adds up by the path taken by the \gls{ogm}.
+\paragraph{Example TQ for Node E}
+For the calculation of the the \gls{tq} value an initial \gls{ogm}-\gls{tq} of 100 and a \textit{hop penalty} of 0.9 is given.
+The \gls{tq} of \textit{Node E} arises out of the path taken by the \gls{ogm}.
 When \textit{Node E} dispatches its \gls{ogm} it is taking the path E$\rightarrow$C$\rightarrow$A and E$\rightarrow$D$\rightarrow$B$\rightarrow$A. \vref{eq:transmit_quality} shows how the \gls{tq} is calculated.
 
 \begin{equation}
 \label{eq:transmit_quality}
 \begin{aligned}
-\gls{tq} _{next-hop-C} = & \vec{EC} (100 * 0.7 * 0.9) * \vec{CA} (0.6) = \textbf{37.5} \\
-\gls{tq} _{next-hop-B} = & \vec{ED} (100 * 0.4 * 0.9) * \vec{DB} (0.6 * 0.9) * \vec{BA} (0.8) = \textbf{15.5}
+\gls{tq} _{next-hop-C} = & \overrightarrow{EC} (100 * 0.7 * 0.9) * \overrightarrow{CA} (0.6) = \textbf{37.8} \\
+\gls{tq} _{next-hop-B} = & \overrightarrow{ED} (100 * 0.4 * 0.9) * \overrightarrow{DB} (0.6 * 0.9) * \overrightarrow{BA} (0.8) = \textbf{15.5}
 \end{aligned}
 \end{equation}
 
-By sorting the table by \gls{tq} \textit{Node A} would send its message via \textit{Node C} because the \gls{tq} is better than the one of \textit{Node B}.
+By sorting the table by \gls{tq} \textit{Node A} would send its message via \textit{Node B} because the \gls{tq} is better than the one of \textit{Node C}.
