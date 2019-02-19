@@ -1,16 +1,16 @@
 \section{Peer-to-Peer}
-In a Peer-to-Peer system a peer acts as booth client and server at the same time meaning that it consumes content but also provides content for others. Unlike the traditional server-client model where the server acts as the single point of content distribution, Peer-to-Peer systems are not build on a centralised architecture so each peer can act autonomously and provide content to anyone else in the system.
+In a Peer-to-Peer system a peer acts as booth client and server at the same time, meaning that it consumes content but also provides content for others. Unlike the traditional server-client model where the server acts as the single point of content distribution, Peer-to-Peer systems are not build on a centralised architecture so each peer can act autonomously and provide content to anyone else in the system.
 
 As there is no central point there is also no single-point of failure and no single point as bottleneck. Thus a Peer-to-Peer can scale much better as described by \citet[\S1]{newscast-gossiping}:
-\say{A well-designed peer-to-peer system can easily scale to millions of processes, each of which can join or leave whenever it pleases without seriously disrupting the system’s overall quality of service}. \citet[\S7.5.4]{tanenbaum_wetherall_2011} even go a step further and say that peer-to-peer system are \say{self-scaling}.
-Due to its nature of design it is also hard to censorship or shut down a peer-to-peer system because there is no central server that someone can take control of. Also no one can harvest user data easily because the peers are connected autonomously with each other. Thus there is no central database that someone could attack or that can be used to monitor people in order to sell the data to 3rd parties.
+\say{A well-designed peer-to-peer network can easily scale to millions of processes, each of which can join or leave whenever it pleases without seriously disrupting the system’s overall quality of service}. \citet[\S7.5.4]{tanenbaum_wetherall_2011} even go a step further and say that peer-to-peer networks are \say{self-scaling}.
+Due to its nature of design it is also hard to censorship or shut down a peer-to-peer network because there is no central entity that someone can take control of. Also there is no central database that someone could attack or that can be used to monitor people in order to sell the data to 3rd parties.
 
-According to \citet{tanenbaum_wetherall_2011} Peer-to-Peer systems have become popular in 1999 with the introduction of Napster, a Peer-to-Peer music streaming service. However, as it was mainly used to share copy-right infringed material, it was shutdown by government soon after. Shutting down the service was possible because Napster was not a fully decentralised Peer-to-Peer system. A central server was used as an index server to store the relation of content and who is hosting the content. Peers interested in content were querying the index server and got addresses as a result which were hosting the content matching to the search query. The content itself was exchanged in a peer-to-peer manner so the client opened a direct connection to the address to download the content. By shutting down the index server the peers could not locate any content anymore. 
+According to \citet{tanenbaum_wetherall_2011} Peer-to-Peer systems have become popular in 1999 with the introduction of Napster, a Peer-to-Peer music streaming service. However, as it was mainly used to share copy-right infringed material, it was shutdown by government soon after. Shutting down the service was possible because Napster was not a fully decentralised Peer-to-Peer system. A central server was used as an index server to store the relation of content and who is hosting the content. Peers interested in content were querying the index server and got addresses as a result of peers hosting the content matching to the search query. The content itself was exchanged in a peer-to-peer manner so the client opened a direct connection to the address and downloaded the content. By shutting down the index server the peers could not locate any content anymore. 
 
-The hybrid approach of Napster, using a index server was their solution of the complex problem of content discovery in a decentralised Peer-to-Peer network.
+The hybrid approach of Napster, using an index server was their solution of the complex problem of content discovery in a decentralised Peer-to-Peer network.
 
 \subsection{Content Discovery}
-Finding or publishing content in a peer-to-peer system is not a trivial task. In fact, depending on the structure of the Peer-to-Peer system, the size of the network and the chosen search strategy it might be impossible to find content, even though it might exist somewhere.
+Finding or publishing content in a Peer-to-Peer network is not a trivial task. In fact, depending on the structure of the network, the size and the chosen search strategy it might be impossible to find content, even though it might exist somewhere.
 
 To discover content there are two typical scenarios:
 \begin{itemize}
@@ -19,56 +19,56 @@ To discover content there are two typical scenarios:
 \end{itemize}
 
 \paragraph{Searching}
-Based on the search query the system can be searched for content. When content exists the query returns a hit with the peers hosting the content. Peers are usually returned as addresses so a peer can connect to them.
+As the name indiciates searching is using a search query to query the network for content. When content exists the query returns a hit with the peers hosting the content. Peers are usually returned as addresses so a peer can connect to them.
 
-In the example of Napster a user was publishing content by creating an entry on the index server with the actual content and its own address. Other peers were querying the index server with a search query. The index server looked up its own database for content matching the query. When content was available it returned the address of the host hosting the content. 
+In the example of Napster a user was publishing content by creating an entry on the index server with the meta descriptions of the content and its own address. Other peers were querying the index server with a search query. The index server looked up its own database for content matching the query. When content was available it returned the address of the peer hosting the content. 
 
-An approach that does not involve a central server is to use \textit{Flooding} to query all nodes in the network for content. One protocol that was using this approach is \textit{Gnutella} which has become popular soon after the shutdown of Napster.
+An approach that gets rid of the central server is \textit{Flooding}. In this approach a query is flooded through all peers in the network until it finds a match. \textit{Gnutella} which has become popular soon after the shutdown of Napster was using this strategy.
 
-The first version of the Gnutella Protocol was using \textit{Flooding} to disseminate a \textit{QUERY}-Packet through the network with the search query and a \gls{ttl}. When the client receiving the packet does not have content matching the query it forwards the query to all its neighbours as long as the \gls{ttl} allows re-broadcasting. A client that has content returns a query hit which is send back the same path as it came in \cite[\S4]{gnutella04}.
+The first version of the Gnutella Protocol was using \textit{Flooding} to disseminate a \textit{QUERY}-Packet through the network with the search query and a \gls{ttl}. When a peer does not have content matching the query it forwards the query to all its neighbours as long as the \gls{ttl} allows re-broadcasting. A peer that has content returns a query hit which is send back the same path as it came in \cite[\S4]{gnutella04}.
 
 However as Gnutella became more and more popular scaling the system to support the growing amount of peers was crucial to keep the system alive. \say{LimeWire (a company promoting an enhanced Gnutella servent) suggested therefore the introduction of a two-level hierarchy: Ultrapeers (UPs) and Leaf
 Nodes (LNs)} \cite[\S3.1]{gnutellaAnalysis}
 
-By having a two-tier hierarchy the general \say{standby traffic} (traffic to maintain the overlay network) could be reduced.
+By having a two-tier hierarchy the general \say{standby traffic} (traffic to maintain the overlay network) has been reduced.
 
-Instead of flooding a \textit{QUERY}-Packet a \textit{Leaf Node} is now only send it to its \textit{Ultrapeer}. The Ultrapeers are connected with other Ultrapeers and have a distributed knowledge about content that is provided Leaf Nodes. When an Ultra Peer finds a Leaf Node that is providing content for the search query it is returning the address back to the originator of the query. The Gnutella protocol is further explained and evaluated by \citet{gnutellaAnalysis} but for the scope of this thesis not relevant.
+Instead of flooding a \textit{QUERY}-Packet, a \textit{Leaf Node} is now only sending it to its \textit{Ultrapeer}. The Ultrapeers are connected with other Ultrapeers and have a distributed knowledge about content that is provided by Leaf Nodes. When an Ultra Peer finds a Leaf Node that is providing content for the search query it is returning the address back to the originator of the query. The Gnutella protocol is further explained and evaluated by \citet{gnutellaAnalysis} but for the scope of this thesis not relevant.
 
 \paragraph{Addressing}
 In another scenario (cf. \vref{chap:IPFS}) the client already knows the content identifier and has to find the host which is providing the content.
 
-In the server-client system this is done by addressing the server via its IP address and a path (\gls{url}) e.g. \textit{1.2.4.5/file/thesis.pdf}. The server is then looking up its file system and returns the content in case it is available.
+In the server-client system this is done by addressing the server via its IP address and a path (\gls{url}) e.g. \textit{1.2.4.5/file/thesis.pdf}. The server is then looking up its file system and is returning the content, in case it is available.
 
-The Peer-to-Peer system does not have a central file system and it would be infeasible to have one because that would mean that all the data from each peer would need to be replicated over all other peers.
+The Peer-to-Peer system does not have a central file system and it would be infeasible to have one, because that would mean that data from each peer would need to be replicated over all other peers.
 
-So instead of using a \gls{url} a peer is addressing only the file but not a machine because it does not matter where the file is stored. This approach also makes it possible that the same content can be stored on multiple peers and the peer addressing the content gets it from a peer that works best for her (e.g. is the closest one).
+So instead of using a \gls{url} a peer is addressing only the file because it does not matter where the file is stored. This approach also makes it possible that the same content can be stored on multiple peers.
 
-To make the file addressable one option would be to use its file name. However the file name is just a meta information can be easily changed by the user so a file can exist on multiple machines with different file names. To generate a more unique identifier for a file, a better approach is to create a hash over the file content with a hash algorithm (e.g. SHA-256). As long as the file content does not change the hash will be always the same. The hash can be used as an address because it is unique for that specific file.
+To make the file addressable one option would be to use its file name. However the file name is just a meta information which can be changed. To generate a more unique identifier for a file, a better approach is to create a hash over the file content with a hash algorithm (e.g. SHA-256). As long as the file content does not change the hash will be always the same. The hash can be used as an address because it is unique for that specific file.
 
-As the file is addressable by its content hash and as the same file can live on multiple peers other peer need to be able to find it in the network.
+As the file is addressable by its content hash and as the same file can live on multiple peers other peers need to be able to find it in the network.
 
-This is where the \gls{dht} comes into play.
+This is where the \glsfirst{dht} comes into play.
 
 \subsubsection{DHT}
 \glsreset{dht}
-As the name of the \gls{dht} indicates, it works like a hash table with a key–value pair but is distributed among multiple peers. By using a hash function an arbitrary value, that could be anything from an address to a file, is mapped to a key. The key space of the hash table is divided into buckets and distributed among the participants, each taking care of one bucket. This way, each participant is responsible for a bucket and does not need a global knowledge about all existing key–value pairs.
+As the name of the \gls{dht} indicates, it works like a hash table with a key–value pair but is distributed among multiple peers. An arbitrary value, that could be anything from an address to a file, is mapped to a key by using the hash function. The key space of the hash table is divided into buckets and distributed among the participants, each taking care of one bucket. This way, each participant is responsible for a bucket and does not need a global knowledge about all existing key–value pairs.
 
-To assign buckets to peers, first of all they have to be uniquely identifiable as well. Thus each peer is assigned by an identifier from the same id-space as the keys from the hash table. This could be for example a hash over the \gls{ip} address of a peer with the same hash function that was used for the value hash e.g. SHA-256.
+To assign a bucket to a peer, first of all the peer has to be uniquely identifiable as well. Thus each peer get an identifier from the same id-space as the keys from the hash table. This could be for example a hash over the \gls{ip} address of a peer with the same hash function that was used for the key-value hash e.g. SHA-256.
 
-As the peer ids and the hash values are in the same id space the hash table can be partitioned into buckets by a distance function such as the value key has be the closest to a peer id and the value key has to be greater than the node key. Fulfilling both conditions means that a peer takes care of the key space from its own node id until its successor node id.
+As the peer ids and the keys of the hash table are in the same id space, the table can be partitioned into buckets by a distance function. The value key has be the closest to a peer id and the value key has to be greater than the node key. Fulfilling both conditions means that a peer takes care of the key space from its own node id until its successor node id.
 
-When a new node enters the network some of the key space has to be reorganised but not the whole key space. In fact, only the key space between the peer that is considered as a previous peer and the new peer has to be reorganised. This makes the \gls{dht} quite efficient as the remaining key space stays unaffected. 
+When a new node enters the network some of the key space has to be reorganised, but not the whole key space. In fact, only the key space between the peer that is considered as a previous peer and the new peer has to be reorganised. This makes the \gls{dht} quite efficient as the remaining key space stays unaffected. 
 
-A peer leaving the network is also removing all the content that it was hosting from th \gls{dht}. This is always a problem of Peer-to-Peer systems and the only way to prevent this is to replicate content over multiple peers. \citet[\S3]{chord} proposes some solutions how one could deal with such as \say{Coorparative Mirroring} or \say{Time-Shared Storage}.
+A peer leaving the network is removing all the content that it has been hosting. This is always a problem of Peer-to-Peer systems and the only way to prevent this is to replicate content over multiple peers. \citet[\S3]{chord} proposes some solutions how one could deal with it, such as \say{Coorparative Mirroring} or \say{Time-Shared Storage}.
 
-Another condition to make the \gls{dht} work is that the participating peers form an overlay network so they can communicate with each other. This can be achieved for example with one of the routing protocols described in Mesh-Networking (\vref{chap:mesh-network}).
+Another condition to make the \gls{dht} work is that the participating peers have to form an overlay network so they can communicate with each other. This can be achieved for example with one of the routing protocols described in Mesh-Networking (\vref{chap:mesh-network}).
 
-When a peer wants to enter content into the \gls{dht}, it generates the key for the content with the given hash function. The key is send together with the content to a known peer of the the \gls{dht} as \say{store-request}. When the peer is responsible for the key space of the given key it stores the key with the content otherwise it redirects the \say{store-request} to one of its known nodes where the peer id is closer to the key of the \say{store-request} of the overlay network. This step is repeated until the \say{store-request} reaches the peer responsible for the key space.
+When a peer wants to enter content into the \gls{dht}, it generates the key for the content with the given hash function. The key is send together with the content to a known peer of the the \gls{dht} as a \say{store-request}. When the peer is responsible for the key space of the given key it stores the key with the content. Otherwise it redirects the \say{store-request} to one of its known peers, where the peer id is closer to the key of the \say{store-request}. This step is repeated until the \say{store-request} reaches the peer responsible for the key space.
 
-Looking up content in the \gls{dht} works in a similar way. A peer sends a \say{content-request} with a hash to a known entry point. When a peer is responsible for the key space or has stored the content by itself due to a previous request it returns the content. Otherwise it redirects the request to another peer where the peer id is closer to the hash of the \say{content-request}.
+Looking up content in the \gls{dht} works similar. A peer sends a \say{content-request} with a hash to a known entry point. When a peer is responsible for the key space or has stored the content by itself, due to a previous request, it returns the content. Otherwise it redirects the request to another peer where the peer id is closer to the hash of the \say{content-request}.
 
 \subsubsection{\gls{dht} Implementations}
-There are a several different DHT implementations out there like Chord \cite{chord}, Pastry \cite{pastry}, Tapestry \cite{tapestry} and Kademlia \cite{kademlia} to name just a few.
+There are a several different \gls{dht} implementations out there like Chord \cite{chord}, Pastry \cite{pastry}, Tapestry \cite{tapestry} and Kademlia \cite{kademlia} to name just a few.
 According to \citet[]{tanenbaum_wetherall_2011} \say{You will find it difficult to come up with a paper that is cited more than the seminal Chord paper}
 
 \paragraph{Chord}
@@ -76,7 +76,7 @@ Chord uses consistent hashing which balances the load with a high probability du
 Consistent hashing is designed to let nodes enter and leave the network with minimal disruption}
 Peers are placed in an abstract circle with a size $\ m $ based on their hashed peer id where each peer is followed by a peer with a higher node id (successor). In a very basic implementation of Chord a peer only needs to know it successor peer. When a key id is queried each peer is passing it to its successor until it reaches the peer that is responsible of the key space. However, this is not not very efficient because in the worst case a query has to pass the whole circle until it finds its destination. To improve efficiency Chord introduces a finger table where each peer $\ n $ contains the address of the successor for each entry $\ i $ and $\ (n + 2^{i-1}) \mod 2^m $ where $\ m $ is the size of the circle and $\ 1 \leq i \leq m$. Through the finger table a peer can efficiently route a query request to its destination by using a known peer that is closer to the queried key. \citet[\S4.3]{chord} describe the process in their paper the following: \say{If $\ n $ can find a node whose ID is closer than its own to $\ k $, that node will know more about the identifier circle in the region of$\ k $ than $\ n $ does. Thus $\ n $ searches its finger table for the node $\ j $ whose ID most immediately precedes $\ k $, and asks $\ j $ for the node it knows whose ID is closest to $\ k $. By repeating this process, $\ n $ learns about nodes with IDs closer and closer to $\ k $}.
 
-\paragraph{Kademlia}
+\paragraph{Kademlia}\label{par:kademlia}
 Kademlia claims to be better than Chord by using a novel \gls{xor} metric which enables them to have a symmetry between keys and node ids \cite[\S1]{kademlia}. They also claim to be better than other algorithms like Pastry in terms of routing, by having one single routing algorithm to locate a peer for a key, while \say{other systems use one algorithm to get
 near the target ID and another for the last few hops}\cite[\S1]{kademlia}
 
@@ -120,9 +120,14 @@ They also give three definitions for the term \say{P2P Bootstrapping}:
         \item Once a P2P network is running, any new peer that joins must be integrated into the network
         \item Before a new peer can be integrated into an existing network, the new peer must somehow obtain contact information to at least one node in the existing P2P network
     \end{itemize}
-\end{quote} \citet[p.3]{p2p-bootstrapping}
+\end{quote} \citet[p. 3]{p2p-bootstrapping}
 
-One approach for the boarding process is a central server that provides a list of addresses where a client can enter. In early days of Gnutella a user could enter the network by getting some addresses from a website and pasting them into the Gnutella client \cite{gnutellaAnalysis}[\S3.2]. However, due to Peer Churn it was hard to keep the list of addresses up to date, which resulted in a lot of addresses of peers that were not in the network anymore. In a later version Gnutella tried to solve the problem by providing \say{Gnutella Web Cache} Servers which were mainting a list of active peers. A client could conneet to a \say{Gnutella We Cache} server to obtain a list of active peers to enter the network. Problems that are arising of having a server is that the server is a single point of failure, may no
+One approach for the boarding process is a central server that provides a list of addresses where a client can enter. In early days of Gnutella a user could enter the network by getting some addresses from a website and pasting them into the Gnutella client \cite[\S3.2]{gnutellaAnalysis}. However, due to Peer Churn it was hard to keep the list of addresses up to date, which resulted in a lot of addresses of peers that were not in the network anymore. In a later version Gnutella tried to solve the problem by providing \say{Gnutella Web Cache} Servers which were mainting a list of active peers. A client could conneet to a \say{Gnutella We Cache} server to obtain a list of active peers to enter the network. Problems that are arising of having a server is, that the server is a single point of failure, may not withstand the traffic (like in the case of Gnutella \cite[\S3.2]{gnutellaAnalysis}) and attackers can obtain lists of active peers which could be attacked then \cite[p.7]{p2p-bootstrapping}.
+
+Another approach that is taken by BitTorrent is having meta files with a specified entry point. BitTorrent calls those meta files \say{torrents}. The entry point is called \say{tracker}. When a user wants to enter the network it has to obtain a \say{torrent} by visiting one of the various torrent provider websites. Through the torrent file the client is connecting to the tracker and the tracker is making sure to connect the client with other clients to exchange data. BitTorrent has a lot of trackers and anyone can create one by them self. By having multiple instances there is no single point of failure.
+
+libp2p which is used by IPFS has two main boarding mechanisms. One is called \say{mDNS-discovery}. It is used to discover clients in the same network. \say{It emits mDNS beacons to find if there are more peers available. Local area network peers are very useful to peer-to-peer protocols, because of their low latency links.}\cite{ipfs-bootstrapping}.
+The second mechanism they have in place is called \say{bootstrap-list}. The \say{bootstrap-list} is a set of addresses a client can connect to. If one fails it tries the next one. As soon as the client is in the network it stores discovered peer addresses in a local database. The next time the client is using also using those addresses to enter the network.
 
 \subsection{Peer-to-Peer Issues}
 - Peer Churn -> unstable network

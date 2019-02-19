@@ -37,7 +37,7 @@ A client that receives a packet with a sequence number can check whether it has 
 \cref{fig:flooding} shows the flow of a packet that has been dispatched by \textit{A} with the sequence number \textit{\#1}. \textit{A} is increasing its own sequence number for the next packet. \textit{B} and \textit{C} receive the packet and as the sequence number is unknown to them they re-broadcast the message to their connected clients (\textit{B}$\rightarrow$\textit{C}\&\textit{D},  \textit{C}$\rightarrow$\textit{B}\&\textit{D}). \textit{B} and \textit{C} receive a packet with a sequence number both have already seen, so the message is discarded. The sequence number prevents an infinite back and forth hopping that would otherwise clog the network.
 
 The Flooding mechanism is tremendously effective when the task is to reach all clients in the network because it will find the shortest path to all clients due to the fact that all paths are tried.
-However it also generates a lot of overhead traffic. As seen in \cref{fig:flooding} \textit{B}$\leftrightarrow$︎\textit{C} and \textit{D}$\leftrightarrow$\textit{E} are sending the packets back to each other as they do not know that the counterpart has seen the packet already. The packet is dropped but still it is a unnecessary transmission.
+However it also generates a lot of overhead traffic. As seen in \cref{fig:flooding}, \textit{B}$\leftrightarrow$︎\textit{C} and \textit{D}$\leftrightarrow$\textit{E} are sending the packets back to each other as they do not know that the counterpart has seen the packet already. The packet is dropped but still it is a unnecessary transmission.
 
 \paragraph{Gossiping}\label{gossiping}
 Gossip Protocols take human nature and epidemics as a role model how to spread information inside the network. 
@@ -171,7 +171,7 @@ On receive of an \gls{ogm} the client is checking whether the sequence number is
 For a first-time seen sequence number the client is processing the \gls{tq} value of the \gls{ogm}. It is multiplying the calculated \gls{tq} to the last sender of the packet (witch results in a value between 0 and 1) with the current value of the packet. Then a hop penalty is subtracted (which is a configurable value) to punish routes with many hops because each hop in between could loose connectivity at any time.
 
 \begin{equation}
-\label{eq:transmit_quality}
+\label{eq:ogm_quality}
 new\_ogm\_tq = ogm\_tq * last\_hop\_tq * hop\_penalty
 \end{equation}
 
