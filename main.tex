@@ -46,12 +46,12 @@
 \documentclass[
                fontsize=12pt, %Default: 11pt, bei Linux Libertine zu klein zum Lesen
 % BEGINN: Optionen für typearea
-               paper=a4,
+               % paper=a4, CUSTOM OFF
                oneside,  % fuer die Betrachtung am Schirm ungeschickt
                BCOR=3mm, % Bindekorrektur
                DIV=12,   % je höher der DIV-Wert, desto mehr geht auf eine Seite. Gute werde sind zwischen DIV=12 und DIV=15
-               headinclude=true,
-               footinclude=false,
+               % headinclude=true, CUSTOM OFF
+               % footinclude=false, CUSTOM OFF
 % ENDE: Optionen für typearea
 %               titlepage,
                bibliography=totoc,
@@ -131,7 +131,7 @@
 \Titelblatt
 
 %Eigener Seitenstil fuer die Kurzfassung und das Inhaltsverzeichnis
-\deftripstyle{preamble}{}{}{}{}{}{\pagemark}
+\deftriplepagestyle{preamble}{}{}{}{}{}{\pagemark}
 %Doku zu deftripstyle: scrguide.pdf
 \pagestyle{preamble}
 \renewcommand*{\chapterpagestyle}{preamble}
