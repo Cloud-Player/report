@@ -49,8 +49,7 @@ As the file is addressable by its content hash and as the same file can live on 
 
 This is where the \glsfirst{dht} comes into play.
 
-\subsubsection{DHT}
-\glsreset{dht}
+\subsubsection{\glsfirst{dht}}
 As the name of the \gls{dht} indicates, it works like a hash table with a key–value pair but is distributed among multiple peers. An arbitrary value, that could be anything from an address to a file, is mapped to a key by using the hash function. The key space of the hash table is divided into buckets and distributed among the participants, each taking care of one bucket. This way, each participant is responsible for a bucket and does not need a global knowledge about all existing key–value pairs.
 
 To assign a bucket to a peer, first of all the peer has to be uniquely identifiable as well. Thus each peer get an identifier from the same id-space as the keys from the hash table. This could be for example a hash over the \gls{ip} address of a peer with the same hash function that was used for the key-value hash e.g. SHA-256.
@@ -75,18 +74,18 @@ According to \citet[\S7.5]{tanenbaum_wetherall_2011} \say{You will find it diffi
 Chord uses consistent hashing which balances the load with a high probability due to design of consistent hashing. \citet{consistentHashing} explains Consistent Hashing as \say{a distributed hashing scheme that operates independently of the number of servers or objects in a distributed hash table by assigning them a position on an abstract circle, or hash ring. This allows servers and objects to scale without affecting the overall system.} \citet[\S4.2]{chord} point out a big advantage: \say{
 Consistent hashing is designed to let nodes enter and leave the network with minimal disruption}.
 
-Peers are placed in an abstract circle with a size $\ m $ based on their hashed peer id, where each peer is followed by a peer with a higher node id (successor). A key on the table belongs always to next higher node id.
+Peers are placed in an abstract circle with a size $\ m $ based on their hashed peer id, where each peer is followed by a peer with a higher node id (successor). A key on the table belongs always to next higher node id. \vref{fig:chord-ring} shows a sample circle for 7 nodes. Key 95 would be stored at \textit{Node 100} because it is the successor.
 
 \begin{figure}
   \centering
-    \subfloat[Chord ring with $\m = 7 $ 7]{\includegraphics[width=0.5\textwidth]{graphics/chord-ring.pdf}
+    \subfloat[Chord ring with $\ m = 7 $]{\includegraphics[width=0.5\textwidth]{graphics/chord-ring.pdf}
     \label{fig:chord-ring}}
     \subfloat[Finger table for node 80]{\includegraphics[width=0.5\textwidth]{graphics/chord-finger-table.pdf} \label{fig:chord-finger-table}}
-	\caption{Adapted from }
+	\caption{Adapted from \cite{chord}}
 \label{fig:chord}
 \end{figure}
 
-In a very basic implementation of Chord, a peer only needs to know it successor peer. When a key id is queried each peer is passing it to its successor until it reaches the peer, that is responsible of the key space. However, this is not not very efficient because in the worst case a query has to pass the whole circle until it finds its destination. To improve efficiency, Chord introduces a finger table where each peer $\ n $ contains the address of the successor for each entry $\ i $ and $\ (n + 2^{i-1}) \mod 2^m $ where $\ m $ is the size of the circle and $\ 1 \leq i \leq m$. Through the \textit{finger table}, a peer can efficiently route a query request to its destination by using a known peer that is closer to the queried key. FIGURE BLA SHOWS A SAMPLE FINGER TABLE FOR NODE 80
+In a very basic implementation of Chord, a peer only needs to know it successor peer. When a key id is queried each peer is passing it to its successor until it reaches the peer, that is responsible of the key space. However, this is not not very efficient because in the worst case a query has to pass the whole circle until it finds its destination. To improve efficiency, Chord introduces a finger table where each peer $\ n $ contains the address of the successor for each entry $\ i $ and $\ (n + 2^{i-1}) \mod 2^m $ where $\ m $ is the size of the circle and $\ 1 \leq i \leq m$. Through the \textit{finger table}, a peer can efficiently route a query request to its destination by using a known peer that is closer to the queried key. \vref{fig:chord-finger-table} shows a sample \textit{finger table} for \textit{Node 80}.
 \citet[\S4.3]{chord} describe the process in their paper the following: \say{If $\ n $ can find a node whose ID is closer than its own to $\ k $, that node will know more about the identifier circle in the region of$\ k $ than $\ n $ does. Thus $\ n $ searches its finger table for the node $\ j $ whose ID most immediately precedes $\ k $, and asks $\ j $ for the node it knows whose ID is closest to $\ k $. By repeating this process, $\ n $ learns about nodes with IDs closer and closer to $\ k $}.
 
 \paragraph{Kademlia}\label{par:kademlia}
@@ -121,19 +120,18 @@ Each entry of the bucket has a \textit{last-seen} property that is updated whene
 The design of the protocol ensures that each node knows at least one other node of each subtree and therefore a node can find any other node by its id. To find a \textit{Node X} a \textit{Node A} sends a \textit{FIND\_NODE} request to a node of its buckets that is closest to \textit{Node X}, in terms of the \gls{xor} distance. This \textit{Node B} will then return a \textit{Node C} that is closer to \textit{Node X}. \textit{Node A} will then ask \textit{Node C} for the closest node it knows for \textit{Node X}. This step is repeated until \textit{Node A} finds \textit{Node X}. To speed up the process not only one node is asked but multiple nodes, that are the closest, are asked in parallel. Those nodes also return the closest nodes they know.
 
 Keys are  looked up similar like nodes. A key is stored at a node that is closest to the node id. When a node wants to publish a key it sends a \textit{STORE} request to known nodes that are the closest to the id.
-To lookup a key a node sends a \textit{FIND\_VALUE} request to the closest nodes. The process works like finding a node but it terminates as soon as one node returns the stored key.
+To look up a key, a node sends a \textit{FIND\_VALUE} request to the closest nodes. The process works like finding a node but it terminates as soon as one node returns the stored key.
 
 \subsection{Peer Discovery}
 To enter a Peer-to-Peer system there has to be an entry point where new peers can join. 
 \citet{p2p-bootstrapping} describe this procedure as \say{P2P bootstrapping}. 
 They also give three definitions for the term \say{P2P Bootstrapping}:
-\begin{quote}
-    \begin{itemize}
+\begin{itemize}
         \item Starting a new P2P network (freshly designed protocol)
         \item Once a P2P network is running, any new peer that joins must be integrated into the network
         \item Before a new peer can be integrated into an existing network, the new peer must somehow obtain contact information to at least one node in the existing P2P network
-    \end{itemize}
-\end{quote} \citet[p. 3]{p2p-bootstrapping}
+\end{itemize}
+\citet[p. 3]{p2p-bootstrapping}
 
 One approach for the boarding process is a central server that provides a list of addresses where a client can enter. In early days of Gnutella a user could enter the network by getting some addresses from a website and pasting them into the Gnutella client \cite[\S3.2]{gnutellaAnalysis}. However, due to Peer Churn it was hard to keep the list of addresses up to date, which resulted in a lot of addresses of peers that were not in the network anymore. In a later version Gnutella tried to solve the problem by providing \say{Gnutella Web Cache} Servers which were maintaining a list of active peers. A client could connect to a \say{Gnutella We Cache} server to obtain a list of active peers to enter the network. Problems that are arising of having a server is, that the server is a single point of failure, may not withstand the traffic (like in the case of Gnutella \cite[\S3.2]{gnutellaAnalysis}) and attackers can obtain lists of active peers which could be attacked then \cite[p. 7]{p2p-bootstrapping}.
 
@@ -142,7 +140,16 @@ Another approach that is taken by BitTorrent is having meta files with a specifi
 libp2p which is used by IPFS has two main boarding mechanisms. One is called \say{mDNS-discovery}. It is used to discover clients in the same network. \say{It emits mDNS beacons to find if there are more peers available. Local area network peers are very useful to peer-to-peer protocols, because of their low latency links.}\cite{ipfs-bootstrapping}.
 The second mechanism they have in place is called \say{bootstrap-list}. The \say{bootstrap-list} is a set of addresses a client can connect to. If one fails the client tries the next one. As soon as the client is in the network it stores discovered peer addresses in a local database. The next time the client is using also using those addresses to enter the network.
 
-\subsection{Peer-to-Peer Issues}
-- Peer Churn -> unstable network
+\subsection{Peer–to–Peer Issues}
+Regardless of structure (ring, tree or mesh), \gls{p2p} overlay networks have to overcome similar issues to compete with traditional, client–server paradigms. Because peers naturally have shorter online spans than servers, overlays must be built quickly and constantly adapt to peers joining and leaving. Because peers are part of the infrastructure, such networks must protect against different attack and abuse vectors.
+
+\paragraph{Creation}
+- overlay creation -> timetofirstbyte
+
+\paragraph{Maintenance}
+- Peer Churn -> unstable network \cite{dht-churn}
+For the network to perform well, it is also important to utilise the full potential of all participating devices. As \citet[\S{III}]{multicast-problems} point out, not utilising leaf nodes in a tree network or disregarding a devices individual capabilities, would be two common issues of this category.
+
+\paragraph{Abuse}
 - Leechers
-- 
+- security?

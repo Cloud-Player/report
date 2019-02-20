@@ -27,7 +27,7 @@ Because HTTP streaming protocols are not built on multicasting, even popular liv
 
 \begin{figure}
 \centering
-\includegraphics[width=.5\textwidth]{graphics/streaming-types.pdf}
+\includegraphics[width=.75\textwidth]{graphics/streaming-types.pdf}
 \caption{Centralised versus decentralised video streaming architecture}
 \label{fig:de-central-architectures}
 \end{figure}
@@ -45,15 +45,7 @@ DONet, which was first implemented in the widely researched CoolStreaming, was i
 \paragraph{AnySee}
 Mesh–based streaming networks like CoolStreaming can achieve good utilisation of peer bandwidth and discover fresh peers with low overhead \cite[\S{II}]{anysee}. However, \citet[\S{III}]{anysee} find that, "Due to the random selection algorithm, the quality of service cannot be guaranteed, such as the startup delay". AnySee evolves \gls{p2p} streaming nodes with a set of manager components \citep[\S{III.B-F}]{anysee}. 1) The \textit{Mesh-based Overlay Manager} actively tries to align the mesh network with the physical network by flooding its neighbourhood with \gls{ttl}–bound messages and re–aligning overlay connections. 2) The \textit{Single Overlay Manager} measures and propagates a nodes time offset from the video source and ensures the streaming path is arranged according to this offset. 3) The \textit{Inter-overlay Optimization Manager} secures a set of backup streaming paths through a delay–based tracing algorithm. 4) The \textit{Key Node Manager} queues requests and prioritises stream requests from other peers. 5) The \textit{Buffer Manager}'s task is to request upstream video and providing it to the applications \gls{ui}.
 
-+ continuouity index
-+ buffer size 120 vs 40 seconds
-- timestamps be shitty
-
 Further, AnySee introduces location awareness to encourage peer partnering close to their geographical vicinity \citep[\S{V.B.1}]{anysee}. In their initial implementation, this was achieved by matching \gls{ip} addresses of their research network (\gls{cernet}) to known building locations.
 
 \paragraph{HLPSP}
 Another refinement to CoolStreaming was introduced by \citet*{hlpsp} called \gls{hlpsp}. This approach creates a layered hierarchy in which peers with higher uploads are positioned in levels closer to the video source. Peers then serve other peers in their own or subsequent levels \cite[\S3]{hlpsp}. The gauging of bandwidth is left up to the network entry point (also referred to as signal server or tracker). This central server assigns a level to a newcomer and provides a list of possible connection partners. If not enough suitable partners are found, the tracker scans the hierarchy and downgrades peers to free capacity on the newcomers level \cite[\S3.3.2]{hlpsp}. This results in efficient bandwidth utilisation, but only accounts for single source scenarios.
-
-- routing
-- overlay creation -> timetofirstbyte
-- ...problems of streamer cite

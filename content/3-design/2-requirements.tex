@@ -1,0 +1,14 @@
+\section{Requirements}
+
+\begin{itemize}
+    \item Browser restrictions / Max defined connections / Client strebt connections an
+    \item WebRTC connection negotiation restricition. Connection kann nur über mittelsman aufgemacht werden
+    \item Jeder Client soll dezentralen zustand anstreben -> Connection zu zentralen komponentnen lösen (Signal)
+    \item Churn Restistance / Self healing
+    \item Gobbel detetection wenn client verbindung zum "hauptnetzwerkverliert" soll dies erkannt werden
+    \item Baustein/SDK mit einfacher schnittstelle um usecase unabhängig sein (Transparencey)
+    \item Deterministische Simulationsumgebung um algorithmus verifizieren zu können
+    \item So nah wie möglich an real time
+    \item Modularer Codeaufbau um einfache Erweiterung in Zukunft zu ermöglichen (Erweiterung von Transportlayern / Rollen / MessageTypes)
+    \item Unterstützung von verschiendenen Tranportlayern sodass algorithmus connection layer agnostisch ist (WSS/WebRTC/Bluetooth/...)
+\end{itemize}

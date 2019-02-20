@@ -37,23 +37,22 @@ A client that receives a packet with a sequence number can check whether it has 
 \cref{fig:flooding} shows the flow of a packet that has been dispatched by \textit{A} with the sequence number \textit{\#1}. \textit{A} is increasing its own sequence number for the next packet. \textit{B} and \textit{C} receive the packet and as the sequence number is unknown to them they re-broadcast the message to their connected clients (\textit{B}$\rightarrow$\textit{C}\&\textit{D},  \textit{C}$\rightarrow$\textit{B}\&\textit{D}). \textit{B} and \textit{C} receive a packet with a sequence number both have already seen, so the message is discarded. The sequence number prevents an infinite back and forth hopping that would otherwise clog the network.
 
 The Flooding mechanism is tremendously effective when the task is to reach all clients in the network because it will find the shortest path to all clients due to the fact that all paths are tried.
-However it also generates a lot of overhead traffic. As seen in \cref{fig:flooding}, \textit{B}$\leftrightarrow$︎\textit{C} and \textit{D}$\leftrightarrow$\textit{E} are sending the packets back to each other as they do not know that the counterpart has seen the packet already. The packet is dropped but still it is a unnecessary transmission.
+However it also generates a lot of overhead traffic. As seen in \vref{fig:flooding}, \textit{B} $\leftrightarrow$ ︎\textit{C} and \textit{D} $\leftrightarrow$ \textit{E} are sending the packets back to each other as they do not know that the counterpart has seen the packet already. The packet is dropped but still it is a unnecessary transmission.
 
 \paragraph{Gossiping}\label{gossiping}
+\largepage
 Gossip Protocols take human nature and epidemics as a role model how to spread information inside the network. 
 In a nutshell it works similar to \textit{Flooding} but instead of sharing a packet with all direct connected clients only a subset is selected where the packet is transmitted to. There are different selection strategies like random selection or selection based on a heuristic. 
 Clients that were \say{infected} repeat the same procedure. This is almost as effective as \textit{Flooding} as \citet{riviere_voulgaris_2011} phrase it \say{Making a random selection out of a random subset of all nodes is equivalent to making a random selection out of \textit{all} nodes.}
 However, as the there is a client selection it is not as efficient as \textit{Flooding} in terms of time until the packet has reached all clients.
 
-\citet{Jelasity2011} describes two models of \textit{Gossip}: SI and SIR. 
+\citet{Jelasity2011} describes two models of \textit{Gossip} SI and SIR:
 
-\begin{quote}
 \begin{itemize}
 \item susceptible (S): The node does not know about the update
 \item infected (I): The node knows the update and is actively spreading it
 \item removed (R): The node has seen the update, but is not participating in the spreading process (in epidemiology, this corresponds to death or immunity)
 \end{itemize}
-\end{quote}
 \cite[\S1.2.2]{Jelasity2011}
 
 Those are the three states a client can have when a \textit{Gossip} packet is spread through the network.
@@ -182,7 +181,7 @@ The \gls{tq} of the Routing-Table helps a client to determine which is the best 
 
 \begin{figure}
 \centering
-\includegraphics[width=1\textwidth]{graphics/batman.pdf}
+\includegraphics[width=0.7\textwidth]{graphics/batman.pdf}
 \caption{Sample graph}
 \label{fig:sample-graph-with-tq}
 \end{figure}
