@@ -1,0 +1,13 @@
+\section{Mitosis-Stream}
+Mitosis-Stream is extending the Mitosis-Core with streaming functionality. While Mitosis-Core is responsible to set up an overlay network the Mitosis-Stream module is responsible to set up a \glsfirst{dag} to deliver video streams. The \gls{dag} is created over the existing overlay network.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{graphics/implementation/mitosis-architecture-mitosis-stream.pdf}
+\caption{Mitosis-Stream}
+\label{fig:mit-stream}
+\end{figure}
+
+As presented in \vref{fig:mit-stream} Mitosis-Stream brings its own components and interacts with Mitosis-Core via the given interface. 
+
+\subsection{ChannelManager}

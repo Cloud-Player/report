@@ -1,0 +1,97 @@
+\section{RemotePeer Meter Metrics}
+\begin{Listing}[H]
+\begin{lstlisting}[xleftmargin=3em]
+lastSeen = 0
+for connection of allConnections
+  lastSeen = max(lastSeen, connection.lastSeen)
+\end{lstlisting}
+\caption{Youngest LastSeen of all Connections}
+\label{lst:mit-last-seen}
+\end{Listing}
+
+\begin{Listing}[H]
+\begin{lstlisting}[xleftmargin=3em]
+lastSeen = getYoungestLastSeen()
+isCrashed = currentTick - lastSeen > GLOBAL_CRASH_THRESHOLD
+\end{lstlisting}
+\caption{RemotePeer is crashed}
+\label{lst:mit-crashed}
+\end{Listing}
+
+\begin{Listing}[H]
+\begin{lstlisting}[xleftmargin=3em]
+qualitySum = 0
+for connection of allConnections
+  qualitySum += connection.quality
+averageQuality = qualitySum / allConnections.size  
+\end{lstlisting}
+\caption{Average connection quality}
+\label{lst:mit-average-connection-quality}
+\end{Listing}
+
+\begin{Listing}[H]
+\begin{lstlisting}[xleftmargin=3em]
+bestQuality = 0
+for connection of allConnections
+  bestQuality = max(bestQuality, connection.quality)
+\end{lstlisting}
+\caption{Get best connection quality}
+\label{lst:mit-best-connection-quality}
+\end{Listing}
+
+\begin{Listing}[H]
+\begin{lstlisting}[xleftmargin=3em]
+hasProtectedConnection = false
+for connection of allConnections
+  if connection is protected
+    hasProtectedConnection = true
+    
+hasNotSatisfiedConnectionGoal = 
+  reportedDirectConnections < GLOBAL_CONNECTION_GOAL 
+
+isProtected = 
+  hasNotSatisfiedConnectionGoal && hasProtectedConnection  
+\end{lstlisting}
+\caption{Is a protected RemotePeer}
+\label{lst:mit-welpenschutz}
+\end{Listing}
+
+\begin{Listing}[H]
+\begin{lstlisting}[xleftmargin=3em]
+allViaCons = peer.getAllViaConnectionsTo(remotePeer)
+allDirectCons = peer.getAllDirectConnections(remotePeer)
+
+totalCons = allViaCons  allDirectCons
+saturation = 
+  (GLOBAL_DIRECT_CON_MAXIMUM - totalCons) / GLOBAL_CONNECTION_GOAL
+
+saturation = limit(0, saturation, 1)
+\end{lstlisting}
+\label{lst:mit-connection-saturation}
+\caption{Connection saturation of a RemotePeer}
+\end{Listing}
+
+\begin{Listing}[H]
+\begin{lstlisting}[xleftmargin=3em]
+punishedConnectionAvg = 
+  punishedConnections / totalDirectConnections
+\end{lstlisting}
+\label{lst:mit-punished-conenctions}
+\caption{Punished connections average}
+\end{Listing}
+
+\begin{Listing}[H]
+\begin{lstlisting}[xleftmargin=3em]
+reportQuality = bestConnectionQuality * connectionSaturation
+\end{lstlisting}
+\label{lst:mit-remote-peer-quality-report}
+\caption{Quality of a RemotePeer for PeerUpdate}
+\end{Listing}
+
+\begin{Listing}[H]
+\begin{lstlisting}[xleftmargin=3em]
+quality = avgConnectionQuality * (1 - avgConnectionPunishment)
+\end{lstlisting}
+\label{lst:mit-remote-peer-quality}
+\caption{Quality of a RemotePeer}
+\end{Listing}

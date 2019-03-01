@@ -1,0 +1,37 @@
+\section{System Overview}
+
+The proposed system facilitates distributed live streaming in a \gls{p2p} overlay network. The network is comprised of the devices of the system's users (peers) and their respective internet access. Each peer contributes processing and networking resources and can provide or receive video feeds. As peers are mainly powered by consumer hardware and varying network conditions, strict connection and bandwidth limits apply. Therefore, a fully–connected network without peers forwarding streams disqualifies itself in regards to scalability.
+
+Instead, peers build a partially–connected mesh that allows \textit{proactive routing} and \textit{gossip}–based content and peer discovery. The design includes methods for the creation, life and demise of the mesh network that are inspired by protocols like BitTorrent, Kademlia and BATMAN \cite{TODO}. Each peer acts autonomously: running its own event loop and executing commands timed by an internal clock or reacting to the behaviour of others.
+
+Peers can be seen as agents of a \gls{mas} \cite{TODO-multiagent} as they continuously strive to achieve a set of goals to improve their own position and thereby contribute to an overall better network \cite{convergance}.
+As they join the system, peers start with equal goals but may be assigned additional roles that give them more power and more responsibilities. Roles follow a hierarchical order but peers need not trust each other \cite{hmmmm-TODO}.
+
+When a live video is to be delivered, the network uses its routing knowledge to span a \gls{dag} over the networks placing the most reliable peers crucial intersections. The stream is then delivered to all peers in the system through a combination of push and pull mechanisms.
+
+As the program relies entirely on \gls{js} and web \glspl{api}, it can easily be integrated into static a web page. The only servers the system employs are those serving the web page and those acting as entry points. Neither needs to maintain persistent state and either can be duplicated without coordination.
+
+\subsection{Network}
+With peer lifetime being strictly tied to the duration a user's browser remains open and connected, the system is expected to be rather fragile. Peers will join and leave unexpectedly and the streaming paths will need to be adjusted constantly. Therefore, peers must be able to quickly find alternative paths.
+
+It is also important to note, that the video streams will form a \gls{dag} spanning outwards from the stream creator. The creator will produce $1$ stream and send out $s$ streams to its direct connections. Other peers should receive $r > 1$ streams and send out $s > r$ streams. Whereas $r$ and $s$ will depend on the networking bandwidth of individual peers as well as video quality and codec. This means, that the stability of the system very much relies on the performance of peers adjacent to the root.
+
+So, if such a graph is to be constructed, it is vital that peers have already found their optimal neighbours and select their best outward connections for passing the stream on. For that reason, the proposed system constructs an overlay network, independent from video actually being \textit{on air}.
+
+\subsection{Cluster}
+TODO
+- introduce concept of cluster
+- introduce peer table
+- explain how three-way-webrtc makes everything complicado af
+    - firewall/nat punching
+
+\paragraph{Optimisation}
+Peers do have a fixed connection count, but rather a two configurable ranges: a hard minimum and maximum and within that a goal range with upper and lower bound. Any connection count falling in the goal range, does not trigger desires to add or remove connections.
+- connection min, goal, max
+- connection metering
+- connection exploration
+- Convergence
+
+\subsection{Self Optimisation}
+- Metering
+- Try other peers

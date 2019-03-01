@@ -59,7 +59,8 @@
 % Abkürzungsverzeichnis
 \usepackage{scrwfile} % Wichtig, ansonsten erscheint "No room for a new \write"
 % siehe http://www.dickimaw-books.com/cgi-bin/faq.cgi?action=view&categorylabel=glossaries#glsnewwriteexceeded
-\usepackage[acronym,indexonlyfirst,nomain]{glossaries}
+% \usepackage[acronym,indexonlyfirst,nomain]{glossaries} CUSTOM
+\usepackage[acronym,indexonlyfirst]{glossaries}
 \ifdeutsch
 \renewcommand*{\acronymname}{Abkürzungsverzeichnis}
 \else
@@ -70,7 +71,8 @@
 % Removed Glossarie as a table as a quick fix to get the template working again
 % see http://tex.stackexchange.com/questions/145579/how-to-print-acronyms-of-glossaries-into-a-table
 %
-\makenoidxglossaries
+% \makenoidxglossaries CUSTOM
+\makeglossaries
 %%%
 
 

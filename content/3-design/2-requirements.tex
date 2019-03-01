@@ -1,14 +1,34 @@
 \section{Requirements}
 
-\begin{itemize}
-    \item Browser restrictions / Max defined connections / Client strebt connections an
-    \item WebRTC connection negotiation restricition. Connection kann nur über mittelsman aufgemacht werden
-    \item Jeder Client soll dezentralen zustand anstreben -> Connection zu zentralen komponentnen lösen (Signal)
-    \item Churn Restistance / Self healing
-    \item Gobbel detetection wenn client verbindung zum "hauptnetzwerkverliert" soll dies erkannt werden
-    \item Baustein/SDK mit einfacher schnittstelle um usecase unabhängig sein (Transparencey)
-    \item Deterministische Simulationsumgebung um algorithmus verifizieren zu können
-    \item So nah wie möglich an real time
-    \item Modularer Codeaufbau um einfache Erweiterung in Zukunft zu ermöglichen (Erweiterung von Transportlayern / Rollen / MessageTypes)
-    \item Unterstützung von verschiendenen Tranportlayern sodass algorithmus connection layer agnostisch ist (WSS/WebRTC/Bluetooth/...)
-\end{itemize}
+\begin{enumerate}
+\itembf{Media Streaming}
+The system must allow streaming of digitally encoded audio and video data from producers to consumers over a common network. All participants should be able contribute media streams of their own and to receive streams from others. Transport of streams must not rely on caching layers and should be delivered to consumers with as little latency as possible.
+
+\itembf{Distributed}
+The system must distribute the delivery of streams across its components. Components must coordinate with each other to find optimal routing paths. Coordination should be achieved by sending messages over a self–sustaining overlay network.
+
+\itembf{Decentralised}
+Each component must contribute to its best ability towards the success of the global system. There should be no \textit{single point of failure} and no \textit{single point of authority}. At most, components should rely on central points for entering the system and should disregard them upon successful entry.
+
+\itembf{Browser–native}
+Component logic must be executable by modern browsers without the need for plugins or extensions. It must integrate with current browser \glspl{api} for connectivity and media interactions. Performance budgets of a typical browsing client should be taken into consideration. Therefore, the video processing workload and network bandwidth consumption should be kept as low as possible.
+
+\itembf{Connectivity}
+Connections between components must be agnostic to their underlying communication protocol. There should be support for multiple types of connections and the system should be easily extensible. Since \gls{webrtc} provides the most powerful \gls{p2p} connectivity for browsers, it should be the baseline connection type. Possibly necessary connection negotiations should not interfere with higher level algorithms of a component.
+
+\itembf{Elasticity}
+The system must be able to emerge, expand and degrade quickly and according to demand of participating users. It should also detect when physical scaling limits are reached and reject further growth that would hurt its stability.
+
+\itembf{Resilience}
+As the system will mostly run on user hardware, it must account for individual users suddenly leaving and bulks of new users joining simultaneously. This process is commonly called \textit{churn resilience} \cite{churn-resilience, stutzbach_rejaie_2006}. The system must be \textit{self–healing} in that it recovers from components leaving important positions and quickly reach a stable state again. It should also be detect and recover from (groups of) components becoming isolated from the main network.
+
+\itembf{Transparency}
+The system should provide a transparent \glsfirst{sdk}. It should provide concise interfaces for building distributed media streaming applications on top of it, without requiring the developer to know all components, cf. \citet[pp. 23-25]{distributed-systems-concepts-design}. Further, the system should not dictate a specific use case.
+
+\itembf{Modularity}
+The software design should be modular and be built with extensibility in mind. New communication protocols, data and stream formats and components should be integratable through generic interfaces and hooks.
+
+\itembf{Verifiability}
+The algorithms should be easily verifiable in a simulation and visualisation environment. Therefore, the software should not rely on randomness outside of cryptography and sufficiently isolate components to allow multitenancy.
+
+\end{enumerate}

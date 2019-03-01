@@ -1,0 +1,9 @@
+\subsection{Clock}\label{sec:mit-clock}
+The heart of Mitosis-Core is the Clock. It gives the heartbeat for the whole algorithm to work. When the clock is stopped the inner workings of the algorithms are paused until the clock starts running again. However, stopping the clock does not mean the the application execution is stopped. Only components that are subscribed on a clock tick (e.g. the RoleManager that is described in \vref{sec:mit-roleManager}) are paused. If a Client receives a message and the clock is stopped the message will still be processed.
+
+In a real world scenario the clock would not be stopped, but for debugging purposes stopping the clock sometimes becomes really handy. Especially in the simulation environment. Another speciality is that Mitosis-Core accepts an external Clock during instantiation. In the simulation environment this allows to have one global clock that all Mitosis instances are listing on. 
+To freeze the simulation it is as simple as stopping the global clock. A developer then might check the state of all instances before she can start the clock again to continue the simulation.
+
+The clock also abstracts the time unit of the machine and creates its own one. The new time unit is called tick $\ t $. By setting the interval of the clock the tick interval can be configured. The default interval is $\ 1t/s $.
+
+A fork of the clock creates a new time unit relative to the interval of the master clock. Hence, a new tick interval can be configured. For example when the master clock is running with $\ 1t/s $ the tick interval of the forked clock can be set to a $\ 0.1t/s $. Thus, a tick is triggered every $\ 10s $. However, a forked clock can never tick faster then the master clock.

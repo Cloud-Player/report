@@ -1,0 +1,29 @@
+\subsection{Peers}
+The decentralised overlay is made up of heterogeneous peers with varying network conditions, geographical locations and device performance. Reaching an optimal state is complex to achieve and not even conclusive to describe. The following examples give some example objectives to optimise:
+\begin{itemize}
+    \itembf{Geographical proximity}
+    The overlay relies on common internet infrastructure and therefore can only provide connection quality as good as the underlying layers. Generally, the closer peers are geographically, the better their connections will be. This means that peers should preferably connect to others in their proximity.
+    \itembf{Load balancing}
+    Most large–scale networks and services need ways to distribute load on network and computing hardware. TODO... In a decentralised overlay, peers need to independently help to distribute load. They must prevent congesting routing paths and protect themselves and others from exhausting their resources.
+    \itembf{Something third}
+    TODO...
+\end{itemize}
+
+However, there can be no reliable node with complete knowledge of the network. All peer nodes only have a limited view, that includes its own direct connections and a set of virtual connections that got reported externally. Even if nodes are privileged to more knowledge, they can never be completely accurate due to network latency and possible node failure. Additionally, there is the issue of trust, which will be further discussed in \ref{TODO}. This means, nodes have to act independently and the system must rely on the optimisation of individual nodes leading to a stable system. \citet*[V.B]{coolstreaming-design-theory} identify this property as \textit{self–convergence}. They argue, that such a network will eventually converge to a stable state as long as peers are more likely to acquire new stable connections and they are to connect to and become dependent on unstable peers. The efficiency with which this state is reached depends on unswayable network factors like average bandwidth and the existence of \textit{high–bandwidth peers}. Though, primarily it depends on peers being able to find the optimal connections.
+
+\paragraph{Belief}\label{par:bdi-belief}
+To design adaptive node strategies capable of these challenges, the proposed system models nodes after the \gls{bdi} pattern for multi–agent systems, as discussed in \cite{TODO}.
+Nodes store their own connections and those reported by their direct neighbours in a local look–up table, referred to as \peerTable further on. This table represents the core \textit{believes} a node maintains.
+
+\paragraph{Desire}\label{par:bdi-desire}
+A common \textit{desire} peers have, is to find the best possible connections. The \textit{quality} of a connection is determined by 1) its physical capabilities like bandwidth and latency and 2) its peering value or \textit{information entropy}. The latter, will be higher for peers that are themselves well connected and can reach other important peers and lower for leaf nodes without any valuable connection.
+Peers have to figure out whom to keep and whom to replace without endangering its own or its neighbour's stability. If a peer decides to drop a connection, its prior partner becomes more vulnerable and has to regain connection saturation. In an extreme case, where one peer is abandoned by all neighbours before having the chance to acquire new peers, it will have to re–join. To avoid this instability the \textit{out–degree} of nodes, i.e. the maximum connections per node, has to be sufficiently high and nodes have to be careful when swapping connections.
+
+TODO: Graphic with one node about to eclipse itself
+
+\paragraph{Intention}\label{par:bdi-intention}
+To reach their desired state, nodes formulate \textit{intentions} and plan actions. In practice, nodes' actions and thereby intentions are limited to: (1) discarding under–performing peers, (2) choosing new peers to connect to and (3) publishing its own beliefs on the state of the network.
+
+TODO
+- trust
+- have roles

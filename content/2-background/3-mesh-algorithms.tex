@@ -108,7 +108,7 @@ Client discovery, path discovery and maintenance are tasks that \textit{Reactive
 \subsection{Reactive Routing}
 Reactive protocols act passively, meaning that they are not actively looking for clients but only when a packet has to be forwarded to an unknown client.
 When a packet is received by a client that is not meant to be the receiver, the client has to forward the packet. In case it does not know any routing information how the receiver can be reached it has to acquire routing information. 
-To acquire routing information it can make use of \textit{Flooding} (\cref{flooding}) and flood a route request to its directly connected clients. \say{These neighbors forward the route request packet to their neighbors and this process goes on until either the target node or an intermediate node with a valid route to target node is located. Each node receiving a particular route request packet broadcasts it only once to its neighbors, and it discards the subsequent receptions of the same route request packet, to minimise routing overhead} as described by \citet[\S1.3]{Mukhija_Arun}. 
+To acquire routing information it can make use of \textit{Flooding} (\cref{flooding}) and flood a route request to its directly connected clients. \say{These neighbours forward the route request packet to their neighbours and this process goes on until either the target node or an intermediate node with a valid route to target node is located. Each node receiving a particular route request packet broadcasts it only once to its neighbours, and it discards the subsequent receptions of the same route request packet, to minimise routing overhead} as described by \citet[\S1.3]{Mukhija_Arun}. 
 Protocols that are reactive are for example AODV, DSR, TORA whitch are compared by \citet{kalwar_2010}
 
 \subsection{Proactive Routing}
@@ -130,7 +130,7 @@ Each client is maintaining also a \textit{Routing table} which aggregates the \t
 
 Based on the \textit{Routing table} a client tries to find the optimal path to each entry. \citet[\S4.4]{jacquet_muhlethaler_clausen_laouiti_qayyum_viennot} describe in detail how the routing table is calculated.
 
-\subsection{B.A.T.M.A.N}
+\subsection{B.A.T.M.A.N}\label{sec:batman}
 Another approach is the \textit{B.A.T.M.A.N} Protocol which stands for \textbf{B}etter \textbf{A}pproach \textbf{T}o \textbf{M}obile \textbf{A}d hoc \textbf{N}etworking and is developed by the Freifunk Community.
 
 It is making use of \textit{gossiping}(\ref{gossiping}) to disseminate \glspl{ogm} through the network. Each client is sending a \gls{ogm} to their direct neighbour. \say{These neighbors are re-broadcasting the OGMs according to specific rules to inform their neighbors about the existence of the original initiator of this message and so on and so forth. Thus the network is flooded with originator messages.} as described in the concept of \citet{batman}.

@@ -87,7 +87,7 @@
 %Angaben in die PDF-Infos uebernehmen
 \makeatletter
 \hypersetup{
-            pdftitle={Developing a Distributed MediaStreaming Application},
+            pdftitle={Developing a Distributed Media Streaming Application},
             pdfauthor={Alexander Zarges, Nicolas Drebenstedt},
             pdfkeywords={},
             pdfsubject={}
@@ -178,7 +178,7 @@
 % \addtocontents{toc}{\protect\newpage}
 % an der passenden Stelle im Fließtext erzwungen werden.
 
-%\listoffigures
+\listoffigures
 %\listoftables
 
 %Wird nur bei Verwendung von der lstlisting-Umgebung mit dem "caption"-Parameter benoetigt
@@ -187,7 +187,7 @@
 \ifdeutsch
 %\listof{Listing}{Verzeichnis der Listings}
 \else
-%\listof{Listing}{List of Listings}
+\listof{Listing}{List of Listings}
 \fi
 
 %mittels \newfloat wurde die Algorithmus-Gleitumgebung definiert.
@@ -200,7 +200,9 @@
 %\listofalgorithms %Ist nur für Algorithmen, die mittels \begin{algorithm} umschlossen werden, nötig
 
 % Abkürzungsverzeichnis
-\printnoidxglossaries
+% \printnoidxglossaries CUSTOM
+\printglossary[type=\acronymtype]
+\printglossary
 
 \iftex4ht
 \else
@@ -230,6 +232,9 @@
 %\renewcommand{\appendixname}{Anhang}
 %\renewcommand{\appendixpagename}{Anhang}
 \appendix
+\chapter{Appendix}
+\input{appendix/remote-peer-meter-metrics.tex}
+
 
 \clearpage
 

@@ -1,53 +1,11 @@
-
 \chapter{Implementation}
-\begin{itemize}
-    \item Architektur (Mitosis/Sim/Viz/CLI)
-    \item Mitosis
-    \begin{itemize}
-        \item Address
-        \item Roles
-        \begin{itemize}
-            \item Rolemanager
-            \item Roles
-        \end{itemize}
-        \item Peermanager
-        \item Peertable/Conenctiontable
-        \item Messages
-        \begin{itemize}
-            \item Message broker
-            \item Message types
-        \end{itemize}
-        \item Clock
-        \item Vorstellung der Rollen
-        \item Connections
-        \begin{itemize}
-            \item Unterschiedliche Connections vorstellen
-            \item Connection aufbau
-            \item Metering
-        \end{itemize}
-    \end{itemize}
-    \item Simulation
-    \begin{itemize}
-        \item Instructions
-        \item Scenarios / Scenarioparser
-        \item MockConnections
-        \item One clock to rule them all
-    \end{itemize}
-    \item Visualiserung
-    \begin{itemize}
-        \item D3
-        \item Vorstellung der UI (peer-tab/message/log/stats)
-    \end{itemize}
-    \item CLI
-    \begin{itemize}
-        \item Run simulation in node
-        \item Automate parametrized benchmarking
-        \item Export results in csv/json
-        \item Plot results of svg/json
-    \end{itemize}
-    \item Symbiosis
-        \item Vorstellung der UI
-\end{itemize}
-
-\input{content/4-implementation/1-Architecture.tex}
+\input{content/4-implementation/1-architecture.tex}
 \newpage
+\input{content/4-implementation/2-mitosis.tex}
+\input{content/4-implementation/2-mitosis-components/0-index.tex}
+\newpage
+\input{content/4-implementation/3-mitosis-stream.tex}
+\newpage
+\input{content/4-implementation/4-analysis-tools/0-index.tex}
+\newpage
+\input{content/4-implementation/5-symbiosis.tex}

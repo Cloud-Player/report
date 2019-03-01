@@ -5,11 +5,19 @@
 % quotes -> \say{}
 \usepackage{dirtytalk}
 
+\usepackage{xspace}
+
 \usepackage[utf8]{inputenc}
 
+\usepackage{color}
 \usepackage{multicol}
 \usepackage{courier}
 \usepackage{listings} %For code in appendix
+
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+
 \lstset
 { %Formatting for code in appendix
     basicstyle=\footnotesize\ttfamily,
@@ -23,5 +31,26 @@
     escapechar=|
 }
 
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, const, let, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
 % tables
 \usepackage{tabu}
+
+% rotate images
+\usepackage{rotating}
+
+\crefname{listing}{listing}{listings}
+\Crefname{listing}{Listing}{Listings}

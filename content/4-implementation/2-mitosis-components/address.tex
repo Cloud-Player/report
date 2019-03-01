@@ -1,0 +1,44 @@
+\subsection{Address}\label{sec:mit-address}
+Addresses have an essential role for the communication between peers. Each peer in the network is addressable by its address in order to exchange data. 
+However, the \gls{ip} address of a peer can not be used because a browser application can not open a direct connection to another peer by its \gls{ip}, as described in \vref{sec:webrtc}. 
+Thus an address in Mitosis is a virtual abstraction of the physical address. 
+
+The chosen address format is inspired by \textit{Multiaddr}\footnote{Multiaddr. URL: {https://multiformats.io/multiaddr}} which \say{is a format for encoding addresses from various well-established network protocols}\cite{multiaddr}. It was originally invented by Juan Benet (the founder of IPFS) with the goal to create future proof and self describable addresses that support multiple transport protocols. 
+
+\vref{lst:mit-address} shows the format of the Mitosis address and gives a few samples for valid addresses.
+
+The first parameter is the \textit{version number} of the Mitosis version that a peer is running. This ensures that future protocol changes are possible and backwards compatibility is theoretically possible.
+
+After the version number comes the \textit{peer id}. The peer id is chosen by the peer itself when entering the network. A global unique identifier shall be chosen for the id to prevent name collisions. In the sample below only simple ids have been chosen for demonstration purposes. 
+
+Next comes the protocol. A protocol is represented by a connection. Thus, when the protocol is set a peer will use the according connection for communication.
+Since a peer shall support multiple connections the protocol parameter is optional. When the protocol is not set the peer takes any available connection that works best for him.
+
+Last but not least an optional location can be set. The location represents the identifier of the connection. When a new connection is created, a peer unique connection id is set. As a peer can have multiple connections of the same protocol the location id can be used to address a specific connection. When the location is not set the peer decides by himself which connection to choose.
+
+\vref{lst:mit-address} (\cref{line:mit-address-sample-start}-\cref{line:mit-address-sample-end}) gives examples for valid addresses. \cref{line:mit-address-sample-start}-\cref{line:mit-address-peer123} show address for a peer with the id \textit{p123}. \cref{line:mit-address-sample-start} will choose any existing connection to reach the peer, \cref{line:mit-address-webrtc} will choose any existing connection for the protocol \textit{webrtc-data} and \cref{line:mit-address-webrtc-id-1}-\cref{line:mit-address-peer123} require a specific \textit{webrtc-data} connection with the id \textit{c1234} or \textit{c5678}.
+
+\paragraph{Supported protocols}
+The protocols that are supported by Mitosis Version 1 are:
+\begin{itemize}
+    \item ws / wss
+    \item webrtc-data / webrtc-stream
+    \item via / via-multi
+\end{itemize}
+Connections that are mapped by these protocols are explained in \vref{sec:mit-connections}.
+New protocols can be simply added by extending the Mitosis-Core \lstinline|ProtocolConnectionMap|. As soon as they are added they can be used in the address as protocol, otherwise when a protocol is not in the \lstinline|ProtocolConnectionMap| an error will be thrown.
+
+\begin{Listing}
+\begin{lstlisting}[basicstyle=\footnotesize\ttfamily,xleftmargin=3em]
+    /mitosis/{version}/{peer-id}/{protocol}?/{location}? |\label{line:mit-address-format}|
+    
+    /mitosis/1/p123 |\label{line:mit-address-sample-start}|
+    /mitosis/1/p123/webrtc-data |\label{line:mit-address-webrtc}|
+    /mitosis/1/p123/webrtc-data/c1234 |\label{line:mit-address-webrtc-id-1}|
+    /mitosis/1/p123/webrtc-data/c5678 |\label{line:mit-address-peer123}|
+
+    /mitosis/1/p007/wss/signal.mitosis.dev |\label{line:mit-address-sample-end}|
+\end{lstlisting}
+\label{lst:mit-address}
+\caption{Mitosis address format and sample addresses}
+\end{Listing}

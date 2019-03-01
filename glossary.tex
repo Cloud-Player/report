@@ -1,6 +1,9 @@
 \newacronym[plural={Application Programming Interfaces},shortplural={APIs}]{api}{API}{Application Programming Interface}
 \newacronym{alm}{ALM}{Application Layer Multicast}
+\newacronym{b2b}{B2B}{Business–to–Business}
+\newacronym{bdi}{BDI}{Belief–Desire–Intention}
 \newacronym{cbr}{CBR}{Constant Bitrate}
+\newacronym{cli}{CLI}{Command–Line Interface}
 \newacronym[plural={Content Delivery Networks},shortplural={CDNs}]{cdn}{CDN}{Content Delivery Network}
 \newacronym{cernet}{CERNET}{China Education and Research Network}
 \newacronym{ccn}{CCN}{Content–Centric Networking}
@@ -31,8 +34,10 @@
 \newacronym[plural={Multi Point Relays},shortplural={MPRs}]{mpr}{MPR}{Multi Point Relay}
 \newacronym[plural={Mobile Network Operators},shortplural={MNOs}]{mno}{MNO}{Mobile Network Operator}
 \newacronym{mse}{MSE}{Media Source Extensions}
+\newacronym{mas}{MAS}{Multi–Agent System}
 \newacronym{nat}{NAT}{Network Address Translation}
 \newacronym{ndn}{NDN}{Named Data Networking}
+\newacronym{lan}{LAN}{Local Area Network}
 \newacronym{olsr}{OLSR}{Optimized Link State Routing}
 \newacronym[plural={Originator Messages},shortplural={OGMs}]{ogm}{OGM}{Originator Message}
 \newacronym{osi}{OSI}{Open Systems Interconnection}
@@ -68,3 +73,96 @@
 \newacronym[plural={WebSockets}]{ws}{WS}{WebSocket}
 \newacronym{webrtc}{WebRTC}{Web Real–Time Communication}
 \newacronym{xor}{XOR}{Exclusive Or}
+
+\newglossaryentry{router}{
+  name=router,
+  plural=routers,
+  description={
+  A role that stays connected to the signal at all times
+  to on–board newbies and tracks peer presence in its cluster}
+}
+\newcommand{\routerRole}{\gls{router}\xspace}
+
+\newglossaryentry{signal}{
+  name=signal,
+  plural=signals,
+  description={A role that can accept newbie introductions, promote routers and broker connections}
+}
+\newcommand{\signalRole}{\gls{signal}\xspace}
+
+\newglossaryentry{peer}{
+  name=peer,
+  plural=peers,
+  description={TBD}
+}
+\newcommand{\peerRole}{\gls{peer}\xspace}
+
+\newglossaryentry{signal-server}{
+  name={signal server},
+  plural={signal servers},
+  description={Also referred to as rendezvous or entry point. A server node dedicated to the signal role that is reachable under a public IP or domain}
+}
+\newcommand{\signalServer}{\gls{signal-server}\xspace}
+
+\newglossaryentry{newbie}{
+  name=newbie,
+  plural=newbies,
+  description={TBD}
+}
+\newcommand{\newbieRole}{\gls{newbie}\xspace}
+
+\newglossaryentry{rejection}{
+  name=rejection,
+  plural=rejections,
+  description={TBD}
+}
+\newcommand{\rejection}{\gls{rejection}\xspace}
+
+\newglossaryentry{introduction}{
+  name=introduction,
+  plural=introductions,
+  description={Send by the peer when it is contacting the Signal peer for the first time. \vref{itm:mit-msg-introduction} }
+}
+\newcommand{\introduction}{\gls{introduction}\xspace}
+
+\newglossaryentry{role-update}{
+  name={role update},
+  plural={role updates},
+  description={RoleUpdate are used to promote peers to new roles. \vref{itm:mit-msg-RoleUpdate}}
+}
+\newcommand{\roleUpdate}{\gls{role-update}\xspace}
+
+\newglossaryentry{peer-update}{
+  name={peer update},
+  plural={peer updates},
+  description={PeerUpdate is used to tell other peers about known direct peers so they can add them to their RemotePeer table \vref{itm:mit-msg-PeerUpdate}}
+}
+\newcommand{\peerUpdate}{\gls{peer-update}\xspace}
+
+\newglossaryentry{connection-negotiation}{
+  name={connection negotiation},
+  plural={connection negotiations},
+  description={ConnectionNegotiations are used for the establishment of a WebRTC connection \vref{itm:mit-msg-ConnectionNegotiation}}
+}
+\newcommand{\connectionNegotiation}{\gls{connection-negotiation}\xspace}
+
+\newglossaryentry{router-alive}{
+  name={router alive},
+  plural={router alives},
+  description={Router alive messages are dispatched by a peer with the role \routerRole to let other peers know about its existence \vref{itm:mit-msg-RouterAlive}}
+}
+\newcommand{\routerAlive}{\gls{router-alive}\xspace}
+
+\newglossaryentry{unknown-peer}{
+  name={unknown peer},
+  plural={unknown peers},
+  description={A unknown peer message is send when a direct connected peer is removed from the peer table. Receivers can update their RemotePeer table accordingly. \vref{itm:mit-msg-RouterAlive}}
+}
+\newcommand{\unknownPeer}{\gls{unknown-peer}\xspace}
+
+\newglossaryentry{ping-pong}{
+  name={ping/pong},
+  plural={ping/pongs},
+  description={Ping/Pong messages are used to measure the transmission quality. \vref{itm:mit-msg-PingPong}}
+}
+\newcommand{\pingPong}{\gls{ping-pong}\xspace}
