@@ -9,13 +9,20 @@ By implementing the Observer pattern other components can subscribe on \textit{P
 \paragraph{Connect to a RemotePeer}
 Through a given address the PeerManager can create a new RemotePeer and establish a connection. The connection can be either a direct connection which means a physical connection or a via connection. A via connection is opened for RemotePeers that are addressable by another direct RemotePeer. This happens when a client receives a message where the sender is not a direct peer.
 
+\paragraph{Handle incoming messages}
+\begin{itemize}
+    \itembf{Connection negotiation} Incoming \connectionNegotiation messages are handled by the PeerManager. When a offer comes in, it makes sure that a new WebRTC connection is created with an answer for the offer. An incoming answer is used to establish the connection.
+    \itembf{Router alive} When a router alive message comes in the PeerManager updates the score of all directly connected RemotePeers.
+    \itembf{Peer update} RemotePeers that are announced via a peer update are either added to the RemotePeer table when they are not existing yet or updated otherwise.
+\end{itemize}
+
 \paragraph{Destroy a RemotePeer}
 The PeerManager has the power to destroy a RemotePeer. In this process all connections to the RemotePeer are closed. 
 Destroying a pear can either happen explicitly by calling the \lstinline|removePeer(remotePeer)| method or implicitly when the PeerManager notices that a RemotePeer does not have any open connections anymore.
 
 Also it monitors direct connections that are bound to a via connection. When a direct connection is closed and there is no other open direct connection, the PeerManager also closes the via connection.
 
-\begin{figure}[htb!]
+\begin{figure}
   \centering
     \subfloat[]{\includegraphics[width=0.4\textwidth]{graphics/implementation/mitosis-peer-manager.pdf} \label{fig:peer-manager-a}}
     \hspace{1 cm}

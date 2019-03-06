@@ -1,0 +1,78 @@
+\section{Symbiosis}\label{sec:symbiosis-soruce-code}
+
+\begin{Listing}[H]
+\begin{lstlisting}[xleftmargin=3em]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Symbiosis</title>
+  <style>
+    video {
+      height: 100vh;
+      width: 100vw;
+      object-fit: cover;
+    }
+
+    button {
+      width: 100px;
+      height: 50px;
+      background: red;
+      position: absolute;
+      color: white;
+      left: calc(50vw - 25px);
+      bottom: 50px;
+    }
+  </style>
+</head>
+<body>
+
+<video></video>
+<button>Record</button>
+
+</body>
+</html>
+\end{lstlisting}
+\caption{symbiosis.html}
+\label{lst:symbiosis-html}
+\end{Listing}
+
+\begin{Listing}[H]
+\begin{lstlisting}[xleftmargin=3em]
+import {Mitosis} from 'mitosis';
+
+const videoEl = document.querySelector('video');
+const recordEl = document.querySelector('button');
+
+const mitosis = new Mitosis();
+
+const onStreamAdded = (streamEv) => {
+  if (streamEv.type === 'added') {
+    videoEl.srcObject = streamEv.stream;
+    videoEl.play();
+  }
+};
+
+const startStream = () => {
+  navigator.mediaDevices.getUserMedia({
+    video: true,
+    audio: false
+  }).then(
+    (stream) => {
+      mitosis.getStreamManager().setLocalStream(stream);
+    });
+};
+
+mitosis
+  .getStreamManager()
+  .observeChannelChurn()
+  .subscribe(
+    channelEv => channelEv.value
+      .observeStreamChurn()
+      .subscribe(onStreamAdded)
+  );
+
+recordEl.addEventListener('click', startStream);
+\end{lstlisting}
+\caption{symbiosis.js}
+\label{lst:symbiosis-js}
+\end{Listing}

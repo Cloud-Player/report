@@ -11,7 +11,7 @@ To determine the quality of a \lstinline|WebRTCDataConnection| the \glsfirst{tq}
 
 Since the WebRTCDataConnection uses the \glsfirst{sctp} (\vref{par:webrtc-stack}) and the browser ensures reliable message transmission by default, it can not be used as it is for the \gls{tq} calculation. The \gls{tq} calculation of B.A.T.M.A.N is based on package loss. However, when a reliable transmission is guaranteed there is less likely a package loss.
 
-Fortunately, the WebRTC Browser \gls{api} allows to configure \lstinline|reTransmits|. Therefor, the ConnectionMeter uses a data connection where reTransmits is set to $\ 0 $, in order to notice package loss immediately.
+Fortunately, the WebRTC Browser \gls{api} allows to configure \lstinline|reTransmits|. Therefore, the ConnectionMeter uses a data connection where reTransmits is set to $\ 0 $, in order to notice package loss immediately.
 
 \paragraph{WebRTCStreamConnection}
 WebRTC also provides an extensive statistics API\footnote{Identifiers for WebRTC's Statistics API. URL: {https://w3c.github.io/webrtc-stats}}\footnote{RTCStatsReport. URL: {https://developer.mozilla.org/en-US/docs/Web/API/RTCStatsReport}}. The API provides a lot of information like packet loss, packets received, packets send, picture loss and so on. Those statistics can be imposed for a continuous traffic flow as it is the case for the video stream connection. However, the current implementation does not have a peer selection based on the stats provided by WebRTC and leaves space for future work. Especially peer selection based on the provided video stats like codec information, dropped frames and jitter is an interesting topic for further research.

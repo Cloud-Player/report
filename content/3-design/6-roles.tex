@@ -23,15 +23,16 @@ This fundamental role is assigned to most peers and includes intentions correspo
     \itembf{Stream Requests} This task implements the pull strategy \ref{TODO-pull-strategy} of the media streaming overlay. If the node has capacity \ref{TODO-capacity} to accept another inbound stream, it will look at available channels \ref{TODO-channels} and request \ref{TODO-stream-request} a connection from peers providing it.
 \end{itemize}
 
-\paragraph{Publish}
+\paragraph{Publish}\label{par:design-roles-peer-publish}
 \begin{itemize}
-    \itembf{Peer Updates} Nodes keep each other informed about their direct connections \todo{illustrate} by sending a \peerUpdate in a fixed interval. This lets their neighbours construct a list of virtual connections, so they can reach their neighbours direct connections as well as their own. Virtual connections are used as candidates for acquisition tasks.
+    \itembf{Peer Updates} Nodes keep each other informed about their direct connections \todo{link to figures below} by sending a \peerUpdate in a fixed interval. This lets their neighbours construct a list of virtual connections, so they can reach their neighbours direct connections as well as their own. Virtual connections are used as candidates for acquisition tasks.
     \itembf{Router Updates} Peer nodes periodically send updates to their cluster's router, to indicate their presence. Like peer updates, these include details about their neighbours.
-    \itembf{Channel Announcements} Nodes periodically publish information about their knowledge of available channels and stream providers. These \textit{channel announcements} spread through the network \ref{TODO-gossip} and let other peers pull in channels depending on demand and capacity.
+    \itembf{Channel Announcements}\label{item:peer-publish-channel-announcement} Nodes periodically publish information about their knowledge of available channels and stream providers. These \textit{channel announcements} spread through the network \ref{TODO-gossip} and let other peers pull in channels depending on demand and capacity.
 \end{itemize}
 
 \subsubsection{Router}
 Named after a router in a \gls{lan}, this role enjoys the privilege of knowing every node in its cluster. Even though this knowledge is unreliable, it helps the \routerRole estimate cluster saturation \ref{TODO-mitosis} and allows it to help peers with message delivery. It gains this cluster information because peers provide periodic updates to their router. The router is also a cluster's connection to the overall system: taking in new nodes and communicating with other clusters. Because the router role is assigned to regular nodes, this node should also have the \peerRole role.
+\todo{reference ilmstream paper}
 
 \paragraph{Clean}
 \begin{itemize}
@@ -56,3 +57,18 @@ The signal role must be assigned to nodes that have a static network address and
 \begin{itemize}
     \itembf{Signal Updates} Like peers and routers, signals have to send updates about their connection tables. A signal only includes routers and other signals in its update messages, because all peer or newbie connections should be transitory and last only while peers are placed into a cluster.
 \end{itemize}
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.45\textwidth]{graphics/design/peer-update-send.pdf}
+\caption{Peer sends update containing its direct connections.}
+\label{fig:peer-update-send}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.45\textwidth]{graphics/design/peer-update-recv.pdf}
+\caption{Peer received connection update and added a virtual connection.}
+\label{fig:peer-update-recv}
+\end{figure}

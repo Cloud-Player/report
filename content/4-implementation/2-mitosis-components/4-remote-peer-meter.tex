@@ -45,3 +45,8 @@ A peer is reporting its remote peers via a \peerUpdate, where each RemotePeer ha
 \paragraph{RemotePeer Quality}
 The RemotePeer quality is used during the selection process of the PeerManager for message delivery. The quality is derived by the average connection quality and a punishment factor (\vref{lst:mit-remote-peer-quality}). When a peer has a lot of punished connections it is considered as unstable and becomes less likely selected for the message delivery.
 
+\paragraph{Router alive score}
+Each RemotePeer is maintaining a router score, meaning that a peer who receives a router alive first gets a better rank than one that receives it later. A router alive comes with a sequence number. When the sequence number is unknown, the PeerManager adds a new sequence with an undefined rank for all directly connected RemotePeers. Afterwards the rank of the RemotePeer who has delivered the message is set to $\ 1 $.
+When a router alive message is received where the sequence number is already known, the rank of the deliver peer is set to the amount of RemotePeers who have delivered it already.
+The score is an average of the rank of all received sequence numbers. When a sequence number does not have a rank it is ignored.
+The goal of the router alive score is to bring peers closer to the router. During the peer selection process, via-RemotePeers that have a better connection to a peer who knows the router are favored.

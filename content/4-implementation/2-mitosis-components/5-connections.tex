@@ -1,7 +1,7 @@
-\subsection{Connections}
+\subsection{Connections}\label{sec:mit-connections}
 As mentioned in \vref{sec:mit-address} each address comes with a protocol where the protocol represents a connection as presented in \vref{fig:mit-protocol-map}.
 
-\begin{figure}[htb!]
+\begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{graphics/implementation/mitosis-architecture-connections-protocol-map.pdf}
 \caption{Protocol Map}
@@ -10,7 +10,7 @@ As mentioned in \vref{sec:mit-address} each address comes with a protocol where 
 
 By extending the \lstinline|ProtocolMap| other connections can be supported. For example when in a future release Bluetooth shall be supported, a new entry can be added in the \lstinline|Protocol| and mapped with the actual implementation in the ProtocolMap.
 
-\begin{figure}[htb!]
+\begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{graphics/implementation/mitosis-architecture-connections.pdf}
 \caption{Connections}\label{sec:mit-connections}
@@ -23,4 +23,4 @@ The interface specifies the methods that each connection has to implement. As so
 
 Functionality that a connection has to provide is for example how to open a connection, how to send messages and so on. The WebRTC Connection has to implement for example the negotiation process that is explained in \vref{par:webrtc-con-negotiation}.
 
-A connection itself is providing a \lstinline|ConnectionMeter| which is used by the \lstinline|RemotePeerMeter| (\vref{sec:peer-meter}) to determine the connection quality.
+A connection itself is providing a \lstinline|ConnectionMeter| which is used by the \lstinline|RemotePeerMeter| (\vref{sec:mit-peer-meter}) to determine the connection quality.

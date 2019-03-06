@@ -1,0 +1,38 @@
+\section{Sample Scenario for the Simulation}
+\begin{Listing}[H]
+\begin{lstlisting}
+{
+  "configuration": {
+    "newbie": {
+      "DEFAULT_SIGNAL_ADDRESS": "mitosis/v1/signal/wss"
+    }
+  },
+  "instructions": [
+    {
+      "tick": 0,
+      "type": "set-clock-speed",
+      "configuration": {
+        "speed": 50
+      }
+    },
+    {
+      "tick": 0,
+      "type": "add-peer",
+      "configuration": {
+        "address": "mitosis/v1/signal/wss",
+        "roles": [
+          "signal"
+        ]
+      }
+    },
+    {
+      "tick": 0,
+      "type": "add-peer",
+      "configuration": {
+        "address": "mitosis/v1/alice/webrtc"
+      }
+    },
+\end{lstlisting}
+\caption{Basic scenario with a Signal and a Peer}
+\label{lst:anl-scenario}
+\end{Listing}

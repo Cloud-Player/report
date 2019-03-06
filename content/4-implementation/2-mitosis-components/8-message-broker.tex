@@ -12,38 +12,36 @@ When the message has found its destination, the MessageBroker is further process
 
 Each subject is mapped to a message. Available messages are briefly described in the following.
 \begin{itemize}
-    \item{\textbf{Introduction}\hspace{3mm} \label{itm:mit-msg-introduction}
+    \itembf{Introduction}
+    \label{itm:mit-msg-introduction}
         Send by the peer when it is contacting the \signal peer for the first time. 
         MessageBroker is not processing this message as the RoleManager is taking care of it.
-    }
-    \item{\textbf{PeerUpdate}\hspace{3mm}
+    \itembf{PeerUpdate}
     \label{itm:mit-msg-PeerUpdate}
         A \peerUpdate is send by a peer to another to let him know about its known peers. The other part can then update its RemotePeer table accordingly.
         MessageBroker is delegating to the PeerManger to \lstinline|updatePeers|.
-    }
-    \item{\textbf{RoleUpdate}\hspace{3mm}
+    \itembf{RoleUpdate}
     \label{itm:mit-msg-RoleUpdate}
         When a peer is promoted to a new role this happens via a \roleUpdate. However, only a peer with the same role or a superior role can promote a peer.
         MessageBroker is delegating to the RoleManager to \lstinline|updateRoles|.
-    }
-    \item{\textbf{ConnectionNegotiation}\hspace{3mm}
+    \itembf{ConnectionNegotiation}
     \label{itm:mit-msg-ConnectionNegotiation}
         \Glspl{connection-negotiation} have to be exchanged in order to open a WebRTC connection. Four different kind of ConnectionNegotiations are available: \lstinline|request|, \lstinline|offer|, \lstinline|answer|, \lstinline|reject|.
         MessageBroker is delegating to the PeerManager to \lstinline|negotiateConnection|.
-    }
-    \item{\textbf{RouterAlive}\hspace{3mm}
+    \itembf{RouterAlive}
     \label{itm:mit-msg-RouterAlive}
         A peer with the role \routerRole is broadcasting \routerAlive messages continuously to let other peers of the network know that it still exists.
-        MessageBroker is flooding this message to all direct peers, unless it has already flooded a \routerAlive for the given sequence number.
-    }
-    \item{\textbf{UnknownPeer}\hspace{3mm}
+        MessageBroker is flooding this message to all direct peers, unless it has already flooded a \routerAlive for the given sequence number and delegating to PeerManager to \lstinline|handleRouterAlive|.
+    \itembf{UnknownPeer}
     \label{itm:mit-msg-UnknownPeer}
         \Gls{unknown-peer} is sent to all direct peers when a RemotePeer is removed from the RemotePeer table. Other peers can update their RemotePeer table accordingly.
         MessageBroker is delegating to the PeerManager who then closes all connections for the given RemotePeer address.
-    }
-    \item{\textbf{Ping/Pong}\hspace{3mm}
+    \itembf{Ping/Pong}
     \label{itm:mit-msg-PingPong}
         \Gls{ping-pong} messages are exchanged by the WebRTC data connection to measure the transmission quality (\vref{par:webrtc-data-measure-quality}).
         MessageBroker is not further processing \glspl{ping-pong}.
-    }
+    \itembf{ChannelAnnouncement}
+    \label{itm:mit-msg-ChannelAnnouncement}
+        \Gls{channel-announcement} messages dispatched by a client when it has an active provider for a broadcast channel (\vref{chap:mitosis-stream}).
+        MessageBroker is delegating to the ChannelManager to \lstinline|updateProviders|.   
 \end{itemize}

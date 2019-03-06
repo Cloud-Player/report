@@ -1,0 +1,16 @@
+\subsection{Scaling Down}
+As important as techniques for scaling out are those for scaling down the \gls{p2p} system. As the system is designed for use in conventional browsers, user behaviour will be characterised by sudden exits. As browser prevent pre–exit code execution, the application has no chance to properly shut down and warn other nodes of the imminent connection loss. The system has to be able to detect stale connections and vanished nodes.
+
+\begin{itemize}
+    \itembf{Detection}
+    As \gls{webrtc} is running on stateless \gls{udp} \ref{todo-udp}, connections are not automatically terminated on the remaining end.
+    \itembf{Recovery}
+\end{itemize}
+\subsubsection{Detection}
+- 
+- expiring connections
+- 
+
+- peer has left message
+- route to router if unknown sender
+- degrade to newbie
