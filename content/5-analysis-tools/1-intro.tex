@@ -8,9 +8,9 @@ Each component is described briefly in the following before going further into d
 \begin{itemize}
     \itembf{Simulation} The core component that spawns virtual instances and runs Mitosis in each of it. The communication between the virtual instances is mocked, thus a physical connection is not required. The virtual instances can be orchestrated through a \textit{Scenario} that the Simulation is executing.
     \itembf{Visualisation} Visualises the output that is provided by the Simulation component. Also allows interaction with each virtual instance. Inspector tools allow to inspect the state of each instance. The virtual instances are visualised as a force directed graph.
+    \itembf{CLI-Import} Parts of the results of the CLI can be imported into the Visualisation so the result can be restored as a force directed graph and further analysed.
+    \itembf{Realtime Visualisation} A dedicated test application that executes Mitosis in a real environment reports its state to a server. The visualisation creates a graph based on the reported clients in almost realtime. 
     \itembf{CLI} Executes the simulation in a Node.js environment and does not have any graphical feedback. Parameterized execution of scenarios allows benchmarking. Results are exported as files as soon as the execution is done.
-    \itembf{CLI-Import} Parts of the results of the CLI can be imported so the result can be restored as a force directed graph and further analysed.
-    \itembf{Realtime Visualisation} A dedicated test application that executes Mitosis in a real environment reports its state to a server. The state of each online client and the connections between them are visualised in almost realtime. 
 \end{itemize}
 
 \begin{figure}

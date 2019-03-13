@@ -1,0 +1,35 @@
+\section{Streaming Analysis}
+
+\subsection{Topology}
+
+Since video streams over \gls{webrtc} connections decrease in quality per hop, as discussed in \vref{TOOD}, an optimal streaming topology would would be a \textit{perfect k–ary tree}, given nodes can upload $k$ streams simultaneously. A perfectly balanced binary tree, for example, would be the optimal streaming topology for $k=2$.
+
+As the streaming topology is built on the collective knowledge of the overlay network, it depends heavily on the state the overlay mesh has reached at the point the stream is started. It must also be considered, that the streaming tree is constructed in the two phases detailed in \vref{TODO}. The push phase aims at achieving availability fast and does not regard tree balance.
+It is also important to note, that due to node churn, the stream topology can change unexpectedly as nodes try to re–acquire a connection to a source provider.
+
+The quality of the streaming topology is inspected in a churn–free simulation setup. Given a scenario of $n=100$ nodes and $t=1500$ ticks a stream is automatically started at $t_{500}$. The network constructs its stream topology and the active stream connections are queried at the end of the scenario. The topology is traversed and the distance to the stream source is extracted from every node. For simplicity, the connections are handled unweighted and just the hop count is considered.
+Using different random seeds, multiple runs are averaged using the mean node count per distance.
+
+\vref{fig:streaming-topology-histogram} shows the results of the hop distribution for streaming topologies for $k=2$ and $k=3$. For comparison, the histogram also shows the distribution in an optimal binary and ternary tree given $n=100$ nodes.
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{graphics/analysis/streaming-topology-histogram.pdf}
+\caption{Stream consumers per distance from stream source}
+\label{fig:streaming-topology-histogram}
+\end{figure}
+
+It is evident, that the trees constructed by the overlay mesh are far from the perfectly balanced trees. A binary tree with $n=100$ nodes would not exhibit hop distances beyond $6$ and a ternary tree would not exceed distances of $4$. The respective streaming trees show a much broader distribution. The spikes caused behind the quadratic/cubic function of the optimal trees, are not to be found in the stream topologies. Yet, half the nodes exceed $8$ connection hops for $k=2$ and half the nodes for $k=3$ are above $6$ connections away from the source.
+
+This non–optimal distribution can be explained by collisions during the push phase. As multiple nodes in the same radius around the stream source receive the channel, they try to push it out to their most reliable neighbour. However, chances are, their own best neighbour is also the choice of some other node on the same radius. As a result, this popular choice receives two connection offers, accepts only one and leaves the other offerer as a leaf node in the tree. While this is not a desirable state, the topology can self–heal during the pull phase. As nodes join or become interested in the channel, they will seek providers and can attach to the aforementioned leaf node.
+
+So, in a second experiment, a more realistic scenario is set up. Nodes are not instantiated at once, but keep joining at a rate of $1/t$ to a total number of $n=50$. After half the nodes have joined the mesh, the stream is automatically started. \vref{fig:streaming-later-join} shows how the hop distances are distributed when nodes are continuously joining instead of being initiated before the stream start.
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{graphics/analysis/streaming-topology-continuous-histo.pdf}
+\caption{Stream consumer distance in continuous join rate scenario}
+\label{fig:streaming-topology-continuous-histo}
+\end{figure}
+
+In summary, the streaming topology is heavily dependent on the underlying mesh size and structure. To cope with larger numbers of stream consumers, the system would have to perform tree optimisation. Whether this is feasible, however, depends on the application dynamics. If video channels are long–lasting and audiences are large, it would be worthwhile. If video channels are only alive a few minutes and audiences are usually small, tree optimisation would not be worth the extra negotiation effort.

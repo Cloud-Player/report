@@ -136,6 +136,9 @@
 \pagestyle{preamble}
 \renewcommand*{\chapterpagestyle}{preamble}
 
+\input{intro-quote.tex}
+\newpage
+
 %Kurzfassung / abstract
 %auch im Stil vom Inhaltsverzeichnis
 \ifdeutsch
@@ -216,6 +219,7 @@
 \renewcommand*{\chapterpagestyle}{scrplain}
 \pagestyle{scrheadings}
 \input{preambel/pagestyle}
+
 %
 %
 % ** Hier wird der Text eingebunden **
@@ -225,7 +229,7 @@
 \input{content/3-design/0-index.tex}
 \input{content/4-implementation/0-index.tex}
 \input{content/5-analysis-tools/0-index.tex}
-%\input{content/6-analysis/0-index.tex}
+\input{content/6-analysis/0-index.tex}
 %\input{content/7-resume/0-index.tex}
 %
 %

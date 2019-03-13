@@ -1,0 +1,21 @@
+\makeatletter
+\newenvironment{chapquote}[2][2em]
+  {\setlength{\@tempdima}{#1}%
+   \def\chapquote@author{#2}%
+   \parshape 1 \@tempdima \dimexpr\textwidth-2\@tempdima\relax%
+   \itshape}
+  {\par\normalfont\hfill--\ \chapquote@author\hspace*{\@tempdima}\par\bigskip}
+\makeatother
+
+
+\pagebreak
+\hspace{0pt}
+\vfill
+
+\begin{chapquote}{\textit{Wikipedia}}
+`In cell biology, mitosis \textipa{[maI"toUsis]} is a part of the cell cycle when replicated chromosomes are separated into two new nuclei'
+\end{chapquote}
+
+\vfill
+\hspace{0pt}
+\pagebreak
