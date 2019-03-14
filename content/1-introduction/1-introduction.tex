@@ -1,20 +1,51 @@
 \section{Introduction}
+With the rise of social media and a wide adoption of connected devices that can produce multimedia the internet is shifting from a content consuming towards a content producing audience. Nowadays everyone can take a photo or record a video and share it to an audience with the press of a button. 
 
-A new kind of decentralised consumer applications has emerged out of the problems cloud services are facing today: network congestion,
-server costs and privacy concerns. \textit{dApps} address those issues by replacing centralised server architectures with a decentralised, self-organising network of clients. The three core areas of cloud computing, communication, storage and computation, are mapped into the decentralised paradigm. Clients are connected via peer-to-peer networking and do distributed content-addressed routing. Storage of media and application code is provided by decentralised file systems. Computation of business logic and sensitive transactions are spread across multiple clients that build a chain of trust. Technologies like IPFS \footnote{IPFS} (distributed file system), Chord \cite{chord} (distributed routing) and Ethereum \footnote{Ethereum} (distributed computation) enable new ways to build the web application of the future – a web application that implements privacy by design and has no single point of failure.
+Live broadcasting is also not reserved to professional media companies anymore. Network infrastructure is rapidly improving, especially the availability of mobile bandwidth. With the advent of 5G an estimated 2.?? billion people will have access to bandwidths of up to XX??. In combination with ever more powerful consumer devices, users are able to produce and publish content in professional quality e.g. the latest generation of smartphones can produce videos in resolutions up to XX??k.
+Leveraging these new possibilities, platforms like Twitch, Periscope and IGTV have emerged that allow anyone with access to the internet to share live video with large audiences.
 
-Consumer clients have become more capable thanks to advances in mobile hardware and the maturity of browser engines and their integration with OS-native functionality. This allows developers access to device sensors, GPU programming and opens up more possibilities with the network stack. Modern browsers expose interfaces for real-time communication between server and client, called WebSockets \cite{rfc6455}, and between clients, called WebRTC \cite{webrtc-w3c}. The latter enables connections to other clients without routing the data packages through a central server. Clients can therefore establish a connection to another client by only using the available network infrastructure.
+These platforms run vast cloud architectures to deliver video in real–time across the globe and already account for XXpercent of global internet traffic.
+Netflix a popular \gls{vod} platform recommends an internet connection speed of 5.0 Megabits per second for an HD quality video \cite{netflix-speed-recommendation}. In 2017, users of the video streaming platform Persicope have streamed 350,000 hours of video per day \cite{periscope-stats} which is over 4h/s. 
+Assuming an average bandwidth consumption of 5.0 Megabits/s and multiplying it with the amount of video that is streamed per second, the Periscope infrastructure has to handle around 70 Gigabits/s.
+Providing an infrastructure to deal with 70 Gigabits/s of video data is very expensive. Also scaling the system to a growing number of users can be a non trivial task and can become impossible at some point.
 
-The proposed thesis aims to apply the decentralised paradigm to an existing music player web application \footnote{cloudPlayer} that currently can play music from external providers like YouTube. The music player is to be extended by a peer-to-peer radio broadcasting feature. Any peer can act as a \textit{broadcaster} and control the media queue and playback of its \textit{receiving} peers. In addition, the \textit{broadcaster} can broadcast live audio content for vocal announcements and creative input. The radio feature will rely on decentralised networking to broadcast the content.
+Yet, a cloud architecture is not only expensive, it is also a single point of failure. When the cloud architecture is taken off by a failure or by an attack, the service can not be used anymore.
+From the point of a user it also means losing control of data because all the data is sent to the cloud which is under the control of the provider. Thus, the provider has the power to monitor users and is also able to censorship content based on political views or believes.
 
-Two main challenges arise from this endeavour – optimising the peer-to-peer network for multi-cast streaming and securing the integrity and privacy of broadcasting streams.
+To mitigate the issues of a cloud architecture a lot of research has been put into Peer-to-Peer systems. Peer-to-Peer systems do not have a central point but distribute traffic among themselves. Every peer can consume content and provide content at the same time, thereby a central distribution point is not required anymore. Through the introduction of Napster in 1999, a Peer-to-Peer driven music streaming service, Peer-to-Peer systems have become popular. Since then multiple other Peer-to-Peer systems like BitTorrent, Gnutella and most recently IPFS have hit the market. BitTorrent is well known to be used for filesharing. As it has proven itself to support more than a million daily active users \cite{bittorrent-stats}, the protocol also has become interesting for business use cases as well e.g. sychronising databases or updating servers
 
-\section{Random Intro quotes}
+
+\paragraph{Random Intro quotes}
 \say{It can be expected that the number and importance of such distributed applications will grow with time as the Internet is penetrating more and more into our lives.} (https://www.cs.vu.nl/pub/steen/papers/wip-newscast.pdf \S1)
 
 \say{The popularity of peer-to-peer systems in the last couple of years illustrates how the Internet is gradually shifting toward a distributed system that supports more than only client-server applications.}(https://link.springer.com/content/pdf/10.1007\%2F978-3-540-25840-7\_6.pdf \S1)
 
-\chapter{Motivation}
+das gabs ja auch mal
+was war damit verkehrt
+und jetzt browser
+ah und dann kam auf einmal webrtc
+mhmm appearin macht das ja schon damit aber nur 1-4
+und was war noch mit ipfs claiming to be the future of http
+
+However, all platforms are based on a centralised client-server architecture. Sharing a multicast video means consuming a lot of bandwaith especially on the server that is distributing the content. This maintaining a centralised server to handle 
+
+- network congestion, multicast beschde
+- Privacy/Zensur
 - Kostenfaktor
-- Zensur bla
-- Network Congestion / Alle leute machen Videostreaming. Mit multicast kannste dir so einige petabytes sparen. Pakete müssen nicht über nicht immer über die ganze welt hüpfen, bleibt in der regio woe es produziert/konsumiert wird. (Facebook paper referenzieren, Youtube/Netflix produzieren peta byte traffic)
+- browser immer besser #webrtc
+
+
+
+\subsection{Thesis aufbau}
+- looked at the underlying tech of ipfs, webrtc, p2p, meshing
+- construct overlay
+- let streams hop
+- analyse our stuff
+- works good for what apps/ use cases #framework
+
+
+- webrtc/browsers and distributed stuff #blockchain on the rise
+- ipfs promises to be future of web, the next http
+- didnt work for live streams #nucleus
+- tried nucleus y-adapter, hopping video
+- how can we replace manual setup with automated system for many ppl

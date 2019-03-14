@@ -2,7 +2,9 @@
 
 Up to this point, the reader has learned about multiple popular video streaming applications. There is a wide range of specialisations, ranging from gaming\footnote{Twitch. URL: {https://twitch.com}}, lip–syncing\footnote{TikTok. URL: {https://www.tiktok.com}}, social media\footnote{Houseparty. URL: {https://houseparty.com}} to conferencing\footnote{appear.in. URL: {https://appear.in}}. In a different sector, \gls{b2b} services offer complete video streaming solutions to companies and developers. They provide \glspl{sdk}\footnote{SimpleWebRTC. URL: {https://www.simplewebrtc.com}} and host all necessary infrastructure for video delivery and encoding\footnote{Bambuser. URL: {https://bambuser.com}}. What these offerings have in common, is that they rely on server–client infrastructure. User generated content is uploaded to servers, processed and distributed over \glspl{cdn}. Commonly, they use \gls{hls} and \gls{mpegdash} streaming to feed live video to clients. Even though their marketing strategies and business models vary, their technological requirements boil down to two categories: 1) few channels broadcasting to large audiences and 2) smaller groups where multiple users contribute a live feed.
 
-In academia, there have been numerous efforts to move towards \gls{p2p} streaming networks \cite{TODO-ilmstream, coolstreaming, TODO-noch-eins}. Although proven to be applicable\cite{TODO-skype, TODO-etc}, these technologies are scarcely found in mass market products today with reasons being manifold and debatable. One prominent reason, this thesis is trying to challenge, is \textit{platform–dependency}. Many prior \gls{p2p} streaming implementations are requiring native applications as they need access to the \gls{ip} network stack. As browser \glspl{api} have matured, it has become feasible to build a platform–independent streaming network with \gls{webrtc}. With the browser as its runtime, it should work independently of device category or operating system. 
+In academia, there have been numerous efforts to move towards \gls{p2p} streaming networks \cite{anysee, coolstreaming, hlpsp}. Although proven to be applicable \cite{skype-p2p-primer, tox-chat-app}, these technologies are scarcely found in mass market products today. The reasons for that are manifold and debatable – ranging from concerns about quality of service \cite{skype-ditching-p2p} to the tainted reputation of \gls{p2p} in the face of illegal torrenting \cite{p2p-social-impact}. One further, yet prominent reason, this thesis is trying to challenge, is \textit{platform–dependency}. Many prior \gls{p2p} streaming implementations are requiring native applications as they need access to the \gls{ip} network stack. As browser \glspl{api} have matured, it has become feasible to build a platform–independent streaming network with \gls{js} and \gls{webrtc} connections. With the browser as its run–time, it will function mostly independent of device category or operating system. For the user, this lowers the barrier to join the network and for developers, this simplifies reaching audiences across device categories.
+
+To 
 
 - advances in p2p and mesh networks
 - kademlia
@@ -10,10 +12,7 @@ In academia, there have been numerous efforts to move towards \gls{p2p} streamin
 
 - ipfs is also running on in the browser
 - ipfs is good as a distributed file system but not suitable for realtime data
-- webrtc is supported by all major browsers and support data transfer and media streaming
 - webrtc muy complicado
-- web applications do not have to be installed by user, thus no barrier for the user to join a distributed network 
-
 
 This thesis has set out to develop a live video streaming application
 When developing a decentralised \gls{p2p} system, an open approach to software development and system design can only help the project succeed.

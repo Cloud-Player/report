@@ -23,7 +23,7 @@ It is evident, that the trees constructed by the overlay mesh are far from the p
 
 This non–optimal distribution can be explained by collisions during the push phase. As multiple nodes in the same radius around the stream source receive the channel, they try to push it out to their most reliable neighbour. However, chances are, their own best neighbour is also the choice of some other node on the same radius. As a result, this popular choice receives two connection offers, accepts only one and leaves the other offerer as a leaf node in the tree. While this is not a desirable state, the topology can self–heal during the pull phase. As nodes join or become interested in the channel, they will seek providers and can attach to the aforementioned leaf node.
 
-So, in a second experiment, a more realistic scenario is set up. Nodes are not instantiated at once, but keep joining at a rate of $1/t$ to a total number of $n=50$. After half the nodes have joined the mesh, the stream is automatically started. \vref{fig:streaming-later-join} shows how the hop distances are distributed when nodes are continuously joining instead of being initiated before the stream start.
+So, in a second experiment, a more realistic scenario is set up. Nodes are not instantiated at once, but keep joining at a rate of $1/t$ to a total number of $n=50$. After half the nodes have joined the mesh, the stream is automatically started. \vref{fig:streaming-topology-continuous-histo} shows how the hop distances are distributed when nodes are continuously joining instead of being initiated before the stream start.
 
 \begin{figure}
 \centering
