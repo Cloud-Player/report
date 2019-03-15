@@ -1,51 +1,44 @@
-\section{Introduction}
-With the rise of social media and a wide adoption of connected devices that can produce multimedia the internet is shifting from a content consuming towards a content producing audience. Nowadays everyone can take a photo or record a video and share it to an audience with the press of a button. 
+With the rise of social media and a wide adoption of connected devices that can produce multimedia, the internet is shifting from a content consuming towards a content producing audience. Nowadays everyone can take a photo or record a video and share it to an audience with the press of a button. 
 
 Live broadcasting is also not reserved to professional media companies anymore. Network infrastructure is rapidly improving, especially the availability of mobile bandwidth. With the advent of 5G an estimated 2.?? billion people will have access to bandwidths of up to XX??. In combination with ever more powerful consumer devices, users are able to produce and publish content in professional quality e.g. the latest generation of smartphones can produce videos in resolutions up to XX??k.
 Leveraging these new possibilities, platforms like Twitch, Periscope and IGTV have emerged that allow anyone with access to the internet to share live video with large audiences.
 
 These platforms run vast cloud architectures to deliver video in real–time across the globe and already account for XXpercent of global internet traffic.
-Netflix a popular \gls{vod} platform recommends an internet connection speed of 5.0 Megabits per second for an HD quality video \cite{netflix-speed-recommendation}. In 2017, users of the video streaming platform Persicope have streamed 350,000 hours of video per day \cite{periscope-stats} which is over 4h/s. 
+In 2017, users of the video streaming platform Periscope have streamed 350,000 hours of video per day \cite{periscope-stats} which is over 4h/s. 
 Assuming an average bandwidth consumption of 5.0 Megabits/s and multiplying it with the amount of video that is streamed per second, the Periscope infrastructure has to handle around 70 Gigabits/s.
-Providing an infrastructure to deal with 70 Gigabits/s of video data is very expensive. Also scaling the system to a growing number of users can be a non trivial task and can become impossible at some point.
+Providing an infrastructure to deal with 70 Gigabits/s of video data is very expensive. Also scaling the infrastructure to a growing number of users can be a non trivial task and can become impossible at some point.
 
 Yet, a cloud architecture is not only expensive, it is also a single point of failure. When the cloud architecture is taken off by a failure or by an attack, the service can not be used anymore.
 From the point of a user it also means losing control of data because all the data is sent to the cloud which is under the control of the provider. Thus, the provider has the power to monitor users and is also able to censorship content based on political views or believes.
 
-To mitigate the issues of a cloud architecture a lot of research has been put into Peer-to-Peer systems. Peer-to-Peer systems do not have a central point but distribute traffic among themselves. Every peer can consume content and provide content at the same time, thereby a central distribution point is not required anymore. Through the introduction of Napster in 1999, a Peer-to-Peer driven music streaming service, Peer-to-Peer systems have become popular. Since then multiple other Peer-to-Peer systems like BitTorrent, Gnutella and most recently IPFS have hit the market. BitTorrent is well known to be used for filesharing. As it has proven itself to support more than a million daily active users \cite{bittorrent-stats}, the protocol also has become interesting for business use cases as well e.g. sychronising databases or updating servers
+To mitigate the issues of a cloud architecture a lot of research has been put into Peer-to-Peer systems. Peer-to-Peer systems do not have a central point but distribute traffic among themselves. Every peer can consume content and provide content at the same time, thereby a central distribution point is not required anymore. Through the introduction of Napster in 1999, a Peer-to-Peer driven music streaming service, Peer-to-Peer systems have become popular. Since then, multiple other Peer-to-Peer systems like BitTorrent, Gnutella and most recently IPFS have hit the market. BitTorrent is most known to be used for filesharing and supports more than a million daily active users \cite{bittorrent-stats}. Lesser known is the fact that the protocol is also used for business use cases e.g. Facebook and Twitter are using it to update their servers \cite{bittorrent-facebook}.
 
+In a recent attempt BitTorrent has used their protocol for a Peer-to-Peer live video broadcasting service \cite{bittorrent-live} but they shut down the service soon after \cite{bittorrent-live-shutdown}. BitTorrent are not the only ones using Peer-to-Peer technology for live video broadcasting. CoolStreaming, AnySee or Skype have also build live streaming solutions based on Peer-to-Peer technologies.
 
-\paragraph{Random Intro quotes}
-\say{It can be expected that the number and importance of such distributed applications will grow with time as the Internet is penetrating more and more into our lives.} (https://www.cs.vu.nl/pub/steen/papers/wip-newscast.pdf \S1)
+Through advances in browser technology, more specifically the support of WebRTC by all major browsers, it is possible to provide Peer-to-Peer live streaming as a web application. One major advantage of a web application is that the user does not have to install any software. 
+One service that is providing Peer-to-Peer live streaming in the browser is appear.in, which is a conferencing web app. However, the amount of people that can participate in a video conference is limited to four people in the free version.
 
-\say{The popularity of peer-to-peer systems in the last couple of years illustrates how the Internet is gradually shifting toward a distributed system that supports more than only client-server applications.}(https://link.springer.com/content/pdf/10.1007\%2F978-3-540-25840-7\_6.pdf \S1)
+Given the recent advances in network bandwidth, performance of end user devices, browser support of WebRTC and the proof that Peer-to-Peer systems can scale up, the idea for a distributed media streaming application in the browser arose.
 
-das gabs ja auch mal
-was war damit verkehrt
-und jetzt browser
-ah und dann kam auf einmal webrtc
-mhmm appearin macht das ja schon damit aber nur 1-4
-und was war noch mit ipfs claiming to be the future of http
+We propose a novel approach for distributed media streaming in the browser by using WebRTC technology for a multicast live stream scenario with a large audience.
 
-However, all platforms are based on a centralised client-server architecture. Sharing a multicast video means consuming a lot of bandwaith especially on the server that is distributing the content. This maintaining a centralised server to handle 
+\subsection{Motivation}
+IPFS aims to \say{replace HTTP} and to provide a \say{peer-to-peer hypermedia protocol to make the web faster, safer, and more open} \cite{ipfs-website}.
+Because of the bold statement of IPFS, our first approach was using IPFS to share small video snippets as a proof of concept. The sharing of video snippets has worked out quite well. Thus, our next step was using IPFS to share real-time videos. By using the HTML5 video recorder, a live video stream provided by the camera of the device, has been chunked into small pieces and published via the pubsub mechanism that is provided by IPFS. The pubsub mechanism also notifies a client when a new video chunk is available. As soon as the chunk is received by the client it is appended to the video element and played. However, to chunk the video into pieces the Media Source Extensions API has been used that is not available on iOS. Also issues with video codecs and general performance and latency have not been satisfying.
 
-- network congestion, multicast beschde
-- Privacy/Zensur
-- Kostenfaktor
-- browser immer besser #webrtc
+This lead us to another approach where we investigated how to realise live streaming with WebRTC. WebRTC allows one to many live streaming. Through restrictions of the client, \say{many} is limited to a small amount. Thus we put forward the hypothesis that we could use WebRTC to build a live streaming application where we specify that each client can receive one live stream and forward it to two other clients. By specifying that a client can forward a stream to two other clients, a binary tree can be created. Thus the stream can be forwarded theoretically to an infinite amount of clients. 
 
+To validate our hypothesis we set up an experiment where we manually connected multiple clients using WebRTC. The clients were manually orchestrated to accept one stream and forward it to two other clients. 
 
+The result of the experiment has been very promising and has proven our hypothesis. Therefor we have come to our motivation to build a distributed media streaming application using WebRTC. 
 
-\subsection{Thesis aufbau}
-- looked at the underlying tech of ipfs, webrtc, p2p, meshing
-- construct overlay
-- let streams hop
-- analyse our stuff
-- works good for what apps/ use cases #framework
-
-
-- webrtc/browsers and distributed stuff #blockchain on the rise
-- ipfs promises to be future of web, the next http
-- didnt work for live streams #nucleus
-- tried nucleus y-adapter, hopping video
-- how can we replace manual setup with automated system for many ppl
+\subsection{Outline}
+The outline of the thesis is structured into five main chapters:
+\begin{itemize}
+    \itembf{Background} Browser capabilities that are required for the scope of the thesis are introduced, which includes the Browser Media API and WebRTC. Afterwards a few network fundamentals are explained including different network topologies and a selection of existing message routing protocols are examined. Next, \gls{p2p} systems are introduced like IPFS, Napster and Gnutella, several challenges of \gls{p2p} networks are examined and existing \gls{dht} algorithms like Chord and Kademlia are analysed. The chapter finishes with an analysis of existing live streaming solutions including centralised solutions like Twitch and Periscope but also decentralised approaches like CoolStreaming and AnyCast.   
+    \itembf{Design} The design chapter proposes a design for a distributed media streaming application based on the findings of the Background chapter. An overlay network is proposed where each client acts as an autonomous agent and tries to find best possible communication partners in the network without relying on a global knowledge. Based on the overlay network a \gls{dag} is created to propagate a video stream among the peers.
+    \itembf{Implementation} In this chapter the implementation of the design is explained and an insight of the inner workings is given. The implementation abstracts use cases of a distributed media streaming application by providing an \gls{sdk}. Also a sample application is introduced which has been built by using the \gls{sdk}.
+    \itembf{Analysis-Tools} To analyse the implementation and for debugging during the development, several tools have been implemented. This chapter introduces the simulation tool, the visualisation tool and the \gls{cli} which has been used for benchmarking.
+    \itembf{Analysis} The insights of the analysis-tools have been used to analyse the implementation. Mini and macros scenarios are examined to see how the implementation behaves under different circumstances. 
+\end{itemize}
+Finally the thesis is concluded with a Résumé and future work is proposed.

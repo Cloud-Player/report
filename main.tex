@@ -46,9 +46,9 @@
 \documentclass[
                fontsize=12pt, %Default: 11pt, bei Linux Libertine zu klein zum Lesen
 % BEGINN: Optionen für typearea
-               % paper=a4, CUSTOM OFF
+               %paper=a4, CUSTOM OFF
                oneside,  % fuer die Betrachtung am Schirm ungeschickt
-               BCOR=3mm, % Bindekorrektur
+               BCOR=12mm, % Bindekorrektur
                DIV=12,   % je höher der DIV-Wert, desto mehr geht auf eine Seite. Gute werde sind zwischen DIV=12 und DIV=15
                % headinclude=true, CUSTOM OFF
                % footinclude=false, CUSTOM OFF
@@ -58,9 +58,10 @@
 %               idxtotoc,   %Index ins Inhaltsverzeichnis
 %                liststotoc, %List of X ins Inhaltsverzeichnis, mit liststotocnumbered werden die Abbildungsverzeichnisse nummeriert
                headsepline,
+               headings=openright,
                cleardoublepage=empty,
                parskip=half,
-%               draft    % um zu sehen, wo noch nachgebessert werden muss - wichtig, da Bindungskorrektur mit drin
+               %draft    % um zu sehen, wo noch nachgebessert werden muss - wichtig, da Bindungskorrektur mit drin
                final   % ACHTUNG! - in pagestyle.tex noch Seitenstil anpassen
                ]{scrbook}
 
@@ -136,8 +137,11 @@
 \pagestyle{preamble}
 \renewcommand*{\chapterpagestyle}{preamble}
 
+\pagestyle{empty}
 \input{intro-quote.tex}
+\cleardoublepage
 \newpage
+
 
 %Kurzfassung / abstract
 %auch im Stil vom Inhaltsverzeichnis
@@ -148,7 +152,7 @@
 \fi
 \ldots ... Short summary of the thesis ...
 \cleardoublepage
-
+\newpage
 
 % BEGIN: Verzeichnisse
 
@@ -230,7 +234,7 @@
 %\input{content/4-implementation/0-index.tex}
 %\input{content/5-analysis-tools/0-index.tex}
 \input{content/6-analysis/0-index.tex}
-%\input{content/7-resume/0-index.tex}
+\input{content/7-resume/0-index.tex}
 %
 %
 %\renewcommand{\appendixtocname}{Anhang}
@@ -250,9 +254,9 @@
 Alle URLs wurden zuletzt am 10.\,03.\,2019 geprüft.
 \else
 All links were last followed on March 10, 2019.
-\fi
+%\fi
 
 \pagestyle{empty}
 \renewcommand*{\chapterpagestyle}{empty}
-\Versicherung
+%\Versicherung
 \end{document}

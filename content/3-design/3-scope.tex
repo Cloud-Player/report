@@ -1,10 +1,10 @@
 \section{Scope Definition}
 
-Due to limited time and resources of this thesis, the scope shall be reduced to focus on features of importance. Although these may contradict the requirements...TODO
+Due to limited time frame of this thesis, the scope shall be reduced to focus on the most important features. Naturally, these limitations contradict some of the requirements for an optimal \textit{decentralised streaming application}.
 
 \begin{itemize}
-    \item Any user must be able to transmit video to \textit{k} other users.
-    \item One producer and \textit{k} consumers form what is to be called a room. Any room must only support one concurrent stream (one–to–many).
-    \item Users need not be able to discover all other users in their room and video streams should be broadcast to anyone in the room.
-    \item Methods to ensure message authenticity and user identity shall be included in the design, but need not be fully implemented.
+    \item Any user must be able to transmit video to $n$ other users.
+    \item One producer and $n$ consumers are clustered in a channel. Any channel must only support one concurrent stream (one–to–many).
+    \item Users need not be able to discover all other users in their room and video streams should be broadcast to all active nodes in a cluster.
+    \item Methods to ensure message authenticity, user identity and media encryption shall be explored, but not implemented.
 \end{itemize}
