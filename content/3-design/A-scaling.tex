@@ -1,14 +1,14 @@
-\subsection{Scaling Up}
+\subsection{Scaling Up}\label{sec:scaling}
 A mesh network of semi–connected nodes can theoretically scale to any size. Logically, limitations are introduced as soon as messages are transmitted across greater distances and not just exchanged between neighbouring peers. \citet[p. 748-750]{tanenbaum_wetherall_2011} underline, that the main challenge of \gls{p2p} systems is the utilisation of user upload bandwidth. This applies to the proposed systems on both layers.
 
-\paragraph{Mesh Layer}
+\paragraph{Mesh Layer}\label{par:scaling-mesh}
 The mesh layer needs to send control messages to keep the network alive and adapt to changing conditions. These messages produce a continuous bandwidth consumption. With only a few nodes, this traffic should be neglectable. However, as the system takes in larger numbers of nodes, individual links could become congested by control messages, the overall network will degrade and media streams will become unstable. It is critical to look at the aspects of the mesh layer, that intensify the load on individual parts, as more nodes join.
 The mesh includes router nodes, that flood the network with alive messages and expect \glspl{peer-update} back from every peer. This creates potential for congesting the router itself and its surrounding. Additionally, new nodes entering the system will have to reach deeper and deeper into the network to find peers with connection capacity.
 
-\paragraph{Stream Layer}
+\paragraph{Stream Layer}\label{par:scaling-stream}
 In the streaming–layer, new nodes connect to leaf nodes and become leafs themselves, thus fanning out the \glsfirst{dag}. As nodes are always emitting more streams than they are ingesting, this structure could take in new peers indefinitely – if network conditions were flawless. In practice, the stream quality can degrade at every link. The \gls{webrtc} browser implementation automatically adjusts media bit–rates to the network bandwidth, so all links narrow down the maximum available quality for their descendants.
 
-\paragraph{Cluster}
+\paragraph{Cluster}\label{par:scaling-cluster}
 To combat overstraining the router nodes, their reach should cut off after a certain number of nodes. Peer nodes are assigned to a router upon entry and will not forward control messages from or to other routers. This way, routers form a cluster of peers around them and can contain the control message traffic. Routers and signal servers must also coordinate \textit{horizontal scalability}. If a cluster becomes too crowded for one router to handle, a new cluster must be spawned. The simplest way would be to promote the first node, that arrives after the cluster is full, to be the router for the new cluster. With this approach the new cluster would have to go through the fragile and costly build up phase, where connection saturation is low and peer churn does greater damage than in a more developed network. To this end, the proposed design envisions a procedure that divides an existing cluster into two equally sized ones. The existing router nominates a node to become the router of the new cluster and informs the signal. Connections and routing information remain intact, but nodes regroup around the two routers. Over time, the inter–cluster connections would be abandoned, as nodes seek to gravitate towards their router.
 
 This procedure, bears many similarities with the biological cell–division process called \textit{mitosis}. Organisms divide their cells in order to grow and repair. Cells form two poles, duplicate their genetic information by dividing chromosomes and then isolate the two identical structures into two new cells \cite{mitosis-britannica}. The proposed design will therefore be called \textit{mitosis}.

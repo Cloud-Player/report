@@ -4,7 +4,7 @@ The proposed system facilitates distributed live streaming in a \gls{p2p} overla
 
 Instead, peers build a partially–connected mesh that allows \textit{proactive routing} and \textit{gossip}–based content and peer discovery. The design includes methods for the creation, life and demise of the mesh network that are inspired by protocols like BitTorrent, Kademlia and \gls{batman}. Each peer acts autonomously: running its own event loop and executing commands timed by an internal clock or reacting to the behaviour of others.
 
-Peers can be seen as agents of a \gls{mas} \cite{bdi-agents-theory-practice} as they continuously strive to achieve a set of goals to improve their own position and thereby contribute to an overall better network \cite{TODO-convergance}.
+Peers can be seen as agents of a \gls{mas} \cite{bdi-agents-theory-practice} as they continuously strive to achieve a set of goals to improve their own position and thereby contribute to an overall better network \cite[\SV.B]{coolstreaming-design-theory}.
 As they join the system, peers start with equal goals but may be assigned other roles that give them more power and more responsibilities. Roles follow a hierarchical order and peers can occupy multiple roles at once.
 
 When a live video is to be delivered, the network uses its distributed routing knowledge to span a \gls{dag} over the networks placing the most reliable peers crucial intersections. The stream is then delivered to all peers in the system through a combination of push and pull mechanisms.
