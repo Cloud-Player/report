@@ -1,7 +1,7 @@
 \subsection{Roles}\label{sec:design-roles}
 Peers in the network continually execute a set of tasks provided by their roles. They have to adapt to changing conditions and optimise their status quo according to their \textit{desires}. Roles can also hook into other procedures, like respond to incoming messages and connections or prevent connections from being discarded by other mechanics. In the following section, these tasks shall be defined in detail, grouped by role.
 
-\subsubsection{Newbie Role}{sec:design-roles-newbie}
+\subsubsection{Newbie Role}\label{sec:design-roles-newbie}
 This transitory role is assigned to all nodes on initialisation. It tell the node to connect to a \textit{signal server} and send an introduction message. The \signalRole also promotes the new peer, so the \newbieRole is quickly dropped again. However, it is re–assigned to a node (by itself), if it should loose all other connections or all other roles.
 
 \paragraph{Acquire}
@@ -14,7 +14,7 @@ This transitory role is assigned to all nodes on initialisation. It tell the nod
     \itembf{Introduction} After connecting to a signal server, an introduction is sent. This message is empty, but prompts the signal to assign the \newbieRole to a router.
 \end{itemize}
 
-\subsubsection{Peer Role}{sec:design-roles-peer}
+\subsubsection{Peer Role}\label{sec:design-roles-peer}
 This fundamental role is assigned to most peers and includes intentions corresponding to all three categories of \vref{par:bdi-intention}: clean, acquire and publish.
 
 \paragraph{Clean}
@@ -39,10 +39,10 @@ This fundamental role is assigned to most peers and includes intentions correspo
     \itembf{Channel Announcements}\label{item:peer-publish-channel-announcement} Nodes periodically publish information about their knowledge of available channels and stream providers. These \textit{channel announcements} spread through the network \ref{gossiping} and let other peers pull in channels depending on demand and capacity.
 \end{itemize}
 
-\subsubsection{Router}{sec:design-roles-router}
+\subsubsection{Router}\label{sec:design-roles-router}
 Named after a router in a \gls{lan}, this role enjoys the privilege of knowing every node in its cluster. Even though this knowledge is unreliable, it helps the \routerRole estimate cluster saturation \cref{par:scaling-cluster} and allows it to help peers with message delivery. It gains this cluster information because peers provide periodic updates to their router. The router is also a cluster's connection to the overall system: taking in new nodes and communicating with other clusters. Because the router role is assigned to regular nodes, this node should also have the \peerRole role.
 
-\paragraph{Clean}
+\paragraph{Clean}\label{par:design-roles-router-clean}
 \begin{itemize}
     \itembf{Degrade To Peer} Similar to peers degrading to newbies, a router must also detect when to degrade to only being a peer. This must happen when a router loses its direct connection to a \signalRole.
 \end{itemize}
@@ -53,7 +53,7 @@ Named after a router in a \gls{lan}, this role enjoys the privilege of knowing e
     \itembf{Router Alive} The router continuously tries to discover its cluster. However, like all peers, it has an upper bound on direct connections, that lies well below the maximum number of peers per cluster. So, the router role has to rely on other peers to broadcast its alive message and route corresponding peer updates back to the router.
 \end{itemize}
 
-\subsubsection{Signal}{sec:design-roles-signal}
+\subsubsection{Signal}\label{sec:design-roles-signal}
 The signal role must be assigned to nodes that have a static network address and can accept connections without \textit{out–of–band} negotiations. In practice, this is likely to be a web server, accepting \gls{ws} connections under a static \gls{ip} address or domain name. In this case, there is no need for the signal node to also have the peer role.
 
 \paragraph{Clean}

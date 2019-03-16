@@ -2,7 +2,7 @@
 
 \subsection{Topology}
 
-Since video streams over \gls{webrtc} connections decrease in quality per hop, as discussed in \vref{TODO}, an optimal streaming topology would would be a \textit{perfect k–ary tree}, given nodes can upload $k$ streams simultaneously. A perfectly balanced binary tree, for example, would be the optimal streaming topology for $k=2$.
+Since video streams over \gls{webrtc} connections decrease in quality per hop \cref{sec:webrtc-media}, an optimal streaming topology would would be a \textit{perfect k–ary tree}, given nodes can upload $k$ streams simultaneously. A perfectly balanced binary tree, for example, would be the optimal streaming topology for $k=2$.
 
 As the streaming topology is built on the collective knowledge of the overlay network, it depends heavily on the state the overlay mesh has reached at the point the stream is started. It must also be considered, that the streaming tree is constructed in the two phases detailed in \vref{sec:design-stream-construction}. The push phase aims at achieving availability fast and does not regard tree balance.
 It is also important to note, that due to node churn, the stream topology can change unexpectedly as nodes try to re–acquire a connection to a source provider.

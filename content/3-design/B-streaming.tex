@@ -1,14 +1,18 @@
 \subsection{Streaming}\label{sec:design-stream}
 
-The proposed design distinguishes between its \textit{core} overlay mesh and the \glsfirst{dag} of streaming connections \ref{fig:TODO-over-overlay}. The overlay mesh keeps track of node presence, their respective connection quality and delivers messages. The streaming \gls{dag} establishes additional unidirectional connections to distribute audio and video tracks across nodes.
+The proposed design distinguishes between its \textit{core} overlay mesh and the \glsfirst{dag} of streaming connections as shown in \vref{fig:stream-graph}. The overlay mesh keeps track of node presence, their respective connection quality and delivers messages. The streaming \gls{dag} establishes additional unidirectional connections to distribute audio and video tracks across nodes.
 
-\todo{justify webrtc with req.4: browser native}
-\todo{glue this together}
+\begin{figure}
+\centering
+\includegraphics[width=.75\textwidth]{graphics/design/stream-graph.pdf}
+\caption{Layering of the physical, mesh and streaming network}
+\label{fig:stream-graph}
+\end{figure}
 
 Allowing multiple nodes to propagate their streams, requires the system to distinguish between multiple content sources. To that end, the design introduces the concepts of channels and providers. Every node that starts a media stream creates a new channel and every node that has active access to a channel becomes a provider. All nodes keep track of channels and providers in their periphery to see what content is available and from whom.
 
 \subsubsection{Channels}\label{sec:design-stream-channel}
-A channel is assigned a \gls{uuid} on creation and can carry further application–specific data. Peers announce the existence of channels in periodic updates \ref{item:peer-publish-channel-announcement} to their direct connections. This way channels announcements are gossiped \ref{TODO-gossip} through the network and will eventually \textit{infect} all nodes. The application or its user can then decide which channel to watch and the system will try to acquire a stream connection for it.
+A channel is assigned a \gls{uuid} on creation and can carry further application–specific data. Peers announce the existence of channels in periodic updates \ref{item:peer-publish-channel-announcement} to their direct connections. This way channels announcements are gossiped \cref{gossiping} through the network and will eventually \textit{infect} all nodes. The application or its user can then decide which channel to watch and the system will try to acquire a stream connection for it.
 
 \subsubsection{Provider}\label{sec:design-stream-provider}
 Nodes need to keep track of who is in possession of an active stream source and who has upload capacity to provide them the stream. Therefore, nodes advertise upload capacity in their \glspl{channel-announcement}. Because upload capacity can vary between nodes, they need to estimate, how many downstream nodes they can supply, themselves. Additionally, nodes should propagate their distance from the original stream source. This will be an essential metric for \gls{dag} creation.
