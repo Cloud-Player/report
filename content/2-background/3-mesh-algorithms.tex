@@ -116,7 +116,7 @@ In comparison to the passive acting reactive protocols the proactive ones are ac
 There are different approaches how the \textit{Ping} are propagated through the network. Most of them also rely on \textit{flooding} or \textit{gossiping}.
 A expiration mechanism has to take care of removing clients where no \textit{Ping}-Packet has been received for a defined number, otherwise a client will stay in the table for ever, even though it has lost its connection to the network a long time ago.
 
-\subsection{OSLR}
+\subsection{OSLR}\label{sec:mesh-oslr}
 \gls{olsr} is a proactive routing control which is optimising the amount of \textit{HELLO} packets needed to discover other clients in the network.
 A client that is directly connected to another client is seen as \textit{1-Hop Neighbour}. \textit{1-Hop Neighbours} are exchanging continuously \textit{HELLO} packets where they also include all their \textit{1-Hop Neighbours}.
 
