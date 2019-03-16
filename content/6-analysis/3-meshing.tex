@@ -47,7 +47,7 @@ The prediction is, that low connection limits will cause the network's connected
 To verify this predicted behaviour of the mesh implementation, the total mesh size is measured in peers and the total network traffic per tick is calculated.
 The mesh size is calculated by finding all \glspl{scc} in the graph and counting all nodes in the largest component. The network traffic is aggregated per tick across nodes by the simulator's message delivery system.
 
-\Vref{fig:connection-limits-largest-component} shows the node count of the largest mesh component, when spawning a new cluster with different connection limits. It is easily visible, how a goal of $g\leq4$ causes the mesh to fail at taking in peers at a stable rate and growing past a size of $n\approx100$. The $3\leqg\leq5, m=8$ configuration, also shows one incident of unintentional mesh separation. All higher connection limits are able to gain and maintain their mesh size proportionally to the spawn rate.
+\Vref{fig:connection-limits-largest-component} shows the node count of the largest mesh component, when spawning a new cluster with different connection limits. It is easily visible, how a goal of $g\leq4$ causes the mesh to fail at taking in peers at a stable rate and growing past a size of $n\approx100$. The $3 \leq g \leq 5, m=8$ configuration, also shows one incident of unintentional mesh separation. All higher connection limits are able to gain and maintain their mesh size proportionally to the spawn rate.
 
 \begin{figure}[htb!]
 \centering

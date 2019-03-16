@@ -1,9 +1,8 @@
-\subsection{Browser Media API}
+\section{Browser Media API}
 
 A fully distributed media streaming application must also rely on distributed content generation. Users of the system must be able to record media on their connected devices and provide a stream to the network. Other users must be able to consume those streams of audio and video data with their respective devices. Considering the constraint, that the application should be executable in a browser, media formats in use have to meet further requirements.
 
-\subsubsection{Media Pipeline}
-\label{browser-api}
+\subsection{Media Pipeline}\label{browser-api}
 
 Modern browsers implement a set of JavaScript \glspl{api} that comply with the {\textit{Media Capture and Streams}} draft \citep{media-capture-and-streams} of the \gls{w3c}. The draft defines an interface for media streams that can contain multiple tracks, which in turn can contain multiple channels. In its most common configuration a stream would consist of a video and audio track and the latter would contain two channels for a stereo signal. A media stream instance can either be created locally or originate from a network source. Either of those streams can be presented to the local user or streamed to a network connection. \citet{media-capture-and-streams} denominates these two usages as sources and sinks respectively.
 
@@ -41,7 +40,7 @@ A media stream can also originate from a network source. \Gls{http} streaming an
 
 The browser media pipeline provides that a stream ends with a so called sink. To display it to the local user, the \gls{html} standard \cite[\S4.7]{html-w3c} defines media tags such as \lstinline|<audio>| and \lstinline|<video>|. These tags feature a JavaScript \gls{api} for themselves to control playback and react to stream changes. A stream can be directly attached to the elements and the browser handles low—level playback features such as pre—loading, buffering and seeking. To forward the stream to a remote system, a media stream can also be directed to an outgoing \gls{webrtc} connection. The \gls{api} of which states the browser should handle stream constrain negotiation like letting sender and receiver agree on a video resolution \cite[\S5.1]{webrtc-w3c}.
 
-\paragraph{Media Source Extensions}\label{par:browser-media-mse}
+\subsection{Media Source Extensions}\label{sec:browser-media-mse}
 
 In 2016 the \gls{w3c} enhanced the capabilities of browser media pipelines by introducing the \gls{mse} standard \cite{media-source-extensions}. With this extension, a JavaScript application can dynamically adapt an audio or video stream. According to \cite{mse-google}, the main use cases are adaptive streaming, dynamic ad insertion and time shifting. As an alternative to a media stream, the \gls{mse} standard introduces a media source and a source buffer API to the JavaScript media pipeline. A media source can be directly assigned to an \lstinline|<audio>| or \lstinline|<video>| tag and contains a set of source buffers. These buffers can then be filled, sought and flushed to allow seamless playback from multiple stream sources. There is also a \textit{Media Recorder} \gls{api}, that allows recording of user media. This \gls{api} is still in a draft phase and lacking support of Microsoft and Apple browsers \cite{media-recorder}. The \gls{mse} itself does not enforce any kind of codec and leaves the choice up to browser and device.
 
@@ -52,15 +51,14 @@ In 2016 the \gls{w3c} enhanced the capabilities of browser media pipelines by in
 \label{fig:pipeline}
 \end{figure}
 
-\subsubsection{WebRTC Media}\label{sec:webrtc-media}
+\subsection{WebRTC Media}\label{sec:webrtc-media}
 
 "WebRTC provides media acquisition and delivery as a fully managed service: from camera to the network, and from network to the screen", as \citet[\S18.5]{high-performance-browser-networking} describes it. The browser provides a powerful, high-level interface to developers which allows streaming media from one peer to another. An \lstinline|RTCPeerConnection|, as defined by \citet[\S4.4]{webrtc-w3c}, can add streams on the producer side as well as receive streams on the consumer side. Under the hood, however, browsers must perform a complex transmission process (see \cref{fig:pipeline}). Because \gls{webrtc} runs on top of the \gls{udp}, the connection is unreliable by default. However, for live streaming applications, timeliness at the cost of video quality is deemed more important than a persistent quality at the cost of delays and stutter \cite[\S18.3]{high-performance-browser-networking}. The \gls{webrtc} network engine uses a stack of two transport protocols to deliver the best possible media stream across a constantly changing connection. \Gls{srtcp} is used to measure and exchange metadata about package loss, sequence errors, jitter and more between the two peers. Those statistics influence how the browser chooses appropriate quality and codec settings. \gls{srtp} on, the other hand, is used to transmit the encoded audio and video byte stream.
 
-\subsubsection{HTTP Streaming}
-\label{sec:http-streaming}
+\subsection{HTTP Streaming}\label{sec:http-streaming}
 
 With the adoption of \gls{html}5, online video streaming has moved from plugin-based approaches like Adobe Flash\footnote{\label{adobe-flash}Adobe Flash Player. URL: {https://www.adobe.com/products/flashplayer.html}} or Microsoft Silverlight\footnote{\label{silverlight}Microsoft Silverlight. URL: {https://www.microsoft.com/silverlight/Default}} to native, browser-based technologies. Namely, two competitors have emerged: \gls{hls} and \gls{mpegdash}. The former was developed by Apple, and although not being internationally standardized, \gls{hls} was adopted by some other vendors as well \cite{caniuse-hls}. The successor \gls{mpegdash} has been standardized by \citet{iso-mpeg-dash} and does not require specific video codecs and has built-in \gls{drm} capabilities. What both have in common, is that they split media streams into short segments and use a manifest file to stitch them back together on the client side. This, plus the fact that they run on top of HTTP, make them work well on modern \glspl{cdn}, as \cite{hls-vs-dash} points out.
 
-\subsubsection{Media Formats}
+\subsection{Media Formats}\label{sec:media-formats}
 
 When considering the fragmented landscape of browser media streaming technologies, the actual media encodings being used are even more vendor and version dependent, as the compatibility table for in-browser playback at \cite{media-format-browser-compat} shows. For playback, common ground between browser vendors can be found with VP8 compression in a WebM container or H.264 in MP4. However, when trying to encode media recorded on-device, the set of supported formats is even smaller and, according to \citet[\S5.1]{webrtc-hacks-safari}, the broadest interoperability for video can be achieved with \textit{H.264}. Although, many mobile devices do not support hardware encoding of H.264. On the audio side, more modern and efficient formats like Opus and Vorbis have emerged. However, the widest support is still enjoyed by traditional MP3 \cite{media-format-browser-compat}.

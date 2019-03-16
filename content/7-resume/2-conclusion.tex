@@ -1,37 +1,17 @@
 \section{Conclusion}
-We started out with a simple experiment manually connecting clients using \gls{webrtc} and instructed them to distribute a live video stream.
-Our goal was to automate the process in order to support more clients than it would ever be possible with a manual instruction setup.
+We started out with a simple experiment, manually connected devices using \gls{webrtc} and instructed them to distribute a live video stream.
+Our goal was to automate the process and build a system of self–organising nodes, that could grow beyond of what our manual setup would ever reach.
 We have looked into existing research and implementations of scalable mesh networks, common practices for distributed routing and approaches for live streaming in \gls{p2p} networks.
 
-Our result is the design of a \gls{webrtc}–based overlay network with a custom routing protocol that allows distributing a live video feed by dynamically setting up a \glsfirst{dag}. Nodes in the network act as independent agents and communicate with other nodes in their vicinity. Our implementation is inspired by the \glsfirst{bdi} model, as each node has the desire to find optimal connections and thereby strengthens the overall network.
+Our result is the design of a \gls{webrtc}–based overlay network with a custom routing protocol that allows distributing a live video feed by dynamically setting up a \glsfirst{dag} of stream connections. Nodes in the network act as independent agents and communicate with other nodes in their vicinity. Our implementation is inspired by the \glsfirst{bdi} model, as each node has the desire to find optimal connections and thereby strengthens the overall network.
 
-We have verified our implementation by creating our own analysis tools. These helped in testing micro and macro scenarios, ingress of new peers, simulated network weak points. We also inspected the connection limits of our networks and analysed the streaming topology. The simulation with its visualisation interface and benchmark runner, has greatly helped in design, implementation and analysis of the entire system. Also it was possible to test how the implementation behaves under conditions that would have been impossible to set up with the given resources.
+We have verified our implementation by creating our own analysis tools. These helped in testing micro and macro scenarios, ingress of new peers, simulated network weak points. We also inspected the connection limits of our networks and analysed the streaming topology. The simulation with its visualisation interface and benchmark \gls{cli}, has greatly helped in design, implementation and analysis of the entire system. Also, it was possible to test how the implementation behaves under close to real–world conditions.
 
-The simulation results suggested, that the system can serve one–to–many streaming scenarios for audiences with hundreds of nodes. In a sample application \vref{sec:symbiosis} the \textit{Mitosis} software was used to implement a proof–of–concept video chat. Preliminary tests with up to 25 nodes have shown stable video feeds under optimal network conditions. Real–world performance with greater variance in devices and higher user numbers has yet to be confirmed.
+The results of our simulations have suggested that the system can serve one–to–many streaming scenarios for audiences with hundreds of nodes. In a sample application (\vref{sec:symbiosis}) the \textit{Mitosis} \gls{sdk} was used to implement a proof–of–concept video chat. Preliminary tests with up to 25 nodes have shown stable video feeds under optimal network conditions. Real–world performance with greater variance in devices and higher user numbers has yet to be confirmed.
 
+Both, simulations and real–world tests, have shown that modern browsers are a viable platform for application–layer multicast. It opens up new possibilities to web application developers, to integrate networking with multimedia \glspl{api} and application semantics. The distributed nature of our network, removes the need for server infrastructures, so that smaller and non–profit applications could integrate our software. For the user, \gls{mitosis}–based web apps are usable without extra the need for extra software and video stays in the user–space. When implemented with further security measures, distributed streaming platforms can protect their users and content from the prying eyes companies and governments.
 
-In summary, simulations and tests have shown that modern browsers are a viable platform for application–layer multicast. It opens up new possibilities to web application developers, to integrate networking with multimedia \glspl{api} and application semantics.
-
-
-+ simulation and visualisation helped with uncovering flaws and bilder sagen mehr als tausend zahlen
-- scalability in real-world up to be tested, library experiment but did not reach the limit what the simulation is promising
-- simplyfied network simulation settings and peer-churn settings
-- peer churn, network stability
-
-Based on the results we discussed the weaknesses and strengths of our implementation.
-
-reverse outline:
-    - journey from nucleus, via ipfs, meshing, webrtc
-    - investigation of a variety of approaches how to realise a peer-to-peer network, mesh routing protocols, browser capabilities
-    - design and develop
-    - analysed and tested
-    - good was x
-    - bad was y
-
-use cases (why we didnt build an actual app)
-- symbiosis as generic use–case
-- also possible is: xyz
-- sdk
+The \gls{mitosis} \gls{sdk} allows to build a wide range of application genres. Apart from the obvious video chat or broadcasting platform, gaming, e–learning or other genres are conceivable, especially if they leverage the possibilities of the data channel.
 
 inspiration
 - decentral is the future

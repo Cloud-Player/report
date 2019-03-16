@@ -47,7 +47,7 @@
                fontsize=12pt, %Default: 11pt, bei Linux Libertine zu klein zum Lesen
 % BEGINN: Optionen für typearea
                %paper=a4, CUSTOM OFF
-               oneside,  % fuer die Betrachtung am Schirm ungeschickt
+               twoside,  % fuer die Betrachtung am Schirm ungeschickt
                BCOR=12mm, % Bindekorrektur
                DIV=12,   % je höher der DIV-Wert, desto mehr geht auf eine Seite. Gute werde sind zwischen DIV=12 und DIV=15
                % headinclude=true, CUSTOM OFF
@@ -79,7 +79,7 @@
 % 2 --\subsection
 % 3 --\subsubsection
 % 4 --\paragraph
-\setcounter{tocdepth}{1}
+\setcounter{tocdepth}{4}
 %
 %%%
 
@@ -251,12 +251,12 @@
 \printbibliography
 
 \ifdeutsch
-Alle URLs wurden zuletzt am 10.\,03.\,2019 geprüft.
+Alle URLs wurden zuletzt am 15.\,03.\,2019 geprüft.
 \else
-All links were last followed on March 10, 2019.
+All links were last followed on March 15, 2019.
 %\fi
 
 \pagestyle{empty}
 \renewcommand*{\chapterpagestyle}{empty}
-%\Versicherung
+\Versicherung
 \end{document}

@@ -19,7 +19,5 @@ Nodes store their own connections and those reported by their direct neighbours 
 A common \textit{desire} peers have, is to find the best possible connections. The \textit{quality} of a connection is determined by 1) its physical capabilities like bandwidth and latency and 2) its peering value or \textit{information entropy}. The latter, will be higher for peers that are themselves well connected and can reach other important peers and lower for leaf nodes without any valuable connection.
 Peers have to figure out whom to keep and whom to replace without endangering its own or its neighbour's stability. If a peer decides to drop a connection, its prior partner becomes more vulnerable and has to regain connection saturation. In an extreme case, where one peer is abandoned by all neighbours before having the chance to acquire new peers, it will have to re–join. To avoid this instability the \textit{out–degree} of nodes, i.e. the maximum connections per node, has to be sufficiently high and nodes have to be careful when swapping connections.
 
-\todo{Graphic with one node about to eclipse itself}
-
 \paragraph{Intention}\label{par:bdi-intention}
 To reach their desired state, nodes formulate \textit{intentions} and plan actions. In practice, nodes' actions and thereby intentions are limited to: (1) discarding under–performing peers, (2) choosing new peers to connect to and (3) publishing its own beliefs on the state of the network.

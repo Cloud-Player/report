@@ -1,5 +1,4 @@
 With the rise of social media and a wide adoption of connected devices that can produce multimedia, the internet is shifting from a content consuming towards a content producing audience. Nowadays everyone can take a photo or record a video and share it to an audience with the press of a button. 
-
 Live broadcasting is also not reserved to professional media companies anymore. Network infrastructure is rapidly improving, especially the availability of mobile bandwidth. With the advent of 5G an estimated 2.?? billion people will have access to bandwidths of up to XX??. In combination with ever more powerful consumer devices, users are able to produce and publish content in professional quality e.g. the latest generation of smartphones can produce videos in resolutions up to XX??k.
 Leveraging these new possibilities, platforms like Twitch, Periscope and IGTV have emerged that allow anyone with access to the internet to share live video with large audiences.
 
@@ -22,7 +21,7 @@ Given the recent advances in network bandwidth, performance of end user devices,
 
 We propose a novel approach for distributed media streaming in the browser by using WebRTC technology for a multicast live stream scenario with a large audience.
 
-\subsection{Motivation}
+\section{Motivation}
 IPFS aims to \say{replace HTTP} and to provide a \say{peer-to-peer hypermedia protocol to make the web faster, safer, and more open} \cite{ipfs-website}.
 Because of the bold statement of IPFS, our first approach was using IPFS to share small video snippets as a proof of concept. The sharing of video snippets has worked out quite well. Thus, our next step was using IPFS to share real-time videos. By using the HTML5 video recorder, a live video stream provided by the camera of the device, has been chunked into small pieces and published via the pubsub mechanism that is provided by IPFS. The pubsub mechanism also notifies a client when a new video chunk is available. As soon as the chunk is received by the client it is appended to the video element and played. However, to chunk the video into pieces the Media Source Extensions API has been used that is not available on iOS. Also issues with video codecs and general performance and latency have not been satisfying.
 
@@ -32,13 +31,13 @@ To validate our hypothesis we set up an experiment where we manually connected m
 
 The result of the experiment has been very promising and has proven our hypothesis. Therefor we have come to our motivation to build a distributed media streaming application using WebRTC. 
 
-\subsection{Outline}
+\section{Outline}
 The outline of the thesis is structured into five main chapters:
 \begin{itemize}
     \itembf{Background} Browser capabilities that are required for the scope of the thesis are introduced, which includes the Browser Media API and WebRTC. Afterwards a few network fundamentals are explained including different network topologies and a selection of existing message routing protocols are examined. Next, \gls{p2p} systems are introduced like IPFS, Napster and Gnutella, several challenges of \gls{p2p} networks are examined and existing \gls{dht} algorithms like Chord and Kademlia are analysed. The chapter finishes with an analysis of existing live streaming solutions including centralised solutions like Twitch and Periscope but also decentralised approaches like CoolStreaming and AnyCast.   
     \itembf{Design} The design chapter proposes a design for a distributed media streaming application based on the findings of the Background chapter. An overlay network is proposed where each client acts as an autonomous agent and tries to find best possible communication partners in the network without relying on a global knowledge. Based on the overlay network a \gls{dag} is created to propagate a video stream among the peers.
     \itembf{Implementation} In this chapter the implementation of the design is explained and an insight of the inner workings is given. The implementation abstracts use cases of a distributed media streaming application by providing an \gls{sdk}. Also a sample application is introduced which has been built by using the \gls{sdk}.
-    \itembf{Analysis-Tools} To analyse the implementation and for debugging during the development, several tools have been implemented. This chapter introduces the simulation tool, the visualisation tool and the \gls{cli} which has been used for benchmarking.
+    \itembf{Proceedings} To analyse the implementation and for debugging during the development, several tools have been implemented. This chapter introduces the simulation tool, the visualisation tool and the \gls{cli} which has been used for benchmarking.
     \itembf{Analysis} The insights of the analysis-tools have been used to analyse the implementation. Mini and macros scenarios are examined to see how the implementation behaves under different circumstances. 
 \end{itemize}
 Finally the thesis is concluded with a Résumé and future work is proposed.

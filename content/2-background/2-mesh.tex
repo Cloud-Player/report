@@ -1,6 +1,6 @@
-\section{Mesh Network}
-\label{chap:mesh-network}
-In a centralised environment each client communicates only with the central client. Therefore clients do not have to know other clients.
+\section{Mesh Network}\label{sec:mesh-network}
+
+In a centralised environment each node communicates with a central client. Therefore clients do not have to know other clients.
 Clients in a decentralised network do not have a central counterpart. Thus a client has to discover other client and establish connections to them.
 
 A more than 15 year old standard to achieve this is \gls{ip} multicast. The multicast concept operates on OSI-Layer 3 and is based on groups. Anyone can create a group with a unique address where others can receive packets from and send packets to \cite[pp. 484-485]{tanenbaum_wetherall_2011}. Based on ping messages the liveliness of group members is periodically checked. When a packet is addressed to a group the router has to duplicate packets and broadcast to all clients. 
@@ -13,7 +13,7 @@ An overlay network where clients are connected with each other in an autonomous 
 
 Due to this limitation a client can only connect to a subset of the total available clients. To reach clients without a direct connection it has to make use of other clients as forwarders. Therefore packets have to be routed through the network by a routing protocol.
 
-\subsubsection{Broadcasting Routing Protocols}
+\subsection{Broadcasting Routing Protocols}
 In the easiest scenario of a decentralised network a client is broadcasting a packet to all other clients in the network. For this scenario the client does not need to know about the presence of other nodes besides the clients it is directly connected with.
 
 \paragraph{Flooding}\label{flooding}
