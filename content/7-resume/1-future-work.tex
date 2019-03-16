@@ -1,21 +1,38 @@
 \section{Future Work}
+The implementation of the proposed design is working and it can already handle quite a lot of nodes as the analysis part has shown. Due to the lack of more time not everything that has been proposed in the design chapter could be implemented. Based on the insights of the analysis also some parts of the design have to be improved.
+Besides optimising the implementation and design, future work also proposes possible extensions of the \gls{Mitosis} SDK.
 
-\subsection{Persistence}
-- ipfs
+\paragraph{Multi Cluster Support}
+The implementation has shown how one cluster can scale up and how it behaves under various conditions. Yet, a cluster can only absorb a certain number of peers. The final size can be controlled the \gls{ttl} of the \routerAlive message and the connection limits. In order to scale beyond the capabilities of a single cluster, the implementation has to support the coexistence of multiple clusters. There must be mechanisms for creating clusters, for closing abandoned clusters and for load balancing between them. The proposed design and implementation have been referred to as \gls{Mitosis}: the envisioned process of dividing clusters into two and reassigning peers based on router proximity. This process has not been included in the implementation yet, but poses a challenging task for future research in this field.
 
-\subsection{Inter Cluster Communication}
-- Scaling the system with Kademlia
-    - Each node has a fingerprint id
-    - All routers together are forming the kademlia dht.
-    - A node id is saved in the dht as key. The value belonging to the key is the router to which it belongs 
-    - Each router can find any other node of the system by using the kademlia lookup. When Node A wants to find Node B it goes to its Router X. Router X is looking up the router node where Node B is stored as key. The lookup is returning the router where the node id is closest to the lookup-node-id-key in terms of the \gls{xor} distance. The value belonging to that key is the responsible Router Node Y for Node B. Node Y knows Node B as it is the cluster owner. Therefor the message from Node A to Node B is routed as following: \\ Node A -> -> Router X -> -> Router Y -> -> Node B
-    - Nodes are entering routers that are closest in terms of geographical location. However this is independent from the actual kademlia dht.
+\paragraph{Inter Cluster Communication}
+When having multiple clusters the communication from on cluster to another becomes a challenge. One possible approach to solve inter cluster communication would be to introduce a \glsfirst{dht} based on Kademlia. Each node would need a unique identity. When a node enters the network it is assigned to a router. The id of the node would be stored in the Kademlia \gls{dht} as a key and the id of the router would be the value belonging to the key. 
 
-\subsection{Data Layer Encryption}
-- End-To-End Encryption of the data-layer
+Mitosis already ensures that a peer can always exchange messages with the router it is assigned to. Also it ensures that a router knows all nodes within its own cluster. 
 
-\subsection{Identity}
-- Crypto puzzle (proof of work) to enter system / send messages (spam prevention)
+Thus when a peer would want to communicate with a peer from another cluster it would address its message first to its router. As the peer is not in the cluster of the router, the router would then make a key look up in the Kademlia \gls{dht} for the key of the addressed peer id. Through the XOR-Metric the look up would return the value for the given key when the peer exists somewhere in the network. The value would be the id of the responsible router for the addressed peer. 
+The router would then make a node look up to find the router that has been returned by the key look up. The message is then redirected to the router that is returned by the node look up. This router in turn can then send the message to the addressed peer as it has to exist within its cluster. 
+Example: A message from a node in cluster $\ X $ $\ Node A_X $ to a node in cluster $\ Y $ $\ Node B_Y $ would be routed as:
+$\ Node A_X \rightarrow Router_X \rightarrow Router_Y \rightarrow Node B_Y $
+    
+\paragraph{Improving the peer selection metrics}
+Each peer is acquiring new peers in order to full fill its connection goal. For the acquisition process a peer select suitable peers from its direct neighbours and ranks them based on a variety of metrics. The ranking of the peers has a significant influence on the stability of the whole network. But not only does it affect the overlay network but it is also lays the foundation for the streaming quality. The better the peers are selected the better the streaming quality can be. 
+WebRTC provides an extensive statistics API to gather information about codec information, dropped frames and jitter of an ongoing streaming session between to peers. Those information could be used as an extension of the existing metrics of Mitosis. 
+But not only connection related could be improved also other metrics like uptime and reliability of a client could be added as metrics.
 
-\subsection{Improved Signalling}
-- geographical cluster selection
+\paragraph{Improving the streaming graph}
+To propagate the live stream through the network Mitosis has two phases: phase 1 where the stream is actively pushed from one peer to its two best neighbours and phase 2 where clients who haven't been selected pull the stream from peers that are providers.
+However, results of the analysis have shown that the push phase is too aggressive and therefor it results in an unbalanced sub optimal tree. For the quality of the stream it is better to be as close to the source as possible.
+Thus the push phase has to be limited to a certain extend in order to get a better tree.
+Also the peer-churn problem it not solved optimal. Peers are recovering from a leaving node but it takes time until the stream connection to another provider is established. As an improvement fallback connection have to be established to a sibling of the parent node to allow switching of the stream for a minimal disruption of the playback.
+
+\paragraph{Security Aspects}
+As discussed in \vref{sec:security-integrity}, the current implementation of Mitosis does not warrant integrity of node identities. For use in a publicly released application, the node identity creation would have to be secured with a cryptographic proof of work to protect against spamming and flooding. This would also incentivise nodes to hold on to their identity and would allow nodes to build up a reputation within the network. Nodes could then use their persistent identity to secure \gls{dtls} connections. Given certainty on the communication partner's identity, applications could integrate private messaging and private video channels with end–to–end encryption. The persistent identity would be also a must have requirement for the Inter Cluster Communication approach with Kademlia.
+
+\paragraph{Improved Signalling}
+Currently there is only one signal server and the current implementation only allows one router. In a multi router scenario the signal would have to deal with load balancing. But not only load balancing becomes interesting but also geografically local awareness. In a optimal scenario the signal would put all geographically nearby nodes into one cluster. The geographical location of a node can be obtained by the signal server through the ip-address of the node.
+Also to improve the ingress rate of peers into the network, the implementation should support multiple signal servers. This would also improve fault tolerance and would make it harder to shut down the network.
+
+\paragraph{Media Persistence}
+For use cases where live streaming is not enough and the content has to be persisted support for the \glsfirst{ipfs} could be integrated. By using \gls{ipfs} the distributed paradagim would not be interfered but only extended with a distributed persistence layer. 
+By using the MediaStream Recording API of the browser \cite{media-recorder-api} the stream can be chunked into segments and each segment can be added into \gls{ipfs}. In fact, IPFS provides a working example how IPFS could be use to realise a \gls{vod} streaming application using their protocol.
