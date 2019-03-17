@@ -34,7 +34,7 @@ Streams can only be recorded locally after the application has acquired user con
 \label{lst:recording-constraints}
 \end{Listing}
 
-A media stream can also originate from a network source. \Gls{http} streaming and \gls{webrtc} connections are the two common approaches. The former shall be further discussed in section~\ref{sec:http-streaming}, the latter in \vref{sec:webrtc-media}.
+A media stream can also originate from a network source. \Gls{http} streaming and \gls{webrtc} connections are the two common approaches. The former shall be further discussed in \vref{sec:http-streaming}, the latter in \vref{sec:webrtc-media}.
 
 \paragraph{Stream Sinks}
 
@@ -61,4 +61,4 @@ With the adoption of \gls{html}5, online video streaming has moved from plugin-b
 
 \subsection{Media Formats}\label{sec:media-formats}
 
-When considering the fragmented landscape of browser media streaming technologies, the actual media encodings being used are even more vendor and version dependent, as the compatibility table for in-browser playback at \cite{media-format-browser-compat} shows. For playback, common ground between browser vendors can be found with VP8 compression in a WebM container or H.264 in MP4. However, when trying to encode media recorded on-device, the set of supported formats is even smaller and, according to \citet[\S5.1]{webrtc-hacks-safari}, the broadest interoperability for video can be achieved with \textit{H.264}. Although, many mobile devices do not support hardware encoding of H.264. On the audio side, more modern and efficient formats like Opus and Vorbis have emerged. However, the widest support is still enjoyed by traditional MP3 \cite{media-format-browser-compat}.
+When considering the fragmented landscape of browser media streaming technologies, the actual media encodings being used are even more vendor and version dependent, as the compatibility table for in-browser playback at \cite{media-format-browser-compat} shows. For playback, common ground between browser vendors can be found with VP8 compression in a WebM container or H.264 in MP4. However, when trying to encode media recorded on-device, the set of supported formats is even smaller and, according to \citet[\S5.1]{webrtc-hacks-safari}, the broadest interoperability for video can be achieved with \textit{H.264}. Yet, many mobile devices do not support hardware encoding of H.264. On the audio side, more modern and efficient formats like Opus and Vorbis have emerged. However, the widest support is still enjoyed by traditional MP3 \cite{media-format-browser-compat}.

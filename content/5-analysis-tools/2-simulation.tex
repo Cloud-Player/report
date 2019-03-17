@@ -1,5 +1,5 @@
 \section{Simulation}
-The simulation has to fulfil several self imposed requirements:
+The simulation has to fulfil several self–imposed requirements:
 \begin{itemize}
     \item Run multiple virtual instances of Mitosis
     \item Allow orchestration via scenarios
@@ -9,40 +9,39 @@ The simulation has to fulfil several self imposed requirements:
 \end{itemize}
 
 \paragraph{Virtualisation}
-The simulation spawns multiple virtual nodes where each node is behaving like it would do in the real world. Each node is running a Mitosis instance and the amount of nodes to spawn is defined in a \textit{Scenario}. 
+The simulation spawns multiple virtual nodes, with each node behaving like it would in the real world. Each node is running a Mitosis instance and the amount of nodes to spawn is defined in a \textit{Scenario}. 
 
 Nodes communicate via a \lstinline{MockConnection} with each other. To keep it close to the real world, each node can have different connection settings like latency and stability.
-In order to get deterministic results the simulation is using a random function that is initialised with a seed. The random function for randomised simulation settings.
+In order to get deterministic results the simulation is using a pseudo–random function that is initialised with a seed.
 
 \paragraph{Orchestration}
-On initialisation the simulation is parsing a scenario. A scenario specifies the parameters of the simulation and can have multiple instructions. Via the parameters the default parameters of Mitosis can be set e.g. \lstinline{DIRECT_CONNECTIONS_MAX}, but also the lifetime and network settings of a node.
+The simulation parses a scenario on initialisation. A scenario specifies the parameters of the simulation and can have multiple instructions. Via the parameters, the default parameters of Mitosis can be set e.g. \lstinline{DIRECT_CONNECTIONS_MAX}, but also the lifetime and network settings of a node.
 
 Instructions are tasks that the simulation has to execute. Each task can register for execution at a certain point in time.
-The simulation maintains its own the clock which is provided by the Mitosis package (cf. \vref{sec:mit-clock}).
-When the point in time is reached, the instruction is executed. In fact, multiple instructions can register for the same point in time. All instructions for the given point in time are executed, ordered by the registration order of the scenario.
+The simulation maintains its own clock which is provided by the Mitosis package (cf. \vref{sec:mit-clock}).
+When the point in time is reached, the instruction is executed. All instructions for the given point in time are executed, ordered by the registration order of the scenario.
 
 The task of an instruction can be anything from adding one node to adding multiple nodes in an interval. Several instructions have been implemented:
 
 \begin{itemize}
-    \itembf{AddPeer} Adds a new node with configurations like default roles.
+    \itembf{AddPeer} Adds a new node with specific configuration
      \itembf{RemoveConnection} Destroys a configurable connection
     \itembf{RemovePeer} Removes a configurable node
-    \itembf{Clock instructions} \lstinline|pauseClock| to pause the clock of the simulation, \lstinline|startClock| to continue, \lstinline|setClockSpeed| to set its speed and \lstinline|stopClock| to finish the simulation.
-    \itembf{Generative instructions} \lstinline|generatePeers| to generate node continuously with a configurable upper bound and interval, \lstinline|eliminatePeers| to destroy random nodes in an interval to simulate Peer-Churn.
+    \itembf{Clock instructions} \lstinline|pauseClock| to pause the clock of the simulation, \lstinline|startClock| to continue, \lstinline|setClockSpeed| to set its speed and \lstinline|stopClock| to finish the simulation
+    \itembf{Generative instructions} \lstinline|generatePeers| to generate node continuously with a configurable upper bound and interval, \lstinline|eliminatePeers| to destroy random nodes in an interval to simulate Peer-Churn
 \end{itemize}
 
 \paragraph{Mock Connections}
-The simulation makes use of the flexibility of the Mitosis ProtocolMap to override the existing implementations for the given protocols (cf. \vref{sec:mit-connections}). The implementations are overriden with a  \lstinline|MockConnection|. Instead of using the implementation to communicate via WebSocket and WebRTC, the MockConnection delegates the transport to the simulation. The simulation is directly accessing the receiver node and calls its receive method while considering both the sender's and the receiver's network configuration. The network configuration specifies the transmission delay and can also lead to a drop of a message when the stability is set to less than $\ 100\% $.
+The simulation makes use of the flexibility of the Mitosis \lstinline|ProtocolMap| to override the existing implementations for given protocols (cf. \vref{sec:mit-connections}). The implementations are overriden with a  \lstinline|MockConnection|. Instead of using the implementation to communicate via WebSocket and WebRTC, the MockConnection delegates the transport to the simulation. The simulation is directly accessing the receiver node and calls its receive method while considering both the sender's and the receiver's network configuration. The network configuration specifies the transmission delay and can also lead to a drop of a message when the stability is set to less than $\ 100\% $.
 
 \paragraph{Freezing the Simulation}
-One import important feature, that becomes really handy when debugging the system, is freezing the state of the nodes. During a freeze all nodes are stopping executing their actions. When the simulation is unfrozen they continue with the execution.
+One import important feature, that is really useful when debugging the system, is freezing the state of the nodes. During a freeze, all nodes stop executing their actions. When the simulation is unfrozen, they continue with the execution.
 
-To allow freezing the simulation, the simulation is creating its own global clock (cf. \vref{sec:mit-clock}). Mitosis allows to pass a clock into the constructor, which is then used for the execution cycle. By passing a fork of the global clock into the Mitosis constructor, each instance is synchronised with the global clock. When the global clock is paused, each instance is paused as well.
-Also the clock speed can be controlled globally. When the global clock ticks faster, all mitosis instances are ticking faster as well. This allows fast forwarding, slowing down or even executing one tick at a time.
+To allow freezing, the simulation is creating its own global clock (cf. \vref{sec:mit-clock}). Mitosis allows to pass a clock into the constructor, which is then used for the execution cycle. By passing a fork of the global clock into the Mitosis constructor, each instance is synchronised with the global clock. When the global clock is paused, each instance is paused as well.
+Also, the clock speed can be controlled globally. When the global clock ticks faster, all Mitosis instances are ticking faster as well. This allows fast forwarding, slowing down or even executing one tick at a time.
 
 \paragraph{Creating a new scenario}
 Creating a new scenario is fairly easy. The format of a scenario is JSON which \say{is an open-standard file format that uses human-readable text}\cite{wiki:json}.
 Simulation parameters and instructions are specified in the scenario. The simulation is parsing the file during initialisation and executes the instructions.
 
-A basic Scenario is presented in \vref{lst:anl-scenario} which sets up two peers by using the \lstinline|addPeer| instruction. Both peers are configured with a unique address. One peer is also configured with the  default role \signal which is a basic requirement for the boarding process. 
-
+A basic Scenario is presented in \vref{lst:anl-scenario} which sets up two peers by using the \lstinline|addPeer| instruction. Both peers are configured with a unique address. One peer is also configured with the default role \signal which is a basic requirement for the boarding process. 

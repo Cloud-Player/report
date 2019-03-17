@@ -1,11 +1,11 @@
 \subsection{Scaling Down}
-As important as techniques for scaling out are those for scaling down the \gls{p2p} system. As the system is designed for use in conventional browsers, user behaviour will be characterised by sudden exits. As browser prevent pre–exit code execution, the application has no chance to properly shut down and warn other nodes of the imminent connection loss. The system has to be able to detect stale connections and vanished nodes.
+As important as techniques for scaling out, are those for scaling down the \gls{p2p} system. As the system is designed for use in conventional browsers, user behaviour will be characterised by sudden exits. As browser prevent pre–exit code execution, the application has no chance to properly shut down and warn other nodes of the imminent connection loss. The system has to be able to detect stale connections and vanished nodes.
 
 As \gls{webrtc} is running on stateless \gls{udp} \cref{sec:webrtc}, connections are not guaranteed to be terminated on the remaining end.
 Therefore, connections that do not transmit any data in a given interval, expire and are assumed to be closed. Similarly, second–degree nodes expire after all their connections have expired.
 If a node notices a closed connection it instantly informs its neighbours of the event, so they can remove the respective virtual connection. This would automatically happen with the next \gls{peer-update}, but this instant feedback can prevent desolate connection attempts.
 
-In the case of a misinformed node ,that tries to contact a missing second–degree neighbour and the forwarding fails, the \textit{peer in the middle} can also respond instantly. It will send a message to the sender, informing it that the receiver is not available via this virtual connection.
+In the case of a misinformed node, that tries to contact a missing second–degree neighbour and the forwarding fails, the \textit{peer in the middle} can also respond instantly. It will send a message to the sender, informing it that the receiver is not available via this virtual connection.
 
 Another important aspect for scaling down a cluster of nodes is related to role assumptions. While role promotions are only accepted if issued and corroborated by a node of at least the same rank, role demotions have to come from nodes themselves.
-Because roles have to be self–revoked, if all connections to a superior have been lost. Consequently, routers that loose their connection to a signal revert back to being a peer \cref{par:design-roles-router-clean} and peers that loose all connections (virtual or direct) to a router, revert back to the newbie role.
+Roles have to be self–revoked, if all connections to a superior have been lost. Consequently, routers that loose their connection to a signal revert back to being a peer \cref{par:design-roles-router-clean} and peers that loose all connections (virtual or direct) to a router, revert back to the newbie role.

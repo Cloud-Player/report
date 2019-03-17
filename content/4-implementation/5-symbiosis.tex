@@ -1,6 +1,6 @@
 \section{Symbiosis}\label{sec:symbiosis}
-Symbiosis brings Mitosis-Core and Mitosis-Stream all together and demonstrates with a very basic application how one would use it.
-The sample application shall allow one user to broadcast a stream that is recorded with the camera of the device and $\ n $ other users shall be able to see the stream in real time.
+Symbiosis brings Mitosis-Core and Mitosis-Stream together and demonstrates how to build a very basic but usable application.
+This sample application shall allow one user to broadcast a stream that is recorded with the camera of their device and $\ n $ other users shall be able to watch the video stream in real–time.
 
 \begin{figure}
 \centering
@@ -9,7 +9,7 @@ The sample application shall allow one user to broadcast a stream that is record
 \label{fig:symbiosis-implementation}
 \end{figure}
 
-The \gls{ui} of the application has an \gls{html} VideoElement and a record button. When the user presses the record button the device starts the camera and waits for the stream. When the camera is ready the stream is set on the StreamManager (\vref{lst:symbiosis-start-stream}).
+The \gls{ui} of the application has an \gls{html} VideoElement and a record button. When the user presses the record button the device starts the camera and waits for the stream. When the camera is ready the stream is set on the ChannelManager (\vref{lst:symbiosis-start-stream}).
 
 \begin{Listing}
 \begin{lstlisting}
@@ -25,8 +25,8 @@ navigator.mediaDevices.getUserMedia({
 \label{lst:symbiosis-start-stream}
 \end{Listing}
 
-The application is also listening for incoming streams. Users that have already started the application will get notify about the stream and it will start playing. When a user joins later and another user has already started broadcasting she will get the stream as well.
-To allow the application to display the stream it has to observe the ChannelManger. When a channel is added it has to observe the channel for a stream. When the stream is available it can set the stream on the HTML VideoElement and start playing (\vref{lst:symbiosis-observe-stream}).
+The application is also listening for incoming streams. Users that have already started the application will be notified of the stream and it will start playback. When a user joins later and another user has already started broadcasting they will get the stream as well.
+To allow the application to display the stream, it has to observe the ChannelManger. When a channel is added it has to observe the channel for a stream. When the stream is available it can set the stream on the HTML VideoElement and start playing (\vref{lst:symbiosis-observe-stream}).
 
 \begin{Listing}
 \begin{lstlisting}
@@ -45,4 +45,4 @@ mitosis
 \label{lst:symbiosis-observe-stream}
 \end{Listing}
 
-The source-code for the whole application can be seen in \vref{sec:symbiosis-soruce-code}.
+The source-code for this minimal application can be seen in \vref{sec:symbiosis-soruce-code}.

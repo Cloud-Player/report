@@ -1,22 +1,20 @@
-\subsection{ConnectionMeter}\label{sec:mit-connectionMeter}
-A connection has to make sure to provide information about its throughput and stability. The functionality to gather the information is gathered in the \lstinline|ConnectionMeter|.
+\paragraph{ConnectionMeter}\label{par:mit-connection-meter}
+A connection itself is providing a \lstinline|ConnectionMeter| which is used by the \lstinline|RemotePeerMeter| (\vref{sec:mit-peer-meter}) to determine the connection quality. A connection has to provide information about its throughput and stability. The functionality to gather the information is gathered in the \lstinline|ConnectionMeter|. As each connection type works differently, they all provide their own ConnectionMeter implementation.
 
-As each connection type works differently, each type provides its own ConnectionMeter.
-
-\paragraph{ViaConnection}
-The \lstinline|ViaConnection| is a virtual connection which is dependent on the RemotePeer in between. Hence, the quality of a via connection is an aggregation of the connection quality to the RemotePeer in between and an estimation of the quality to the actual RemotePeer. The estimated quality can be derived from the reported quality of the \peerUpdate (\vref{par:mit-report-quality}).
+\paragraph{ViaConnection}\label{par:mit-via-connection}
+The \lstinline|ViaConnection| is a virtual connection that is dependent on the RemotePeer in between. As the name suggests, there is no actual network connection, but all traffic is relayed \textit{via} another peer. The quality of a ViaConnection is an aggregation of the connection quality to the RemotePeer in between and an estimation of the quality to the distant RemotePeer. The estimated quality can be derived from the reported quality of the \peerUpdate (\vref{par:mit-report-quality}).
 
 \paragraph{WebRTCDataConnection} \label{par:webrtc-data-measure-quality}
-To determine the quality of a \lstinline|WebRTCDataConnection| the \glsfirst{tq} mechanism that is proposed by B.A.T.M.A.N (\vref{sec:batman}) is used. Thus, the connection is continuously sending Ping packets and counts how many Echo packets are returned by the opponent. 
+To determine the quality of a \lstinline|WebRTCDataConnection| the \glsfirst{tq} mechanism that is proposed by B.A.T.M.A.N (\vref{sec:batman}) is used. To that end, the connection is continuously sending Ping packets and counts how many Echo packets are returned by the opponent. 
 
-Since the WebRTCDataConnection uses the \glsfirst{sctp} (\vref{par:webrtc-stack}) and the browser ensures reliable message transmission by default, it can not be used as it is for the \gls{tq} calculation. The \gls{tq} calculation of B.A.T.M.A.N is based on package loss. However, when a reliable transmission is guaranteed there is less likely a package loss.
+Since the WebRTCDataConnection uses the \glsfirst{sctp} (\vref{par:webrtc-stack}) and the browser ensures reliable message transmission by default, it can not be used as it is for the \gls{tq} calculation. The \gls{tq} calculation of B.A.T.M.A.N is based on package loss. However, when a reliable transmission is guaranteed there is hopefully no package loss at all.
 
-Fortunately, the WebRTC Browser \gls{api} allows to configure \lstinline|reTransmits|. Therefore, the ConnectionMeter uses a data connection where reTransmits is set to $\ 0 $, in order to notice package loss immediately.
+Fortunately, the WebRTC \gls{api} allows to configure \lstinline|reTransmits|. Therefore, the ConnectionMeter uses a data connection where retransmits are set to $\ 0 $, in order to notice package loss immediately.
 
 \paragraph{WebRTCStreamConnection}
-WebRTC also provides an extensive statistics API\footnote{Identifiers for WebRTC's Statistics API. URL: {https://w3c.github.io/webrtc-stats}}\footnote{RTCStatsReport. URL: https://developer.mozilla.org/en-US/docs/Web/API/RTCStatsReport}. The API provides a lot of information like packet loss, packets received, packets send, picture loss and so on. Those statistics can be imposed for a continuous traffic flow as it is the case for the video stream connection. However, the current implementation does not have a peer selection based on the stats provided by WebRTC and leaves space for future work. Especially peer selection based on the provided video stats like codec information, dropped frames and jitter is an interesting topic for further research.
+WebRTC also provides an extensive statistics API\footnote{Identifiers for WebRTC's Statistics API. URL: \url{https://w3c.github.io/webrtc-stats}}\footnote{RTCStatsReport. URL: \url{https://developer.mozilla.org/en-US/docs/Web/API/RTCStatsReport}}. The API provides a lot of information like packet loss, packets received, packets send, picture loss and more. Those statistics can be consulted for a continuous traffic flow as it is the case for the video stream connection. However, the current implementation does not have a peer selection based on the stats provided by WebRTC and leaves space for future work. Especially peer selection based on the provided video stats like codec information, dropped frames and jitter is an interesting topic for further research.
 
-\paragraph{WebsocketConnection}
-The \lstinline|WebsocketConenction| does not have a quality measurement in place, as the connection is only used during the boarding process and closed afterwards. Hence, the connection quality is not so interesting. In fact, even when the quality is bad it would make no difference because the client has no other choice than using this connection to enter the network. Only for scenarios where the client can choose between multiple \signal servers it could make sense, but at the end the client is just using the first connection that lets it enter the network.
+\paragraph{WebSocketConnection}
+The \lstinline|WebSocketConenction| does not have a quality measurement in place, as the connection is only used during the boarding process and closed afterwards. Hence, the connection quality is not relevant. In fact, even when the quality is bad it would make no difference because the client has no other choice than using this connection to enter the network. Only for scenarios where the client can choose between multiple \signal servers it could make sense, but at the end the client is just using the first connection that lets it enter the network.
 
 

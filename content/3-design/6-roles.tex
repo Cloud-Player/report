@@ -2,7 +2,7 @@
 Peers in the network continually execute a set of tasks provided by their roles. They have to adapt to changing conditions and optimise their status quo according to their \textit{desires}. Roles can also hook into other procedures, like respond to incoming messages and connections or prevent connections from being discarded by other mechanics. In the following section, these tasks shall be defined in detail, grouped by role.
 
 \subsubsection{Newbie Role}\label{sec:design-roles-newbie}
-This transitory role is assigned to all nodes on initialisation. It tell the node to connect to a \textit{signal server} and send an introduction message. The \signalRole also promotes the new peer, so the \newbieRole is quickly dropped again. However, it is re–assigned to a node (by itself), if it should loose all other connections or all other roles.
+This transitory role is assigned to all nodes on initialisation. It tells the node to connect to a \textit{signal server} and send an introduction message. The \signalRole also promotes the new peer, so the \newbieRole is quickly dropped again. However, it is re–assigned to a node (by itself), if it should loose all other connections or all other roles.
 
 \paragraph{Acquire}
 \begin{itemize}
@@ -11,7 +11,7 @@ This transitory role is assigned to all nodes on initialisation. It tell the nod
 
 \paragraph{Publish}
 \begin{itemize}
-    \itembf{Introduction} After connecting to a signal server, an introduction is sent. This message is empty, but prompts the signal to assign the \newbieRole to a router.
+    \itembf{Introduction} After connecting to a signal server, an introduction is sent. This message is empty, but prompts the signal to assign the \newbieRole to a router or to nominate it as \routerRole when no other \routerRole exists.
 \end{itemize}
 
 \subsubsection{Peer Role}\label{sec:design-roles-peer}
@@ -23,12 +23,12 @@ This fundamental role is assigned to most peers and includes intentions correspo
     \itembf{Duplicate Connections} If a connection has been initiated simultaneously from both peers and this has not been detected during negotiation, disconnect the connection with the alphanumerically lower identifier. This simple selection ensures, both peers desire to close the same connection.
     \itembf{Expired Connections} Remove any connection, that has not transmitted a message in a defined time interval. This can occur when devices are stalling or network interfaces are unresponsive.
     \itembf{Excess Connections} If peers have a connection count between the upper goal bound and the hard maximum, this task spawns the desire to close one of them per invocation. The worst connection is determined according to metrics from the peer table \cref{par:bdi-belief} and considering vetoes from other roles.
-    \itembf{Degrade to Newbie} This task ensures, that if the prior clean–up tasks have closed too many connections, the node reverts back to being \newbieRole and contacting a \signalRole.
+    \itembf{Degrade to Newbie} This task ensures, that if the peer does not have any open connections left, the node reverts back to being \newbieRole and contacts a \signalRole.
 \end{itemize}
 
 \paragraph{Acquire}
 \begin{itemize}
-    \itembf{Mesh Connections} If a node is lacking connections, this task looks at its virtual connections in an effort to find the most promising mesh connection candidate.
+    \itembf{Mesh Connections} If a node has not fulfilled its connection goal, this task looks at its virtual connections in an effort to find the most promising mesh connection candidate.
     \itembf{Stream Requests} This task implements the pull strategy \cref{par:design-stream-construction-pull} of the media streaming overlay. If the node has capacity \cref{sec:design-stream-provider} to accept another inbound stream, it will look at available channels \cref{sec:design-stream-channel} and request a connection from peers providing it.
 \end{itemize}
 
@@ -58,7 +58,7 @@ The signal role must be assigned to nodes that have a static network address and
 
 \paragraph{Clean}
 \begin{itemize}
-    \itembf{Expired and Excess Connections} These task are shared with the \peerRole role to discard connections that are unresponsive or exceeding the connection limit.
+    \itembf{Expired and Excess Connections} These tasks are shared with the \peerRole role to discard connections that are unresponsive or exceeding the connection limit.
 \end{itemize}
 
 \paragraph{Publish}

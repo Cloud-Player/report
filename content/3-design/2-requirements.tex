@@ -1,8 +1,10 @@
 \section{Requirements}\label{sec:requirements}
 
+Before the design phase commenced, a set of self–imposed requirements has been laid out. They define a context and prioritise features for the ensuing implementation process.
+
 \begin{enumerate}
 \itembf{Media Streaming}
-The system must allow streaming of digitally encoded audio and video data from producers to consumers over a common network. All participants should be able contribute media streams of their own and to receive streams from others. Transport of streams must not rely on caching layers and should be delivered to consumers with as little latency as possible.
+The system must allow streaming of digitally encoded audio and video data from producers to consumers over a common network. All participants should be able to contribute media streams of their own and to receive streams from others. Transport of streams must not rely on caching layers and should be delivered to consumers with as little latency as possible.
 
 \itembf{Distributed}
 The system must distribute the delivery of streams across its components. Components must coordinate with each other to find optimal routing paths. Coordination should be achieved by sending messages over a self–sustaining overlay network.
@@ -14,13 +16,13 @@ Each component must contribute to its best ability towards the success of the gl
 Component logic must be executable by modern browsers without the need for plugins or extensions. It must integrate with current browser \glspl{api} for connectivity and media interactions. Performance budgets of a typical browsing client should be taken into consideration. Therefore, the video processing workload and network bandwidth consumption should be kept as low as possible.
 
 \itembf{Connectivity}
-Connections between components must be agnostic to their underlying communication protocol. There should be support for multiple types of connections and the system should be easily extensible. Since \gls{webrtc} provides the most powerful \gls{p2p} connectivity for browsers, it should be the baseline connection type. Possibly necessary connection negotiations should not interfere with higher level algorithms of a component.
+Connections between components must be agnostic to their underlying communication protocol. There should be support for multiple types of connections and the system should be easily extensible. Since \gls{webrtc} provides the most powerful \gls{p2p} connectivity for browsers, it should be the baseline connection type. Necessary connection negotiations should not interfere with higher level algorithms of a component.
 
 \itembf{Elasticity}
-The system must be able to emerge, expand and degrade quickly and according to demand of participating users. It should also detect when physical scaling limits are reached and reject further growth that would hurt its stability.
+The system must be able to emerge, expand and degrade quickly and according to the demand of participating users. It should also detect when physical scaling limits are reached and reject further growth that would hurt its stability.
 
 \itembf{Resilience}
-As the system will mostly run on user hardware, it must account for individual users suddenly leaving and bulks of new users joining simultaneously. This process is commonly called \textit{churn resilience} \cite{churn-resilience, stutzbach_rejaie_2006}. The system must be \textit{self–healing} in that it recovers from components leaving important positions and quickly reach a stable state again. It should also be detect and recover from (groups of) components becoming isolated from the main network.
+As the system will mostly run on user hardware, it must account for individual users suddenly leaving and bulks of new users joining simultaneously. This process is commonly called \textit{churn resilience} \cite{churn-resilience, stutzbach_rejaie_2006}. The system must be \textit{self–healing} in that it recovers from components leaving important positions and quickly reach a stable state again. It should also detect and recover from (groups of) components becoming isolated from the main network.
 
 \itembf{Transparency}
 The system should provide a transparent \glsfirst{sdk}. It should provide concise interfaces for building distributed media streaming applications on top of it, without requiring the developer to know all components, cf. \citet[pp. 23-25]{distributed-systems-concepts-design}. Further, the system should not dictate a specific use case.

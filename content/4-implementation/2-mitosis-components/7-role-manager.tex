@@ -8,6 +8,6 @@ Orchestrating the roles is the main responsibility of the \lstinline|RoleManager
 \label{fig:mit-roles}
 \end{figure}
 
-The RoleManager receives \lstinline|onTick| and \lstinline|onMessage| calls from \lstinline|Mitosis-Core| and delegates them to all roles. Each role can act accordingly and execute tasks as described in \vref{sec:design-roles}.
+The RoleManager receives \lstinline|onTick| and \lstinline|onMessage| calls from the Mitosis–Core and delegates them to all roles. Each role can act accordingly and execute tasks as described in \vref{sec:design-roles}.
 
-Roles have responsibilities and desires. The rolemanager is contacting the roles whenever it receives a tick or a message so a role can execute its intention according to its belief and desire.
+Roles have responsibilities and desires. The RoleManager is contacting the roles whenever it receives a tick or a message so a role can execute its intention according to its belief and desire.

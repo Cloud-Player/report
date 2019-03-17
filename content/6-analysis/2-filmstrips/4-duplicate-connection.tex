@@ -10,9 +10,9 @@
 \label{fig:filmstrips-double-connections}
 \end{figure}
 
-Each peer has the restriction that it must have only one connection to another peer to save its connections for other peers. However, during the negotiation process it can happen that both peers (\bob \& \claire) try to open a connection to each other at the same time (\vref{fig:filmstrips-double-connections-a}-\vref{fig:filmstrips-double-connections-b}). Both peers are noticing that they have a duplicate connection. Now the issue arises that both peers want to close the duplicate connection and in the worst case both connection are closed afterwards.
+Each peer has the restriction that it must have at most one connection to the same peer to save capacity for other peers. However, during the negotiation process it can happen that both peers (\bob \& \claire) try to open a connection to each other at the same time (\vref{fig:filmstrips-double-connections-a}-\vref{fig:filmstrips-double-connections-b}). Both peers are noticing that they have a duplicate connection. Now the issue arises, that both peers want to close the duplicate connection and in the worst case both connections are closed as a result.
 
-This is a known problem from the field of telecommunication. \citet[pp. 194-194]{signaling-systems-book} call this problem \say{Circuit Glare (Dual-Seizure)}.
-The Mitosis algorithm solves this problem by applying the fixed rule the connection with the lower id will be closed.
+This is a known problem from the field of telecommunications. \citet[pp. 194-194]{signaling-systems-book} call this problem \say{Circuit Glare (Dual-Seizure)}.
+The Mitosis algorithm solves this problem by applying the fixed rule, that the connection with the lower id will be closed.
 
-Therefor, both peers select the connection with the lowest id and close it (\vref{fig:filmstrips-double-connections-c}). This ensures that one connection will always remain open (\vref{fig:filmstrips-double-connections-d}).
+Therefore, both peers select the connection with the lowest id and close it (\vref{fig:filmstrips-double-connections-c}). This ensures that one connection will always remain open (\vref{fig:filmstrips-double-connections-d}).

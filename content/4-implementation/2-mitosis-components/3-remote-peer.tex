@@ -1,9 +1,9 @@
 \subsection{RemotePeer}\label{sec:mit-remotePeer}
-A RemotePeer is responsible to mange its connections. As \vref{fig:peer-manager} shows, a peer can have multiple connections. The different types of connections are explained in \vref{sec:mit-connections}.
+A RemotePeer is responsible for managing its own connections. As \vref{fig:peer-manager} shows, a peer can have multiple connections. The different types of connections are explained in \vref{sec:mit-connections}.
 
-Connections are mapped to an address to prevent that multiple connections are created for the same address. Similar to the \textit{RemotePeer TableView} that was described in \vref{paragraph:obtain-remotepeers}, connections can be obtained as a TableView which allows sorting and filtering. To listen on connection changes the RemotePeer also implements the observer pattern.
+Connection objects are uniquely mapped to an address. Similar to the \textit{RemotePeer TableView} that was described in \vref{paragraph:obtain-remotepeers}, connections can be obtained as a TableView which allows sorting and filtering. To listen on connection changes the RemotePeer also implements the observer pattern.
 
-Sending messages to the RemotePeer is possible through the public method \lstinline[breaklines=false]|send(message: IMessage)|. Based on the peer id of the receiver address the RemotePeer is choosing the best possible connection. Other address specifiers like protocol and location are not considered during the connection selection. This ensures that other components do not need to know which is the best connection and prevent a non optimal connection selection because of ignorance.
-The best available connection is selected based on the \lstinline|ConnectionMeter| that is described in \vref{sec:mit-connectionMeter}.
+Sending messages to the RemotePeer is possible through the public method \lstinline[breaklines=false]|send(message: IMessage)|. Based on the peer id of the receiver address the RemotePeer is choosing the best possible connection. Other address specifiers like protocol and location are not considered during the connection selection. This ensures that other components do not need to know which the best connection is and prevents a non–optimal connection selection due to ignorance.
+The best available connection is selected based on the \lstinline|ConnectionMeter| that will be discussed in \vref{sec:mit-connections}.
 
-When a remote peer is destroyed by calling its method \lstinline|destroy()|, the remote peer is closing all its belonging connections as well.
+When a RemotePeer is destroyed by calling its method \lstinline|destroy()|, the RemotePeer closes all its associated connections.
